@@ -1,5 +1,5 @@
 ---
-title: "TITLE"
+title: "TEMPLATE"
 date: 2017-12-07T23:39:21-06:00
 draft : false
 author: "Yanyu Liang"

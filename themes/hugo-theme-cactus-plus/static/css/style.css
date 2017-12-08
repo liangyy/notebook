@@ -928,3 +928,11 @@ a.symbol:hover {
 .page-tags ul li a:hover {
     color: #5694f1;
 }
+
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
