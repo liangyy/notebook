@@ -1,6 +1,6 @@
 ---
 title: "TITLE"
-date: {{ .Date }}
+date: 2017-12-07T23:39:21-06:00
 draft : false
 author: "Yanyu Liang"
 tags: ["tag"]

@@ -386,7 +386,7 @@ textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[typ
     width: 300px;
     bottom: 0;
     left: 0;
-    
+
     font-weight: normal;
     font-size: 90%;
     line-height: 27px;
@@ -685,11 +685,11 @@ h2, h3, h4, h5, h6 {
     letter-spacing: -1px;
 }
 h1 {
-    font-family: "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
-    text-align: center;
-    text-transform: uppercase;
+    font-family: "Lato", "Novacento Sans Wide", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+    /*text-align: center;*/
+    /*text-transform: uppercase;*/
     color: #222;
-    font-weight: 200;
+    font-weight: 600;
 }
 blockquote {
     border-left: 10px solid #F0F2F4;
@@ -1273,7 +1273,7 @@ pre .copy-to-clipboard:hover {
 
 #sidebar #shortcuts h3 {
     font-family: 'Novacento Sans Wide', 'Helvetica', 'Tahoma', 'Geneva', 'Arial', sans-serif;
-    color: white ;   
+    color: white ;
 }
 
 
@@ -1314,7 +1314,7 @@ pre .copy-to-clipboard:hover {
     display:none;
   }
   #navigation * {
-   display:none; 
+   display:none;
    visibility: hidden;
   }
   #body-inner {
