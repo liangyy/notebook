@@ -72,6 +72,9 @@ hasCJKLanguage = false
   # The social icons can be styled differently if you use mono as font - circle, rounded, or empty
   socialIconStyle = ""
 
+[outputs]
+	home = [ "HTML", "RSS", "JSON"]
+
 
 # Add additional social link entries underneath
 # [social]
