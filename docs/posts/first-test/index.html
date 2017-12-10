@@ -8,7 +8,7 @@
 		<meta name="author" content="Yanyu Liang">
 		
 		<meta name="generator" content="Hugo 0.31.1" />
-		<title>TITLE &middot; Note Archive</title>
+		<title>TEMPLATE &middot; Note Archive</title>
 		<link rel="shortcut icon" href="https://liangyy.github.io/notebook/images/favicon.ico">
 		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/style.css">
 		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/highlight.css">
@@ -55,7 +55,7 @@
             <article>
                 <header>
                     <h1>
-                        TITLE
+                        TEMPLATE
                     </h1>
                     <h2 class="headline">
                     Dec 7, 2017 23:39
@@ -83,7 +83,9 @@
                     </div>
                   
                 
+
                 <section id="post-body">
+                  
                     
 
 <h1 id="meta-data-of-reading">Meta data of reading</h1>
@@ -129,10 +131,43 @@
 
         </section>
 
-        <script src="https://liangyy.github.io/notebook/js/jquery-2.2.4.min.js"></script>
-<script src="https://liangyy.github.io/notebook/js/main.js"></script>
-<script src="https://liangyy.github.io/notebook/js/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+        <script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["autoload-all.js"] }
+        
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<script src="https://liangyy.github.io/notebook/js/jquery-2.2.4.min.js"></script>
+
+
+
+<link href="/notebook/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+<script src="/notebook/mermaid/mermaid.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
 
 
 

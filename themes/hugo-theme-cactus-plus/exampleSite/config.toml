@@ -1,6 +1,7 @@
 # Site settings
 baseurl = "your_site_url_address"
 languageCode = "en"
+themesdir = '../../'
 title = "site title"
 theme = "hugo-theme-cactus-plus"
 googleAnalytics = "your_google_analytics_id"

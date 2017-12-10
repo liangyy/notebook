@@ -75,7 +75,6 @@ hasCJKLanguage = false
 [outputs]
 	home = [ "HTML", "RSS", "JSON"]
 
-
 # Add additional social link entries underneath
 # [social]
 	# facebook-square = "https://www.facebook.com/nodejh"

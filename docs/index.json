@@ -1,7 +1,14 @@
 [
 {
+	"uri": "https://liangyy.github.io/notebook/posts/zhu-2017-ng/",
+	"title": "Integration of summary data from GWAS and eQTL studies predicts complex trait gene targets",
+	"tags": ["gwas", "integrative analysis", "eqtl", "target gene"],
+	"description": "",
+	"content": " $$ \\newcommand\\independent{\\perp\\!\\!\\!\\!\\!\\perp} $$\nMeta data of reading  Journal: Nature Genetics Year: 2016 DOI: 10.1038/ng.3538  The idea of instrumental variable and Mendelian randomization analysis The paper mentioned it in the background section along with Mendelian randomization (MR). I googled this term and found this site. Also, wiki page is informative.\nIt appears in regression analysis where $y$ is the responsive variable and $x$ is the explanatory variable. The model is simply $Y = X \\beta + \\epsilon$. Suppose $Z$ correlates with $X$ and $Z$ is independent to $Y$ given $X$, then $Z$ correlates with $Y$ as well despite such conditional independence.\nIn some analysis, people sort of take the advantage of $Z$ (in this context $Z$ is called instrumental variable). In regression model, the underlying assumption is that $\\epsilon$ is independent to $X$. But it is hard to achieve if there is some other unknown variable $U$ that affect both $X$ and $Y$. In this case, error term \u0026ldquo;absorbs\u0026rdquo; the dependencies in $U$ which leads to the violence of $X \\independent \\epsilon$ (the following graph is an example).\ngraph LR; Z((Z)) --- X((X)) X --- Y((Y)) U((U)) --- Y X --- U E((error)) --- Y  In this case, $Y \\sim X$ cannot distinguish $U$ and $\\epsilon$ but $Y \\sim Z$ does not have such problem since the effect of $U$ is captured by $X$ and $\\epsilon$ is disentangled.\nThe idea of MR can be illustrated by the following graph:\ngraph LR; Z(variant) --- X(gene expression) X --- Y(phenotype) U(unknown factors) --- Y X --- U E(error) --- Y  Motivation "
+},
+{
 	"uri": "https://liangyy.github.io/notebook/posts/first-test/",
-	"title": "TITLE",
+	"title": "TEMPLATE",
 	"tags": ["tag"],
 	"description": "",
 	"content": " Meta data of reading  Journal:  JOURNAL\n Year:  YEAR\n DOI:  DOI\n"
@@ -28,6 +35,27 @@
 	"content": ""
 },
 {
+	"uri": "https://liangyy.github.io/notebook/tags/eqtl/",
+	"title": "Eqtl",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://liangyy.github.io/notebook/tags/gwas/",
+	"title": "Gwas",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://liangyy.github.io/notebook/tags/integrative-analysis/",
+	"title": "Integrative Analysis",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
 	"uri": "https://liangyy.github.io/notebook/",
 	"title": "Note Archive",
 	"tags": [],
@@ -42,6 +70,13 @@
 	"content": ""
 },
 {
+	"uri": "https://liangyy.github.io/notebook/categories/research-paper/",
+	"title": "Research Paper",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
 	"uri": "https://liangyy.github.io/notebook/tags/tag/",
 	"title": "Tag",
 	"tags": [],
@@ -51,6 +86,13 @@
 {
 	"uri": "https://liangyy.github.io/notebook/tags/",
 	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://liangyy.github.io/notebook/tags/target-gene/",
+	"title": "Target Gene",
 	"tags": [],
 	"description": "",
 	"content": ""

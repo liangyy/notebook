@@ -6,13 +6,24 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 07 Dec 2017 23:39:21 -0600</lastBuildDate>
+    <lastBuildDate>Fri, 08 Dec 2017 14:23:10 -0600</lastBuildDate>
     
 	<atom:link href="https://liangyy.github.io/notebook/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>TITLE</title>
+      <title>Integration of summary data from GWAS and eQTL studies predicts complex trait gene targets</title>
+      <link>https://liangyy.github.io/notebook/posts/zhu-2017-ng/</link>
+      <pubDate>Fri, 08 Dec 2017 14:23:10 -0600</pubDate>
+      
+      <guid>https://liangyy.github.io/notebook/posts/zhu-2017-ng/</guid>
+      <description>$$ \newcommand\independent{\perp\!\!\!\!\!\perp} $$
+Meta data of reading  Journal: Nature Genetics Year: 2016 DOI: 10.1038/ng.3538  The idea of instrumental variable and Mendelian randomization analysis The paper mentioned it in the background section along with Mendelian randomization (MR). I googled this term and found this site. Also, wiki page is informative.
+It appears in regression analysis where $y$ is the responsive variable and $x$ is the explanatory variable. The model is simply $Y = X \beta + \epsilon$.</description>
+    </item>
+    
+    <item>
+      <title>TEMPLATE</title>
       <link>https://liangyy.github.io/notebook/posts/first-test/</link>
       <pubDate>Thu, 07 Dec 2017 23:39:21 -0600</pubDate>
       

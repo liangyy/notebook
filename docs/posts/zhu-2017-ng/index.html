@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta name="author" content="Yanyu Liang">
+		
+		<meta name="generator" content="Hugo 0.31.1" />
+		<title>Integration of summary data from GWAS and eQTL studies predicts complex trait gene targets &middot; Note Archive</title>
+		<link rel="shortcut icon" href="https://liangyy.github.io/notebook/images/favicon.ico">
+		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/style.css">
+		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://liangyy.github.io/notebook/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://liangyy.github.io/notebook/posts'>Archive</a>
+	<a href='https://liangyy.github.io/notebook/tags'>Tags</a>
+	<a href='https://liangyy.github.io/notebook/about'>About</a>
+
+	
+
+	
+	<div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/notebook/js/lunr.min.js"></script>
+<script type="text/javascript" src="/notebook/js/jquery-2.x.min.js"></script>
+<script type="text/javascript" src="/notebook/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "https:\/\/liangyy.github.io\/notebook\/";
+</script>
+<script type="text/javascript" src="/notebook/js/search.js"></script>
+
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Integration of summary data from GWAS and eQTL studies predicts complex trait gene targets
+                    </h1>
+                    <h2 class="headline">
+                    Dec 8, 2017 14:23
+                    · 258 words
+                    · 2 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://liangyy.github.io/notebook/tags/gwas">gwas</a>
+                          
+                              <a href="https://liangyy.github.io/notebook/tags/integrative-analysis">integrative analysis</a>
+                          
+                              <a href="https://liangyy.github.io/notebook/tags/eqtl">eqtl</a>
+                          
+                              <a href="https://liangyy.github.io/notebook/tags/target-gene">target gene</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#meta-data-of-reading">Meta data of reading</a></li>
+<li><a href="#the-idea-of-instrumental-variable-and-mendelian-randomization-analysis">The idea of instrumental variable and Mendelian randomization analysis</a></li>
+<li><a href="#motivation">Motivation</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+
+                <section id="post-body">
+                  
+                    
+
+<p>$$
+\newcommand\independent{\perp\!\!\!\!\!\perp}
+$$</p>
+
+<h1 id="meta-data-of-reading">Meta data of reading</h1>
+
+<ul>
+<li><strong>Journal</strong>: Nature Genetics</li>
+<li><strong>Year</strong>: 2016</li>
+<li><strong>DOI</strong>: 10.1038/ng.3538</li>
+</ul>
+
+<h1 id="the-idea-of-instrumental-variable-and-mendelian-randomization-analysis">The idea of instrumental variable and Mendelian randomization analysis</h1>
+
+<p>The paper mentioned it in the background section along with Mendelian randomization (MR). I googled this term and found this <a href="http://www.statisticshowto.com/instrumental-variable/">site</a>. Also, <a href="https://en.wikipedia.org/wiki/Instrumental_variables_estimation">wiki page</a> is informative.</p>
+
+<p>It appears in regression analysis where $y$ is the responsive variable and $x$ is the explanatory variable. The model is simply $Y = X \beta + \epsilon$. Suppose $Z$ correlates with $X$ and $Z$ is independent to $Y$ given $X$, then $Z$ correlates with $Y$ as well despite such conditional independence.</p>
+
+<p>In some analysis, people sort of take the advantage of $Z$ (in this context $Z$ is called instrumental variable). In regression model, the underlying assumption is that $\epsilon$ is independent to $X$. But it is hard to achieve if there is some other unknown variable $U$ that affect both $X$ and $Y$. In this case, error term &ldquo;absorbs&rdquo; the dependencies in $U$ which leads to the violence of $X \independent \epsilon$ (the following graph is an example).</p>
+
+<div class="mermaid" align="center" >
+graph LR;
+	Z((Z)) --- X((X))
+    X --- Y((Y))
+    U((U)) --- Y
+    X --- U
+    E((error)) --- Y
+</div>
+
+
+<p>In this case, $Y \sim X$ cannot distinguish $U$ and $\epsilon$ but $Y \sim Z$ does not have such problem since the effect of $U$ is captured by $X$ and $\epsilon$ is disentangled.</p>
+
+<p>The idea of MR can be illustrated by the following graph:</p>
+
+<div class="mermaid" align="center" >
+graph LR;
+	Z(variant) --- X(gene expression)
+    X --- Y(phenotype)
+    U(unknown factors) --- Y
+    X --- U
+    E(error) --- Y
+</div>
+
+
+<h1 id="motivation">Motivation</h1>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+    <p class="small">
+    
+       © Copyright 2017 <i class="fa fa-heart" aria-hidden="true"></i> Yanyu Liang
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["autoload-all.js"] }
+        
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<script src="https://liangyy.github.io/notebook/js/jquery-2.2.4.min.js"></script>
+
+
+
+<link href="/notebook/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+<script src="/notebook/mermaid/mermaid.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+
+
+
+
+
+
+    </body>
+</html>
