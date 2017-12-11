@@ -23,7 +23,7 @@ hasCJKLanguage = false
 	disqusShortname = "your_disqus_short_name"
 
 
-	enableSummary = true
+	enableSummary = false
 	# Set the value to true if use description in post front matter replace content summary
 	useDescriptionReplaceSummary = false
 
