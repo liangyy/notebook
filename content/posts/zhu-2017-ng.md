@@ -3,7 +3,7 @@ title: "Integration of summary data from GWAS and eQTL studies predicts complex 
 date: 2017-12-08T14:23:10-06:00
 draft : false
 author: "Yanyu Liang"
-tags: ["gwas", 'integrative analysis', 'eqtl', 'target gene']
+tags: ["gwas", 'integrative analysis', 'eqtl', 'target gene', 'mendelian randomization', 'causality']
 categories: ["research paper"]
 ---
 
@@ -17,7 +17,7 @@ $$
 * **Year**: 2016
 * **DOI**: 10.1038/ng.3538
 
-# The idea of instrumental variable and Mendelian randomization analysis
+# Instrumental variable and Mendelian randomization analysis
 
 The paper mentioned it in the background section along with Mendelian randomization (MR). I googled this term and found this [site](http://www.statisticshowto.com/instrumental-variable/). Also, [wiki page](https://en.wikipedia.org/wiki/Instrumental_variables_estimation) is informative.
 
@@ -50,4 +50,14 @@ graph LR;
     E(error) --- Y
 {{< /mermaid >}}
 
+Here, the unknown factors can be environmental and regression model cannot tease apart error and them. But since variants are fixed, therefore we can use genetic variant as the instrumental variable to infer the dependency between gene expression and phenotype. It is the idea of MR.
+
 # Motivation
+
+MR analysis requires matched genotype and expression profile data and its power is limited by the strength of the dependency between genotype and phenotype along with the one between gene expression and phenotype. So, it is not useful in practice.
+
+This paper tends to use summary statistic of GWAS and eQTL instead, which may not as strong as individual level data, but it is easy to achieve a much larger sample size.
+
+# Method
+
+This paper proposed a summary data-based MR method (SMR). In intuitively, it estimates effect of $Z$ (genotype) on $Y$ (phenotype), $b\_{zy}$ and effect of $Z$ on $X$, $b\_{zx}$ (note that the former is GWAS and the latter is eQTL mapping). Simulation showed that SMR is equivalent to MR if the confounding variables are non-genetic and causality is mediated by gene expression or both trait and gene expression (? not clear ...). This situation is referred as pleiotropy.

@@ -9,14 +9,6 @@ categories: ["cat"]
 
 # Meta data of reading
 
-* **Journal**:
-
-JOURNAL
-
-* **Year**:
-
-YEAR
-
-* **DOI**:
-
-DOI
+* **Journal**: JOURNAL
+* **Year**: YEAR
+* **DOI**: DOI
