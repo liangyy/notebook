@@ -8,7 +8,7 @@ categories: ["research paper"]
 ---
 
 $$
-\newcommand\independent{\perp\\!\\!\\!\\!\\!\perp}
+\newcommand\independent{\perp\\!\\!\\!\\!\perp}
 $$
 
 # Meta data of reading
@@ -60,4 +60,4 @@ This paper tends to use summary statistic of GWAS and eQTL instead, which may no
 
 # Method
 
-This paper proposed a summary data-based MR method (SMR). In intuitively, it estimates effect of $Z$ (genotype) on $Y$ (phenotype), $b\_{zy}$ and effect of $Z$ on $X$, $b\_{zx}$ (note that the former is GWAS and the latter is eQTL mapping). Simulation showed that SMR is equivalent to MR if the confounding variables are non-genetic and causality is mediated by gene expression or both trait and gene expression (? not clear ...). This situation is referred as pleiotropy.
+This paper proposed a summary data-based MR method (SMR). In intuitively, it estimates effect of $Z$ (genotype) on $Y$ (phenotype), $b\_{zy}$ and effect of $Z$ on $X$, $b\_{zx}$ (note that the former is GWAS and the latter is eQTL mapping). Then $b\_{xy}$ is simply $\frac{b\_{zy}}{b\_{zx}}$. Simulation showed that SMR is equivalent to MR if the confounding variables are non-genetic and causality is mediated by gene expression or both trait and gene expression (? not clear ...). This situation is referred as pleiotropy.
