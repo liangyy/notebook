@@ -9,6 +9,7 @@ categories: ["research paper"]
 
 $$
 \newcommand\independent{\perp\\!\\!\\!\\!\perp}
+\newcommand\E{\text{E}}
 \newcommand\cov{\text{Cov}}
 \newcommand\var{\text{Var}}
 $$
@@ -77,12 +78,69 @@ Then the $\chi^2$ statistic is:
 
 $$\begin{aligned}
 	T\_{\text{SMR}} &= \hat{b}\_{xy} / \var(\hat{b}\_{xy}) \cr
-	&\approx \bigg(\frac{\hat{b}\_{zy}}{b\_{zy}}\bigg)^2 \bigg(\frac{\beta\_{zx}}{\hat\beta\_{zx}}\bigg)^2 \bigg/ \bigg[\frac{(1 - \frac{\hat{b}\_{zy}}{b\_{zy}})^2}{z\_{zy}^2} + \frac{(1 - \frac{\hat\beta\_{zx}}{\beta\_{zx}})^2}{z\_{zx}^2}\bigg] \cr
+	&\approx \bigg(\frac{\hat{b}\_{zy}}{b\_{zy}}\bigg)^2 \bigg(\frac{\beta\_{zx}}{\hat\beta\_{zx}}\bigg)^2 \bigg/ \bigg[\frac{(\frac{\hat{b}\_{zy}}{b\_{zy}})^2}{z\_{zy}^2} + \frac{(\frac{\hat\beta\_{zx}}{\beta\_{zx}})^2}{z\_{zx}^2}\bigg] \cr
 	&\approx \frac{1}{1 / z\_{zy}^2 + 1 / z\_{zx}^2} \cr
 	&= \frac{z\_{zy}^2 z\_{zx}^2}{z\_{zy}^2 + z\_{zx}^2}
 \end{aligned}$$
 
 , which is described in equation 5.
+
+Furthermore, some data sets only report effect size without variance or z-score. In this case, the variance can be recovered if the allele frequency is known (see the result at supplementary notes page 9 bottom equation). This result is surprising to me, so I scratch the derivation below.
+
+Without loss of generality, let's consider $\hat{b}\_{zy}$. $\hat\beta\_{zx}$ follows the same rule.
+
+* First "=":
+
+<div>$$\begin{aligned}
+	\hat{b}_{zy} &= (Z'Z)^{-1} (Z'y) \cr
+	&= (Z'Z)^{-1} (Z b_{zy} + \epsilon) \cr
+	&= b_{zy} + (Z'Z)^{-1} (Z' \epsilon) \cr
+	&= b_{zy} + \frac{\sum_j (z_j - \bar{z}) \epsilon_j}{\sum_i (z_i - \bar{z})^2}
+\end{aligned}$$</div>
+
+Here $Z$ is the normalized version of the original $Z$ for simplicity. Since the expression evolves "divid", taking "variance" on both sides seems tedious. Alternatively, we can apply Delta method.
+
+<div>$$\begin{aligned}
+	\hat{A} &= \frac{\sum_j (z_j - \bar{z}) \epsilon_j}{n} \cr
+	\hat{B} &= \frac{\sum_i (z_i - \bar{z})^2}{n} \cr
+	\sqrt{n} (\hat{A} - 0) &\xrightarrow{d} \mathcal{N}(0, \var(z)\var(\epsilon)) \text{, since $z \independent \epsilon$} \cr
+	\sqrt{n} (\hat{B} - \var(z)) &\xrightarrow{d} \mathcal{N}(0, \tau^2) \cr
+  \sqrt{n} (\frac{\hat{A}}{\hat{B}} - 0) &\xrightarrow{d} \mathcal{N}(0, \nabla g(A, B)' \Sigma \nabla g(A, B)') \cr
+	\text{, where } \nabla g(A, B) &= \begin{bmatrix} 1/B \cr 0 \end{bmatrix} \cr
+	\Sigma &= \begin{bmatrix} \var(z) \var(\epsilon) & \cov(A, B) \cr
+														\cov(A, B) & \tau^2 \end{bmatrix} \cr
+	\text{therefore, } \nabla g(A, B)' \Sigma \nabla g(A, B)' &= \frac{\var(z) \var(\epsilon)}{B^2} \cr
+	&= \frac{\var(\epsilon)}{\var(z)} \cr
+	\text{thus, } \var(\hat{b}_{zy}) &= \var(\frac{\hat{A}}{\hat{B}}) \cr
+	&= \frac{\var(\epsilon)}{n \var(z)}
+\end{aligned}$$</div>
+
+So that we obtain the first "equal sign": `$SE = \sqrt{\frac{\sigma_\epsilon}{n \var(z)}}$`
+
+* Second "=":
+
+<div>$$\begin{aligned}
+	\E(z) &= 0 \times (1 - p)^2 + 1 \times 2p(1 - p) + 2 \times p^2 = 2p\cr
+	\E(z^2) &= 0 \times (1 - p)^2 + 1 \times 2p(1 - p) + 4 \times p^2 = 2p(1 + p)\cr
+	\var(z) &= \E(z^2) - \E(z)^2 = 2p(1 - p) \cr
+	\E(\epsilon) &= \E(y - \tilde{z} b_{zy}) = \E(y) - b_{zy} \E(\tilde{z}) = 0 \text{, since $\E(y) = \E(\tilde{z}) = 0$}\cr
+	\E(\epsilon^2) &= \E((y - \tilde{z} b_{zy})^2) = \E(y^2) + b_{zy}^2 \E(\tilde{z}^2) - 2 b_{zy} \E(y \tilde{z})  \cr
+	&= \E(y^2) + \E(\tilde{z}^2) b_{zy}^2 - 2 b_{zy} [ b_{zy} \E(\tilde{z}^2) + \E(\tilde{z}) \E(\epsilon) ] \cr
+	&= \E(y^2) - 2p (1 + p) b_{zy}^2 \cr
+	\sigma_{\epsilon}^2 &= \E(\epsilon^2) - \E(\epsilon)^2 \cr
+	&= \E(y^2) - 2p(1 - p) b_{zy}^2 \cr
+	&= \var(y) - 2p(1 - p) b_{zy}^2 \cr
+	&= 1 - 2p(1 - p) b_{zy}^2 \text{, since $\var(y) = 1$}
+\end{aligned}$$</div>
+
+, where $\tilde{z} := z - \E(z)$. Therefore,
+
+<div>$$\begin{aligned}
+	SE &= \sqrt{\frac{\sigma_\epsilon}{n \var(z)}} \cr
+	&= \sqrt{\frac{1 - 2p(1 - p)b}{2p(1 - p)n}}
+\end{aligned}$$</div>
+
+, as the equation stated in supplementary notes page 9 (last one).
 
 # Accounting for linkage
 
@@ -90,4 +148,4 @@ In practice, variants are correlated with each other because of LD. Therefore, t
 
 {{< figure src="/notebook/images/linkage.png" title="Three possible explanations of an association" >}}
 
-It turns out that it is possible to filter out the "linkage" case. The paper suggested that if there is only one causal variant, the nearby region should have similar association signal. So, they proposed a hypothesis testing procedure where the null hypothesis is that the association signal follows uniform distribution (this corresponds to the non-linkage cases). Those rejected associations were removed. Ideally, causality part is the only biologically interesting one, but this approach cannot tease apart pleiotropic effect. 
+It turns out that it is possible to filter out the "linkage" case. The paper suggested that if there is only one causal variant, the nearby region should have similar association signal. So, they proposed a hypothesis testing procedure where the null hypothesis is that the association signal follows uniform distribution (this corresponds to the non-linkage cases). Those rejected associations were removed. Ideally, causality part is the only biologically interesting one, but this approach cannot tease apart pleiotropic effect.
