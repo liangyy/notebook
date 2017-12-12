@@ -62,13 +62,32 @@ This paper tends to use summary statistic of GWAS and eQTL instead, which may no
 
 # Method
 
-This paper proposed a summary data-based MR method (SMR). In intuitively, it estimates effect of $Z$ (genotype) on $Y$ (phenotype), $b\_{zy}$ and effect of $Z$ on $X$, $b\_{zx}$ (note that the former is GWAS and the latter is eQTL mapping). Then $b\_{xy}$ is simply $\frac{b\_{zy}}{b\_{zx}}$. Simulation showed that SMR is equivalent to MR if the confounding variables are non-genetic and causality is mediated by gene expression or both trait and gene expression (? not clear ...). This situation is referred as pleiotropy.
+This paper proposed a summary data-based MR method (SMR). In intuitively, it estimates effect of $Z$ (genotype) on $Y$ (phenotype), $b\_{zy}$ and effect of $Z$ on $X$, $b\_{zx}$ (note that the former is GWAS and the latter is eQTL mapping). Then $b\_{xy}$ is simply $\frac{b\_{zy}}{b\_{zx}}$. This approach, same as MR, estimates the effect of gene expression on phenotype which is only mediated by genetic component (in other word, free of non-genetic confounders). But the **caveat** is that the method cannot distinguish causality and pleiotropic effect (mediated by genetic confounders).
 
 It appears to me that the derivation of MR (or instrumental variable regression) is not intuitive so I leave the note of MR part for another post [here](https://liangyy.github.io/notebook/posts/mendelian-randomization/#ivvar). Note that in MR, the same $Z$ is used for the estimation of $\hat{b}\_{zx}, \hat{b}\_{zy}$. SMR, instead, uses different $Z$, namely $Y \sim Z\_1$ and $X \sim Z\_2$ and $\hat{b}\_{xy} = \hat{b}\_{zy} / \hat{\beta}\_{zx}$. Since $Z\_1 \independent Z\_2$, $\cov(\hat{b}\_{zy}, \hat{\beta}\_{zx}) = 0$. By Delta method, we have:
 
 $$\begin{aligned}
-	\var{\hat{b}\_{xy}} &\approx \begin{bmatrix} \frac{1}{\beta\_{zx}} & -\frac{b\_{zy}}{\beta\_{zx}^2} \end{bmatrix} \begin{bmatrix} \var(\hat{b}\_{zy}) & \cov(\hat{b}\_{zy}, \hat{\beta}\_{zx}) \cr
+	\var(\hat{b}\_{xy}) &\approx \begin{bmatrix} \frac{1}{\beta\_{zx}} & -\frac{b\_{zy}}{\beta\_{zx}^2} \end{bmatrix} \begin{bmatrix} \var(\hat{b}\_{zy}) & \cov(\hat{b}\_{zy}, \hat{\beta}\_{zx}) \cr
 	\cov(\hat{b}\_{zy}, \hat{\beta}\_{zx}) & \var(\hat{\beta}\_{zx}) \end{bmatrix}
 	\begin{bmatrix} \frac{1}{\beta\_{zx}} \cr -\frac{b\_{zy}}{\beta\_{zx}^2} \end{bmatrix} \cr
 	&= \frac{b\_{zy}^2}{\beta\_{zx}^2} \bigg[ \frac{\var(\hat\beta\_{zx})}{\beta\_{zx}^2} + \frac{\var{\hat{b}\_{zy}}}{b\_{zy}^2} - 2\frac{\cov(\hat\beta\_{zx}, \hat{b}\_{zy})}{\beta\_{zx}b\_{zy}} \bigg]
 \end{aligned}$$
+
+Then the $\chi^2$ statistic is:
+
+$$\begin{aligned}
+	T\_{\text{SMR}} &= \hat{b}\_{xy} / \var(\hat{b}\_{xy}) \cr
+	&\approx \bigg(\frac{\hat{b}\_{zy}}{b\_{zy}}\bigg)^2 \bigg(\frac{\beta\_{zx}}{\hat\beta\_{zx}}\bigg)^2 \bigg/ \bigg[\frac{(1 - \frac{\hat{b}\_{zy}}{b\_{zy}})^2}{z\_{zy}^2} + \frac{(1 - \frac{\hat\beta\_{zx}}{\beta\_{zx}})^2}{z\_{zx}^2}\bigg] \cr
+	&\approx \frac{1}{1 / z\_{zy}^2 + 1 / z\_{zx}^2} \cr
+	&= \frac{z\_{zy}^2 z\_{zx}^2}{z\_{zy}^2 + z\_{zx}^2}
+\end{aligned}$$
+
+, which is described in equation 5.
+
+# Accounting for linkage
+
+In practice, variants are correlated with each other because of LD. Therefore, the loci that is used for computation may show association if it is correlated with two causal variants which affect transcription and phenotype respectively. Figure 1b illustrated the scenarios.  
+
+{{< figure src="/notebook/images/linkage.png" title="Three possible explanations of an association" >}}
+
+It turns out that it is possible to filter out the "linkage" case. The paper suggested that if there is only one causal variant, the nearby region should have similar association signal. So, they proposed a hypothesis testing procedure where the null hypothesis is that the association signal follows uniform distribution (this corresponds to the non-linkage cases). Those rejected associations were removed. Ideally, causality part is the only biologically interesting one, but this approach cannot tease apart pleiotropic effect. 
