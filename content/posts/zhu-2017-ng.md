@@ -8,10 +8,13 @@ categories: ["research paper"]
 ---
 
 $$
+\require{AMSmath}
 \newcommand\independent{\perp\\!\\!\\!\\!\perp}
 \newcommand\E{\text{E}}
+\newcommand\nocr{\nonumber\cr}
 \newcommand\cov{\text{Cov}}
 \newcommand\var{\text{Var}}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 $$
 
 # Meta data of reading
@@ -164,16 +167,16 @@ It turns out that it is possible to filter out the "linkage" case. The paper sug
 
 Let's say there are $k$ loci in LD to the causal loci which is denoted as loci 0.  For the causal loci and the $i$th locus, we have (consider $y \sim z$):
 
-<div>$$\begin{aligned}
-	y &= b_{yz(0)} z_{(0)} + \epsilon_{(0)} \cr
-	y &= b_{yz(i)} z_{(i)} + \epsilon_{(i)} \cr
-	\cov(y, z_{(i)}) &= b_{yz(0)} \cov(z_{(0)}, z_{(i)}) \cr
-	\cov(y, z_{(i)}) &= b_{yz(i)} \var(z_{(i)}) \cr
-	& \text{, by the fact that $\epsilon_j \independent z_{(j)} \forall j = 0, 1, ..., k$} \cr
-	\Rightarrow b_{yz(i)} &= b_{yz(0)} \frac{\cov(z_{(0)}, z_{(i)})}{\var(z_{(i)})} \cr
-	&= b_{yz(0)} r_{0i} \sqrt{\frac{\var(z_{(0)})}{\var(z_{(i)})}} \cr
-	&= b_{yz(0)} r_{0i} \sqrt{h_0 / h_i}
-\end{aligned}$$</div>
+<div>$$\begin{align}
+	y &= b_{yz(0)} z_{(0)} + \epsilon_{(0)} \nonumber\cr
+	y &= b_{yz(i)} z_{(i)} + \epsilon_{(i)} \nonumber\cr
+	\cov(y, z_{(i)}) &= b_{yz(0)} \cov(z_{(0)}, z_{(i)}) \nonumber\cr
+	\cov(y, z_{(i)}) &= b_{yz(i)} \var(z_{(i)}) \nonumber\cr
+	& \text{, by the fact that $\epsilon_{(j)} \independent z_{(i)}, j = 0, i$} \nonumber\cr
+	\Rightarrow b_{yz(i)} &= b_{yz(0)} \frac{\cov(z_{(0)}, z_{(i)})}{\var(z_{(i)})} \nonumber\cr
+	&= b_{yz(0)} r_{0i} \sqrt{\frac{\var(z_{(0)})}{\var(z_{(i)})}} \nonumber\cr
+	&= b_{yz(0)} r_{0i} \sqrt{h_0 / h_i} \label{eq:1}
+\end{align}$$</div>
 
 , where $h = 2p (1 - p)$ which is precisely $\var(z)$. So equation 7 follows. Intuitively, consider the following situation:
 
@@ -183,4 +186,41 @@ graph LR;
     x --- y(y)
 {{< /mermaid >}}
 
-In this case, `$b_{zy} = b_{xy} r_{zx} SE_x / SE_y$`. Namely, if we know the dependency between $x$ and $z$, so does $x$ and $y$, then we can derive the dependency between $z$ and $y$. `$r_{zx}$` indicates to what extent the effect size of $x$ on $y$ can be transferred to the one of $z$ on $y$. `$SE_x / SE_y$` is a rescaling term. To match the same scale (namely $y$), $b \times SE$ should of the same scale for $z \sim y$ and $x \sim y$. Therefore, under the null hypothesis, `$\hat{b}_{zy(i)}$` should have the same expected value. To make inference, we need some distribution of $\vec{b}_{zy}$, so we should know the variance/covariance as well. 
+In this case, `$b_{zy} = b_{xy} r_{zx} SE_x / SE_y$`. Namely, if we know the dependency between $x$ and $z$, so does $x$ and $y$, then we can derive the dependency between $z$ and $y$. `$r_{zx}$` indicates to what extent the effect size of $x$ on $y$ can be transferred to the one of $z$ on $y$. `$SE_x / SE_y$` is a rescaling term. To match the same scale (namely $y$), $b \times SE$ should of the same scale for $z \sim y$ and $x \sim y$. Therefore, under the null hypothesis, `$\hat{b}_{zy(i)}$` should have the same expected value. To make inference, we need some distribution of $\vec{b}_{zy}$, so we should know the variance/covariance as well.
+
+* Side note:
+
+> I just found that the above derivation has a subtle drawback. It is that suppose we do `$\cov(\cdot, z_{(0)})$` instead and do it carelessly, it will fail. The problem comes from the term `$\cov(\epsilon_{(i)}, z_{(0)})$`. From the derivation above, it seems to me that `$z_{(0)}$` and `$z_{(i)}$` are equivalent and interchangeable but it is really not the case. The graph above has pointed out such difference but in an implicit way. A more explicit illustration is the following:
+
+{{<mermaid align="center">}}
+graph LR;
+	z(z) --- x(x)
+    x --- y(y)
+	e0(e0) --> y
+	e1(e1) --> x
+{{< /mermaid >}}
+
+> The corresponding equations are:
+
+<div>$$\begin{aligned}
+	y &= b_0 x + \epsilon_0 \cr
+	x &= a z + \epsilon' \cr
+	\Rightarrow y &= b_0 (a z + \epsilon') + \epsilon_0 \cr
+	&= b_0 a z + b_0 \epsilon' + \epsilon_0 \cr
+	&:= b_1 z + \epsilon_1 \text{, where $\epsilon_1 = b_0 \epsilon' + \epsilon_0$}
+\end{aligned}$$</div>
+
+> , from which it is easy to see that `$\cov(\epsilon_{(i)}, z_{(0)}) \neq 0$`
+
+From the result of $\eqref{eq:1}$, we have:
+
+<div>$$\begin{align}
+	b_{xy(i)} &= \frac{b_{zy(i)}}{\beta_{zx(i)}} \nocr
+	&= \frac{b_{zy(0)}r_{i0}\sqrt{h_0 / h_i}}{\beta_{zy(0)}\gamma_{i0}\sqrt{\eta_0 / \eta_i}} \nocr
+	&= \frac{b_{zy(0)}}{\beta_{zy(0)}} \label{eq:2}\cr
+	&= b_{xy(0)} \nocr
+\end{align}$$</div>
+
+, where \eqref{eq:2} follows from the fact that `$r_{0i}$` and `\gamma_{0i}$` are simply the property of the locus 0 and locus i, so that `$r_{0i} = \gamma_{0i}$`. The same logic follows for $h$ and $\eta$.
+
+This result indicates that 
