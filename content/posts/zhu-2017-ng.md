@@ -85,7 +85,7 @@ $$\begin{aligned}
 
 , which is described in equation 5.
 
-Furthermore, some data sets only report effect size without variance or z-score. In this case, the variance can be recovered if the allele frequency is known (see the result at supplementary notes page 9 bottom equation). This result is surprising to me, so I scratch the derivation below.
+Furthermore, some data sets only report z-score without effect size. In this case, the inference can still be done but effect size is needed to estimate `$b_{xy}$`. In fact, the effect size can be recovered if the allele frequency is known (see the result at supplementary notes page 9 bottom and page 10 top equations). This result is surprising to me, so I scratch the derivation below.
 
 Without loss of generality, let's consider $\hat{b}\_{zy}$. $\hat\beta\_{zx}$ follows the same rule.
 
@@ -142,10 +142,22 @@ So that we obtain the first "equal sign": `$SE = \sqrt{\frac{\sigma_\epsilon}{n 
 
 , as the equation stated in supplementary notes page 9 (last one).
 
+With z-score known, we have:
+
+<div>$$\begin{aligned}
+	z_{zy} &= \frac{\hat{b}_{zy}}{SE_{zy}} \cr
+	\hat{b}_{zy} &= z_{zy} SE_{zy} \cr
+	&= z_{zy} \sqrt{\frac{1 - 2p(1 - p)b_{zy}}{2p(1 - p)n}} \cr
+	\Rightarrow \hat{b}_{zy}^2 &\approx z_{zy}^2 \frac{1 - M \hat{b}_{zy}^2}{Mn} \text{, where $M = 2p(1 - p)$} \cr
+	\Rightarrow \hat{b}_{zy} &\approx z_{zy} / \sqrt{2p (1 - p) (n + z_{zy}^2)}
+\end{aligned}$$</div>
+
+, which is the result on page 10 top of supplementary notes.
+
 # Accounting for linkage
 
 In practice, variants are correlated with each other because of LD. Therefore, the loci that is used for computation may show association if it is correlated with two causal variants which affect transcription and phenotype respectively. Figure 1b illustrated the scenarios.  
 
 {{< figure src="/notebook/images/linkage.png" title="Three possible explanations of an association" >}}
 
-It turns out that it is possible to filter out the "linkage" case. The paper suggested that if there is only one causal variant, the nearby region should have similar association signal. So, they proposed a hypothesis testing procedure where the null hypothesis is that the association signal follows uniform distribution (this corresponds to the non-linkage cases). Those rejected associations were removed. Ideally, causality part is the only biologically interesting one, but this approach cannot tease apart pleiotropic effect.
+It turns out that it is possible to filter out the "linkage" case. The paper suggested that if there is only one causal variant, the nearby region should have similar association signal. So, they proposed a hypothesis testing procedure to get rid of signal resulted from linkage. 
