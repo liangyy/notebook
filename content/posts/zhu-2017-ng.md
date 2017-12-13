@@ -160,4 +160,27 @@ In practice, variants are correlated with each other because of LD. Therefore, t
 
 {{< figure src="/notebook/images/linkage.png" title="Three possible explanations of an association" >}}
 
-It turns out that it is possible to filter out the "linkage" case. The paper suggested that if there is only one causal variant, the nearby region should have similar association signal. So, they proposed a hypothesis testing procedure to get rid of signal resulted from linkage. 
+It turns out that it is possible to filter out the "linkage" case. The paper suggested that if there is only one causal variant, the nearby region should have similar association signal. So, they proposed a hypothesis testing procedure to get rid of signal resulted from linkage. The following shows how they came up with the distribution under null hypothesis.
+
+Let's say there are $k$ loci in LD to the causal loci which is denoted as loci 0.  For the causal loci and the $i$th locus, we have (consider $y \sim z$):
+
+<div>$$\begin{aligned}
+	y &= b_{yz(0)} z_{(0)} + \epsilon_{(0)} \cr
+	y &= b_{yz(i)} z_{(i)} + \epsilon_{(i)} \cr
+	\cov(y, z_{(i)}) &= b_{yz(0)} \cov(z_{(0)}, z_{(i)}) \cr
+	\cov(y, z_{(i)}) &= b_{yz(i)} \var(z_{(i)}) \cr
+	& \text{, by the fact that $\epsilon_j \independent z_{(j)} \forall j = 0, 1, ..., k$} \cr
+	\Rightarrow b_{yz(i)} &= b_{yz(0)} \frac{\cov(z_{(0)}, z_{(i)})}{\var(z_{(i)})} \cr
+	&= b_{yz(0)} r_{0i} \sqrt{\frac{\var(z_{(0)})}{\var(z_{(i)})}} \cr
+	&= b_{yz(0)} r_{0i} \sqrt{h_0 / h_i}
+\end{aligned}$$</div>
+
+, where $h = 2p (1 - p)$ which is precisely $\var(z)$. So equation 7 follows. Intuitively, consider the following situation:
+
+{{<mermaid align="center">}}
+graph LR;
+	z(z) --- x(x)
+    x --- y(y)
+{{< /mermaid >}}
+
+In this case, `$b_{zy} = b_{xy} r_{zx} SE_x / SE_y$`. Namely, if we know the dependency between $x$ and $z$, so does $x$ and $y$, then we can derive the dependency between $z$ and $y$. `$r_{zx}$` indicates to what extent the effect size of $x$ on $y$ can be transferred to the one of $z$ on $y$. `$SE_x / SE_y$` is a rescaling term. To match the same scale (namely $y$), $b \times SE$ should of the same scale for $z \sim y$ and $x \sim y$. Therefore, under the null hypothesis, `$\hat{b}_{zy(i)}$` should have the same expected value. To make inference, we need some distribution of $\vec{b}_{zy}$, so we should know the variance/covariance as well. 
