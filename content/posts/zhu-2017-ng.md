@@ -223,7 +223,7 @@ From the result of $\eqref{eq:1}$, we have:
 
 , where \eqref{eq:2} follows from the fact that `$r_{0i}$` and `$\gamma_{0i}$` are simply the property of the locus 0 and locus i, so that `$r_{0i} = \gamma_{0i}$`. The same logic follows for $h$ and $\eta$.
 
-This result implies that `$\hat{d_{i}} := \hat{b}_{(i)} - \hat{b}_{(0)}$` has mean zero. Then, under the null, `$(\hat{d}_{1}, ..., \hat{d}_k) \approx \mathcal{N}(0, R)$` (as stated in the text page 9 top left). $R$ is the variance/covariance matrix with entry `$\cov(\hat{d}_i, \hat{d}_j)$`.
+This result implies that `$\hat{d}_{i} := \hat{b}_{(i)} - \hat{b}_{(0)}$` has mean zero. Then, under the null, `$(\hat{d}_{1}, ..., \hat{d}_k) \approx \mathcal{N}(0, R)$` (as stated in the text page 9 top left). $R$ is the variance/covariance matrix with entry `$\cov(\hat{d}_i, \hat{d}_j)$`.
 
 <div>$$\begin{align}
   \cov(x - y, z - y) &= \E((x - y)(z - y)) - \E(x - y)\E(z - y) \nocr
@@ -274,4 +274,6 @@ The unclear thing is how to get $\E(g(\hat\theta))$ using Delta method. For $\va
   \E(\hat{b}_{xy(i)}) &\approx \frac{b_{zy(i)}}{\beta_{zx(i)}} \nonumber
 \end{align}$$</div>
 
-This result gives nothing more than the first order approximation. But it does matter for `$\E(\hat{b}_{xy(i)}\hat{b}_{xy(j)})$`. The intuition is that as more and more terms get involved, the first order approximation becomes worse and worse. So, in general, when to many terms involved, you need to be careful. If the (co)variance or Hessian is crazy, maybe it is a good idea to go beyond first order approximation.
+This result gives nothing more than the first order approximation. But it does matter for `$\E(\hat{b}_{xy(i)}\hat{b}_{xy(j)})$`. The intuition is that as more and more terms get involved, the first order approximation becomes worse and worse. So, in general, when too many terms involved, you need to be careful. If the (co)variance or Hessian is crazy, maybe it is a good idea to go beyond first order approximation.
+
+It turns out that we need to compute `$\cov(\hat{b}_{zy(i)}, \hat{b}_{zy(j)})$` and `$\cov(\hat\beta_{zx(i)}, \hat\beta_{zx(j)})$`. They are:
