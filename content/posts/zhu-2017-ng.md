@@ -74,7 +74,7 @@ $$\begin{aligned}
 	\var(\hat{b}\_{xy}) &\approx \begin{bmatrix} \frac{1}{\beta\_{zx}} & -\frac{b\_{zy}}{\beta\_{zx}^2} \end{bmatrix} \begin{bmatrix} \var(\hat{b}\_{zy}) & \cov(\hat{b}\_{zy}, \hat{\beta}\_{zx}) \cr
 	\cov(\hat{b}\_{zy}, \hat{\beta}\_{zx}) & \var(\hat{\beta}\_{zx}) \end{bmatrix}
 	\begin{bmatrix} \frac{1}{\beta\_{zx}} \cr -\frac{b\_{zy}}{\beta\_{zx}^2} \end{bmatrix} \cr
-	&= \frac{b\_{zy}^2}{\beta\_{zx}^2} \bigg[ \frac{\var(\hat\beta\_{zx})}{\beta\_{zx}^2} + \frac{\var{\hat{b}\_{zy}}}{b\_{zy}^2} - 2\frac{\cov(\hat\beta\_{zx}, \hat{b}\_{zy})}{\beta\_{zx}b\_{zy}} \bigg]
+	&= \frac{b\_{zy}^2}{\beta\_{zx}^2} \bigg[ \frac{\var(\hat\beta\_{zx})}{\beta\_{zx}^2} + \frac{\var(\hat{b}\_{zy})}{b\_{zy}^2} - 2\frac{\cov(\hat\beta\_{zx}, \hat{b}\_{zy})}{\beta\_{zx}b\_{zy}} \bigg]
 \end{aligned}$$
 
 Then the $\chi^2$ statistic is:
@@ -221,6 +221,57 @@ From the result of $\eqref{eq:1}$, we have:
 	&= b_{xy(0)} \nocr
 \end{align}$$</div>
 
-, where \eqref{eq:2} follows from the fact that `$r_{0i}$` and `\gamma_{0i}$` are simply the property of the locus 0 and locus i, so that `$r_{0i} = \gamma_{0i}$`. The same logic follows for $h$ and $\eta$.
+, where \eqref{eq:2} follows from the fact that `$r_{0i}$` and `$\gamma_{0i}$` are simply the property of the locus 0 and locus i, so that `$r_{0i} = \gamma_{0i}$`. The same logic follows for $h$ and $\eta$.
 
-This result indicates that 
+This result implies that `$\hat{d_{i}} := \hat{b}_{(i)} - \hat{b}_{(0)}$` has mean zero. Then, under the null, `$(\hat{d}_{1}, ..., \hat{d}_k) \approx \mathcal{N}(0, R)$` (as stated in the text page 9 top left). $R$ is the variance/covariance matrix with entry `$\cov(\hat{d}_i, \hat{d}_j)$`.
+
+<div>$$\begin{align}
+  \cov(x - y, z - y) &= \E((x - y)(z - y)) - \E(x - y)\E(z - y) \nocr
+	&= \E((x - y)(z - y)) - [\E(x) - \E(y)][\E(z) - \E(y)] \nocr
+	&= \E(xz) - \E(x)\E(z) - [\E(yz) - \E(y)\E(z)] \nocr
+	&- [\E(xy) - \E(x)\E(y)] + \E(y^2) - \E(y)^2 \nocr
+	&= \cov(x, z) - \cov(y, z) - \cov(x, y) + \var(y) \nocr
+	\cov(\hat{d}_i, \hat{d}_j) &= \cov(\hat{b}_{(i)}, \hat{b}_{(j)}) - \cov(\hat{b}_{(i)}, \hat{b}_{(0)}) \nocr
+	&- \cov(\hat{b}_{(j)}, \hat{b}_{(0)}) + \var(\hat{b}_{(0)}) \label{eq:d}
+\end{align}$$</div>
+
+From \eqref{eq:d} (as stated in equation 8), we need to compute `$\cov(\hat{b}_{(i)}, \hat{b}_{(j)}), \forall i, j = 0, 1, ..., k$`. The derivation of this term is sketched in the supplement part 3. The missing part seems unclear for me, so I derive it great details as follow.
+
+The unclear thing is how to get $\E(g(\hat\theta))$ using Delta method. For $\var(g(\hat\theta))$, it is straight forward, but not so for the first order term because $\E(g(\hat\theta)) \approx g(\theta)$ is what we commonly use in practice. But if we take a closer look at Delta method, we will be sure that we can do more than this (see [post](add url) about Delta method). That is to use higher order approximation.
+
+<div>$$\begin{align}
+ 	g(X) &= g(\mu) + g'(\mu)(X - \mu) + g''(\mu) \frac{(X - \mu)^2}{2!} + o((X - \mu)^2) \nocr
+	\E(g(X)) &= g(\mu) + \E(o(X - \mu)) \label{eq:3}\cr
+	\E(g(X)) &= g(\mu) + \frac{g''(\mu)}{2} \E((X - \mu)^2) + \E(o((X - \mu)^2)) \nocr
+	&\approx g(\mu) + \frac{g''(\mu)}{2} \var(X) \label{eq:4}
+\end{align}$$</div>
+
+\eqref{eq:3} is commonly used approximation and \eqref{eq:4} is a more "accurate" one. The corresponding multivariate version is simply:
+
+<div>$$\begin{align}
+  g(X) &\approx g(\mu) + \frac{1}{2} \langle H(g(\mu)), \Sigma_X \rangle \nocr
+\end{align}$$</div>
+
+, where $H(g(X))$ is the Hessian of $g$ evaluated at $\mu$ and `$\Sigma_X$` is the variance/covariance matrix of $X$ and $\langle \cdot, \cdot \rangle$ is the matrix inner product. Now, we can apply this rule for deriving `$\cov(\hat{b}_{(i)}, \hat{b}_{(j)})$`.
+
+<div>$$\begin{align}
+  \cov(\hat{b}_{(i)}, \hat{b}_{(j)}) &= \E(\hat{b}_{(i)} \hat{b}_{(j)}) - \E(\hat{b}_{(i)}) \E(\hat{b}_{(j)}) \nocr
+	\E(\hat{b}_{(i)}) &= \E(\hat{b}_{xy(i)}) = \E(\frac{\hat{b}_{zy(i)}}{\hat\beta_{(zx(i))}}) \nocr
+	&\approx \frac{b_{zy(i)}}{\beta_{zx(i)}} + \frac{1}{2} \langle
+	\begin{bmatrix} 0 & -1 / \beta_{zx(i)}^2 \cr
+	-1 / \beta_{zx(i)}^2 & 2b_{zy(i)} / \beta_{zx(i)}^2 \end{bmatrix}
+	, \nocr
+	& \begin{bmatrix} \var(\hat{b}_{zy(i)}) & \cov(\hat{b}_{zy(i)}, \hat{\beta}_{zy(i)}) \cr
+	\cov(\hat{b}_{zy(i)}, \hat{\beta}_{zy(i)}) & \var(\hat{\beta}_{zy(i)}) \end{bmatrix}
+	\rangle \nocr
+	&= \frac{b_{zy(i)}}{\beta_{zx(i)}} - \frac{\cov(\hat{b}_{zy(i)}, \hat{\beta}_{zy(i)})}{\beta_{zx(i)}^2} + \frac{b_{zy(i)}\var(\hat{\beta}_{zy(i)})}{\beta_{zx(i)}^2} \nocr
+	&= \frac{b_{zy(i)}}{\beta_{zx(i)}} \bigg( 1 + \frac{\var(\hat{\beta}_{zy(i)})}{\beta_{zx(i)}} - \frac{\cov(\hat{b}_{zy(i)}, \hat{\beta}_{zy(i)})}{b_{zy(i)}\beta_{zx(i)}} \bigg) \label{eq:6}
+\end{align}$$</div>
+
+\eqref{eq:6} is stated in supplement page 10. For an association signal, `$\frac{\hat\beta}{\var(\hat\beta)}$` should be big (namely the $\chi^2$ statistic). Also, `$\cov(\hat{b}_{zy(i)}, \hat{\beta}_{zy(i)}) = 0$`. Therefore,
+
+<div>$$\begin{align}
+  \E(\hat{b}_{xy(i)}) &\approx \frac{b_{zy(i)}}{\beta_{zx(i)}} \nonumber
+\end{align}$$</div>
+
+This result gives nothing more than the first order approximation. But it does matter for `$\E(\hat{b}_{xy(i)}\hat{b}_{xy(j)})$`. The intuition is that as more and more terms get involved, the first order approximation becomes worse and worse. So, in general, when to many terms involved, you need to be careful. If the (co)variance or Hessian is crazy, maybe it is a good idea to go beyond first order approximation.
