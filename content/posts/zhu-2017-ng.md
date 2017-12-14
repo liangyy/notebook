@@ -118,7 +118,7 @@ Here $Z$ is the normalized version of the original $Z$ for simplicity. Since the
 	&= \frac{\var(\epsilon)}{n \var(z)}
 \end{aligned}$$</div>
 
-So that we obtain the first "equal sign": `$SE = \sqrt{\frac{\sigma_\epsilon}{n \var(z)}}$`
+So that we obtain the first "equal sign": `$SE = \sqrt{\frac{\sigma_\epsilon^2}{n \var(z)}}$`
 
 * Second "=":
 
@@ -139,7 +139,7 @@ So that we obtain the first "equal sign": `$SE = \sqrt{\frac{\sigma_\epsilon}{n 
 , where $\tilde{z} := z - \E(z)$. Therefore,
 
 <div>$$\begin{aligned}
-	SE &= \sqrt{\frac{\sigma_\epsilon}{n \var(z)}} \cr
+	SE &= \sqrt{\frac{\sigma_\epsilon^2}{n \var(z)}} \cr
 	&= \sqrt{\frac{1 - 2p(1 - p)b}{2p(1 - p)n}}
 \end{aligned}$$</div>
 
