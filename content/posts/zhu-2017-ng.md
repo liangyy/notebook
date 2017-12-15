@@ -14,6 +14,7 @@ $$
 \newcommand\nocr{\nonumber\cr}
 \newcommand\cov{\text{Cov}}
 \newcommand\var{\text{Var}}
+\newcommand\cor{\text{Cor}}
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 $$
 
@@ -103,20 +104,20 @@ Without loss of generality, let's consider $\hat{b}\_{zy}$. $\hat\beta\_{zx}$ fo
 
 Here $Z$ is the normalized version of the original $Z$ for simplicity. Since the expression evolves "divid", taking "variance" on both sides seems tedious. Alternatively, we can apply Delta method.
 
-<div>$$\begin{aligned}
-	\hat{A} &= \frac{\sum_j (z_j - \bar{z}) \epsilon_j}{n} \cr
-	\hat{B} &= \frac{\sum_i (z_i - \bar{z})^2}{n} \cr
-	\sqrt{n} (\hat{A} - 0) &\xrightarrow{d} \mathcal{N}(0, \var(z)\var(\epsilon)) \text{, since $z \independent \epsilon$} \cr
-	\sqrt{n} (\hat{B} - \var(z)) &\xrightarrow{d} \mathcal{N}(0, \tau^2) \cr
-  \sqrt{n} (\frac{\hat{A}}{\hat{B}} - 0) &\xrightarrow{d} \mathcal{N}(0, \nabla g(A, B)' \Sigma \nabla g(A, B)') \cr
-	\text{, where } \nabla g(A, B) &= \begin{bmatrix} 1/B \cr 0 \end{bmatrix} \cr
-	\Sigma &= \begin{bmatrix} \var(z) \var(\epsilon) & \cov(A, B) \cr
-														\cov(A, B) & \tau^2 \end{bmatrix} \cr
-	\text{therefore, } \nabla g(A, B)' \Sigma \nabla g(A, B)' &= \frac{\var(z) \var(\epsilon)}{B^2} \cr
-	&= \frac{\var(\epsilon)}{\var(z)} \cr
-	\text{thus, } \var(\hat{b}_{zy}) &= \var(\frac{\hat{A}}{\hat{B}}) \cr
-	&= \frac{\var(\epsilon)}{n \var(z)}
-\end{aligned}$$</div>
+<div>$$\begin{align}
+	\hat{A} &= \frac{\sum_j (z_j - \bar{z}) \epsilon_j}{n} \nocr
+	\hat{B} &= \frac{\sum_i (z_i - \bar{z})^2}{n} \nocr
+	\sqrt{n} (\hat{A} - 0) &\xrightarrow{d} \mathcal{N}(0, \var(z)\var(\epsilon)) \text{, since $z \independent \epsilon$} \nocr
+	\sqrt{n} (\hat{B} - \var(z)) &\xrightarrow{d} \mathcal{N}(0, \tau^2) \nocr
+  \sqrt{n} (\frac{\hat{A}}{\hat{B}} - 0) &\xrightarrow{d} \mathcal{N}(0, \nabla g(A, B)' \Sigma \nabla g(A, B)') \nocr
+	\text{, where } \nabla g(A, B) &= \begin{bmatrix} 1/B \cr 0 \end{bmatrix} \nocr
+	\Sigma &= \begin{bmatrix} \var(z) \var(\epsilon) & \cov(A, B) \nocr
+														\cov(A, B) & \tau^2 \end{bmatrix} \nocr
+	\text{therefore, } \nabla g(A, B)' \Sigma \nabla g(A, B)' &= \frac{\var(z) \var(\epsilon)}{B^2} \nocr
+	&= \frac{\var(\epsilon)}{\var(z)} \nocr
+	\text{thus, } \var(\hat{b}_{zy}) &= \var(\frac{\hat{A}}{\hat{B}}) \nocr
+	&= \frac{\var(\epsilon)}{n \var(z)} \label{eq:varb}
+\end{align}$$</div>
 
 So that we obtain the first "equal sign": `$SE = \sqrt{\frac{\sigma_\epsilon^2}{n \var(z)}}$`
 
@@ -276,4 +277,62 @@ The unclear thing is how to get $\E(g(\hat\theta))$ using Delta method. For $\va
 
 This result gives nothing more than the first order approximation. But it does matter for `$\E(\hat{b}_{xy(i)}\hat{b}_{xy(j)})$`. The intuition is that as more and more terms get involved, the first order approximation becomes worse and worse. So, in general, when too many terms involved, you need to be careful. If the (co)variance or Hessian is crazy, maybe it is a good idea to go beyond first order approximation.
 
-It turns out that we need to compute `$\cov(\hat{b}_{zy(i)}, \hat{b}_{zy(j)})$` and `$\cov(\hat\beta_{zx(i)}, \hat\beta_{zx(j)})$`. They are:
+It turns out that we need to compute `$\cov(\hat{b}_{zy(i)}, \hat{b}_{zy(j)})$` and `$\cov(\hat\beta_{zx(i)}, \hat\beta_{zx(j)})$`. In the supplementary notes, it was stated as *We know that the sampling correlation between the estimates of SNP effects equals to the LD correlation between the SNPs*. But, again, this result is not intuitive to me. The following is a derivation of this:
+
+Suppose $z$ has been standardized and the true effect size is $b$. Then $y = b z\_0 + \epsilon$ where $z\_0$ is the causal variant and $\epsilon$ is the error term. We have:
+
+<div>$$\begin{align}
+	\hat{b}_{i} &= z_i' y / n \nocr
+	&= z_i' (b z_0 + \epsilon) / n \nocr
+	\text{similarly, } \hat{b}_j &= z_j' (b z_0 + \epsilon) / n \nocr
+	\cov(\hat{b}_{i}, \hat{b}_j) &= \frac{1}{n^2} \big[ \E(\cov(z_i' (b z_0 + \epsilon), z_j' (b z_0 + \epsilon)| z_i, z_j)) \nocr
+	&- \cov(\E(z_i' (b z_0 + \epsilon)| z_i) \E(z_j' (b z_0 + \epsilon)| z_j)) \big] \nocr
+	\text{first term on RHS} &= z_i' \cov(bz_0 + \epsilon, bz_0 + \epsilon) z_j \nocr
+	&= b^2 [\var(z_{0k}) + \var(\epsilon)] \E(z_i' z_j) \nocr
+	&= A \cov(z_{ik}, z_{jk}) \nocr
+	&\text{, where $z_{i1}, ..., z_{in}$ are iid and same for $j$} \nocr
+	& \text{, and $A = b^2 \var(z_0) \var(\epsilon)$ which does not depend on $i$ and $j$} \nocr
+	\E(z_i'(bz_0 + \epsilon)|z_i) &= z_i' [b\E(z_0) + \E(\epsilon)] = 0 \nocr
+	\therefore \text{second term on RHS} &= 0 \nocr
+	\therefore \cov(\hat{b}_{i}, \hat{b}_j) &= A \cov(z_{ik}, z_{jk}) \label{eq:sub1}\cr
+	\text{a special case is: } & \nocr
+	\var(\hat{b}_i) &= A \var(z_{ik}) \label{eq:sub2} \cr
+	\eqref{eq:sub1}, \eqref{eq:sub2} \Rightarrow \cor(\hat{b}_i, \hat{b}_j) &= \cor(z_{ik}, z_{jk})\nonumber
+\end{align}$$</div>
+
+* Side note:
+
+> Note that \eqref{eq:sub2} seems conflict with \eqref{eq:varb}. But the difference is that \eqref{eq:varb} is for causal variant effect size estimator and \eqref{eq:sub2} is for the non-causal variants in LD. Intuitively, the association signal captured by non-causal variant comes from LD and only from LD. That's why correlation of $\hat{b}$ matches exactly to correlation of $z$.
+
+> This proof stuck me from a long time. The confusing part is that I cannot formalize the underlying model in a proper way. At first, I tried:
+
+<div>$$\begin{align}
+y &= b_i z_i + \epsilon_i \nocr
+z_i &= a z_j + \epsilon_0 \nocr
+\Rightarrow y &= a b_i z_j + b_i \epsilon_0 + \epsilon_i \nonumber
+\end{align}$$</div>
+
+> I failed because it turns out that in this case the $A$ term will depend on the error term of $i$ and $j$. Essentially, this is not the correct underlying model of the problem. Neither $z\_i$ nor $z\_j$ have the real effect size well defined since they are not the causal variant. To make it physically make sense, it is necessary to consider $z_0$, the causal variant, somewhere in the calculation.
+
+> Also, a useful equation for deriving $\cov$ is:
+
+<div>$$\begin{align}
+	\cov(f(X, Y), g(X, Z)) &= \E(\cov(f(X, Y), g(X, Z)| Y, Z)) \nocr
+	&- \cov(\E(f(X, Y)| Y), \E(g(X, Z)| Z)) \nonumber
+\end{align}$$</div>
+
+> This equation divides the problem into simpler and easier to deal with chunks, especially when $Y$ and $Z$ introduce dependency, which complicates the calculation. This equation can tease such dependency apart and work on them after simplifying the expression a bit.
+
+After we obtain the distribution of `$\hat{d}_1, ..., \hat{d}_k$`, the normalized version is `$z_i := \hat{d}_i / \sqrt{\var(\hat{d}_i)}$` with normalized (co)variance. The test statistic is constructed as `$T_{HEIDI} = \sum_i z_i^2`. The CDF of $T_{HEIDI}$ can be computed approximately (Satterthwaite or Saddlepoint as stated in the text).
+
+# Results in brief
+
+In practice, they used blood eQTL data because of its large sample size. For each gene (only probe), they used the top associated _cis_-eQTL with HEIDI test to filter out linkage cases. For 5 complex traits, they identified 104 significant genes. Some insightful results are listed below:
+
+1. They pointed out that the loci which shows trait-associated gene signal (namely passed the tests in the paper) tends to be found in the future GWAS as the sample size increases. Second,
+2. SMR helps to pinpoint functionally relevant genes. In GWAS, many locus are close to multiple genes and SMR can distinguish them by considering whether the loci affects the gene expression.
+3. eQTL analysis are tissue-specific, but throughout the paper, they used blood eQTL results. They pointed out that many eQTL are shared across tissues, which benefits most by this strategy. But some tissue-specific eQTL is missed unavoidably. They showed that the signals identified in blood data were consistent with the results in brain data for schizophrenia GWAS (brain signal is weak due to power issue). But this indicates that SMR in unmatched tissue does not give fake signal. They did SMR with $x$ as expression in blood and $y$ as expression in brain for significant locus. They showed pleiotropic association as well. Also, the effect size learned from blood data can explain the same amount of variance in brain expression data as brain eQTL analysis did. These evidences showed that variants shared across tissues can be successfully captured by SMR even unrelated tissue eQTLs were used.
+4. Multiple tagging probes for a single gene is common in eQTL analysis. Probes tag the transcript and ideally we want every tag of the same gene gives consistent result, but it is not always the case (which might be significantly different from each other). They pointed out that such in-consistency may come from the fact that probes are tagging different types of transcripts from the same gene. But they failed to provide further evidence for this argument and they found that probes were not enriched in region close to transcription end site which is the place enriched for alternative splicing.
+5. HEIDI test assumes one causal variant per locus which may not be true in practice and will miss additional signals in the region. So, they performed conditional analysis to overcome this issue. The details are shown this the next section.
+
+# Conditional analysis

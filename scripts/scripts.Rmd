@@ -26,7 +26,7 @@ for(r in 1 : nrepeats) {
     a <- 1 
     b1 <- 2
     n <- 100
-    var.e0 <- 1e-2
+    var.e0 <- 1e-5
     var.e1 <- 1e-2
     var.z1 <- 1e-2
     cor.z <- a * var.z1 / sqrt(var.z1 * (a ^ 2 * var.z1 + var.e0))
@@ -35,8 +35,8 @@ for(r in 1 : nrepeats) {
     z2 <- a * z1 + rnorm(n, 0, sd = sqrt(var.e0))
     y <- b1 * z1 + rnorm(n, 0, sd = sqrt(var.e1))
     
-    z1.star <- z1 # (z1 - mean(z1)) # / sd(z1)
-    z2.star <- z2 # (z2 - mean(z2)) # / sd(z2)
+    z1.star <- (z1 - mean(z1)) / sd(z1)
+    z2.star <- (z2 - mean(z2)) / sd(z2)
     y.star <- y # (y - mean(y)) # / sd(y)
     
     b1.hat <- c(b1.hat, sum(z1.star * y.star) / n)
