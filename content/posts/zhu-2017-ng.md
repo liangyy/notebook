@@ -3,12 +3,11 @@ title: "Integration of summary data from GWAS and eQTL studies predicts complex 
 date: 2017-12-08T14:23:10-06:00
 draft : false
 author: "Yanyu Liang"
-tags: ["gwas", 'integrative analysis', 'eqtl', 'target gene', 'mendelian randomization', 'causality']
+tags: ["gwas", 'integrative analysis', 'eqtl', 'target gene', 'mendelian randomization', 'causality', 'complex trait', 'linkage disequilibrium']
 categories: ["research paper"]
 ---
 
 $$
-\require{AMSmath}
 \newcommand\independent{\perp\\!\\!\\!\\!\perp}
 \newcommand\E{\text{E}}
 \newcommand\nocr{\nonumber\cr}
@@ -333,6 +332,21 @@ In practice, they used blood eQTL data because of its large sample size. For eac
 2. SMR helps to pinpoint functionally relevant genes. In GWAS, many locus are close to multiple genes and SMR can distinguish them by considering whether the loci affects the gene expression.
 3. eQTL analysis are tissue-specific, but throughout the paper, they used blood eQTL results. They pointed out that many eQTL are shared across tissues, which benefits most by this strategy. But some tissue-specific eQTL is missed unavoidably. They showed that the signals identified in blood data were consistent with the results in brain data for schizophrenia GWAS (brain signal is weak due to power issue). But this indicates that SMR in unmatched tissue does not give fake signal. They did SMR with $x$ as expression in blood and $y$ as expression in brain for significant locus. They showed pleiotropic association as well. Also, the effect size learned from blood data can explain the same amount of variance in brain expression data as brain eQTL analysis did. These evidences showed that variants shared across tissues can be successfully captured by SMR even unrelated tissue eQTLs were used.
 4. Multiple tagging probes for a single gene is common in eQTL analysis. Probes tag the transcript and ideally we want every tag of the same gene gives consistent result, but it is not always the case (which might be significantly different from each other). They pointed out that such in-consistency may come from the fact that probes are tagging different types of transcripts from the same gene. But they failed to provide further evidence for this argument and they found that probes were not enriched in region close to transcription end site which is the place enriched for alternative splicing.
-5. HEIDI test assumes one causal variant per locus which may not be true in practice and will miss additional signals in the region. So, they performed conditional analysis to overcome this issue. The details are shown this the next section.
+5. HEIDI test assumes one causal variant per locus which may not be true in practice and will miss additional signals in the region. So, they performed conditional analysis to overcome this issue. Not sure how they did this analysis. But I will read and post the note of the referred paper (see [link](https://liangyy.github.io/notebook/posts/yang-2012-ng/)).
 
-# Conditional analysis
+* Side note -- the hypothesis test in 4)
+
+> Suppose `$\beta_{i1}, \beta_{j2}$` are two effect size of $x \sim z$, where $i, j$ denote SNP index and $1, 2$ denote probe index. LS estimator is `\hat\beta_{i1} = $z_i' x_1$` and the same for $j2$ for standardized `$z_i, z_j, x_1, x_2$`. We have `$\var(\hat\beta) = n \var(x) \var(z)$`. And covariance is:
+
+<div>$$\begin{align}
+	\cov(\hat\beta_{1i}, \hat\beta_{2j}) &= \E(\cov(z_i' x_1, z_j' x_2 | z_i, z_j)) - \cov(\E(z_i' x_1 | z_i)\E(z_j' x_2 | z_j)) \nocr
+	&= \E(z_i' z_j) \cov(x_1, x_2) \nocr
+	&= n \cov(z_i, z_j) \cov(x_1, x_2) \nocr
+	&= r_{ij} r_x \sqrt{n \var(x_1) \var(z_i) \times n \var(x_2) \var(z_j)} \nocr
+	&= r_{ij} r_x \sqrt{\var(\hat\beta_{1i}) \var(\hat\beta_{2j})} \nonumber
+\end{align}$$</div>
+
+
+# Discussion
+
+HEIDI cannot distinguish linkage and pleiotropy if the two causal variants are in high LD (in this case, the data is not informative). To distinguish causality and pleiotropy, they proposed that multiple independent SNPs would help but it is a bit unclear how to construct the null distribution. Nonetheless, SMR provided a prioritized list of gene candidates for experimental validation. Furthermore, besides eQTL, other quantitative trait can be used, such as meQTL, pQTL, etc.
