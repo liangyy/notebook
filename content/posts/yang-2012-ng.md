@@ -47,7 +47,7 @@ The multi-SNP model is:
 , where `$X \in \mathbb{R}^{n \times N}, \vec{b} \in \mathbb{R}^N, \vec{e} \in \mathbb{R}^n$`. The least squares solution is:
 
 <div>$$\begin{align}
-  \hat{b} &= (X'X)^{-1} X'y \nocr
+  \hat{b} &= (X'X)^{-1} X'y \label{eq:sej} \cr
   \var(\hat{b}) &= \sigma^2_{J} (X'X)^{-1} \label{eq:varj}
 \end{align}$$</div>
 
@@ -141,4 +141,75 @@ Similarly,
   &= \frac{y'y - \hat\beta_j^2 D_j}{n - 1} \nonumber
 \end{align}$$</div>
 
-From \eqref{eq:varm}, we have `$\var(\hat\beta_j) = \hat\sigma^2_{M(j)} / D_j$`, so we get `$y'y = D_j \var(\hat\beta_j) (n - 1) + D_j \hat\beta_j^2$`. This expression provides a way to obtain $y'y$ with $\hat\beta\_j$ and $\hat{\var}(\hat\beta_j)$ (w/o knowing individual level data $y$). In practice, the paper used the median of inferred $y'y$ obtained from $j = 1, ..., N$.
+From \eqref{eq:varm}, we have `$\var(\hat\beta_j) = \hat\sigma^2_{M(j)} / D_j$`, so we get:
+
+<div>$$\begin{align}
+  y'y = D_j \var(\hat\beta_j) (n - 1) + D_j \hat\beta_j^2 \label{eq:yy}
+\end{align}$$</div>
+
+This expression provides a way to obtain $y'y$ with $\hat\beta\_j$ and $\hat{\var}(\hat\beta_j)$ (w/o knowing individual level data $y$). In practice, the paper used the median of inferred $y'y$ obtained from $j = 1, ..., N$.
+
+* Side note
+
+> The reason why the above analysis is performed is to obtain joint model statistic from the single-SNP model without querying individual level data $y$. One useful relation is: $\hat\sigma^2 = \frac{(1 - R^2) y'y}{N - n}$. $R^2$ is computable since it is just the observed proportion of covariance between predictor and response in the overall variance of response. For the single-SNP case, $\hat\sigma^2$ is available via \eqref{eq:varm}.
+
+In meta-analysis, $X$ is not available as well. But since $X'X$ is the (co)variance matrix of SNP genotypes, it can be approximated by the LD score from a matched reference population. The paper used $W$ to denote such population, where `$w_{ij} = -2f_j, 1 - 2 f_j, 2 - 2 f_j$` to denote genotypes: two major alleles, heterozygous, two minor alleles respectively. Under this set up, `$\E(w_j) = 0, \var(w_j) = 2f_j(1 - 2 f_j)$`. Therefore, we have:
+
+<div>$$\begin{align}
+  \frac{\sum_i x_{ij} x_{ik}}{\sqrt{\sum_i x_{ij}^2 \sum_i x_{ik}^2}}
+  &\approx \frac{\sum_i w_{ij} w_{ik}}{\sqrt{\sum_i w_{ij}^2 \sum_i w_{ik}^2}} \nocr
+  \Rightarrow (X'X)_{jk} &= \sum_i x_{ij} x_{ik} \nocr
+  &\approx \sum_i w_{ij} w_{ik} \sqrt{\frac{D_j D_k}{D_{W(j)}D_{W(k)}}} := B_{jk} \nocr
+  \Rightarrow B &:= D^{1/2}D_W^{-1/2}W'W D_W^{-1/2} D^{1/2} \approx X'X \label{eq:app}
+\end{align}$$</div>
+
+where $D, D_W$ is the diagonal matrix with diagonal entries of $X'X, W'W$. $D\_{j}$ is not available without $X$, but it can be approximated by `$2p_j(1 - p_j)n$`. From \eqref{eq:sej}, \eqref{eq:se}, \eqref{eq:app}, we have:
+
+<div>$$\begin{align}
+  \hat{b} &= (X'X)^{-1} X'y = (X'X)^{-1} D \hat\beta \nocr
+  &\approx B^{-1} D \hat\beta := \tilde{b} \nonumber
+\end{align}$$</div>
+
+Similar to \eqref{eq:varj},
+
+<div>$$\begin{align}
+  \var(\tilde{b}) &= \sigma^2_J B^{-1}
+\end{align}$$</div>
+
+In the paper, distant SNP pairs were assigned zero correlation instead the observed one in $W$. The paper pointed out an additional complexity in practice, that is SNPs may have different effective sample sizes due to imputation failures. Therefore, the paper suggested to estimate the effective sample for each SNP and use the adjusted sample size to compute $B_{jk}$. The procedure is:
+
+  1. From \eqref{eq:yy}, we obtain $y'y$ by taking the median
+  2. Obtain $\hat{n}_j$ using \eqref{eq:yy}:
+      <div>$$\begin{align}
+        \hat{n}_j &= y'y / D_j \var(\hat\beta_j) - \hat\beta_j^2 / \var(\hat\beta_j) + 1 \nonumber
+      \end{align}$$</div>
+  3. Compute $B\_{jk}$ and $D\_j$ using the adjusted sample size:
+      <div>$$\begin{align}
+        B_{jk} &= 2 \min(\hat{n}_j, \hat{n}_k) \sqrt{\frac{p_j(1 - p_j)p_k(1 - p_k)}{D\_{W(j)}D\_{W(k)}}} (W'W)\_{jk} \nocr
+        W_j &= 2p_j(1 - p_j) \hat{n}_j \nonumber
+      \end{align}$$</div>
+
+# Obtain p-value of marginal effect under multi-SNP model
+
+In brief, the above derivation provides a way to infer joint effect distribution from single-SNP model summary statistic. Namely, we get:
+
+<div>$$\begin{align}
+  (\tilde{b} - b) \sim \mathcal{N}(0, \var(\tilde{b}) \nonumber
+\end{align}$$</div>
+
+The marginal distribution for each SNP's effect size, $\tilde{b}\_i$, is:
+
+<div>$$\begin{align}
+  (\tilde{b}_i - b_i) \sim \mathcal(N, \var(\tilde{b}_i)) \nonumber
+\end{align}$$</div>
+
+Therefore, we can construct a test as follow:
+
+  * $H_0$: $b_i$ is zero
+  * $H_1$: $b_i$ is not zero
+
+Under the null, $\tilde{b}\_i \sim \mathcal{N}(0, \var(\tilde{b}\_i))$. Then `$\mathbb{P}_{H_0}(|b_i| > |\tilde{b}_i| ) = 2(1 - \Phi(|\tilde{b}_i|))$`, which is the marginal effect of $i$th SNP under multi-SNP model.
+
+# Conditional analysis
+
+The multi-SNP model is nothing other than a huge multivariate normal model. We know that multivariate normal has close form marginal/conditional distribution (see this [reference](http://fourier.eng.hmc.edu/e161/lectures/gaussianprocess/node7.html)).
