@@ -212,4 +212,40 @@ Under the null, $\tilde{b}\_i \sim \mathcal{N}(0, \var(\tilde{b}\_i))$. Then `$\
 
 # Conditional analysis
 
-The multi-SNP model is nothing other than a huge multivariate normal model. We know that multivariate normal has close form marginal/conditional distribution (see this [reference](http://fourier.eng.hmc.edu/e161/lectures/gaussianprocess/node7.html)).
+The logic of this part is not very intuitive to me, but after some struggling, I end up with the following things.
+
+First of all, the conditional analysis takes a two step procedure to estimate $\hat{b}\_2 | \hat{b}\_1$. That is:
+
+  1. Do $y \sim X\_1$ and obtain `$\bar{b}_1 = (X_1'X_1)^{-1} X_1'y$`
+  2. Compute $\tilde{y} = y - X\_1 \bar{b}\_1$
+  3. Do $\tilde{y} \sim X\_2$ and obtain $\hat{b}\_2 | \hat{b}\_1 = (X\_2' X\_2)^{-1} X\_2' \tilde{y}$, which matches the equation 15 in the text
+
+The variance of $\hat{b}\_2 | \hat{b}\_1$ stuck me for a while because it is unclear how to define $\hat\sigma^2\_C$. It is still not so clear to me but what I get is the following:
+
+<div>$$\begin{align}
+  y &= X_1 b_1 + X_2 b_2 + e \label{eq:y}\cr
+  \hat{b}_2 | \hat{b}_1 &= M_2^{-1} X_2'y - M_2^{-1} M_{21} M_1^{-1} X_1'y \nocr
+  &\text{, where $M_{ij} = X_i' X_j$ and $M_{ii} = M_i$} \nocr
+  &= M_2^{-1} M_{21} b_1 + M_2^{-1}M_2b_2 + M_2^{-1}X_2'e \nocr
+  &- M_2^{-1}M_{21}M_1^{-1}M_1 b_1 - M_2^{-1}M_{21}M_1^{-1}M_{12}b_2 - M_2^{-1}M_{21}M_1^{-1}X_1'e \nocr
+  &= (M_2^{-1}M_2 - M_2^{-1}M_{21}M_1^{-1}M_{12})b_2 \nocr
+  &+ (M_2^{-1}X_2' - M_2^{-1}M_{21}M_1^{-1}X_1') e \nocr
+  \var(\hat{b}_2 | \hat{b}_1) &= \var((M_2^{-1}X_2' - M_2^{-1}M_{21}M_1^{-1}X_1') e) \nocr
+  &= (M_2^{-1}X_2' - M_2^{-1}M_{21}M_1^{-1}X_1')(M_2^{-1}X_2' - M_2^{-1}M_{21}M_1^{-1}X_1')' \sigma^2_J \nocr
+  &= M_2^{-1}X_2' (I - X_1 M_1^{-1} X_1')(I - X_1 M_1^{-1} X_1')' X_2M_2^{-1} \sigma^2_J\nocr
+  &= M_2^{-1}X_2' (I - 2X_1M_1^{-1}X_1' + X_1M_1^{-1}X_1'X_1M_1^{-1}X_1') X_2M_2^{-1} \sigma^2_J\nocr
+  &= M_2^{-1}X_2' (I - X_1M_1^{-1}X_1') X_2M_2^{-1}\sigma^2_J \nocr
+  &= [M_2^{-1} - M_2^{-1}M_{21}M_1^{-1}M_{12}M_2^{-1}]\sigma^2_J \nocr
+\end{align}$$</div>
+
+So, it seems to me that $\sigma^2\_C$ and $\sigma^2\_J$ are interchangeable if `$X = [X_1, X_2]$`. If such condition is not satisfied, \eqref{eq:y} is not the multi-SNP model, so it is better to denote the residual variance as $\sigma^2\_C$. The paper computed $\hat\sigma^2\_C$ using the following equation:
+
+<div>$$\begin{align}
+  \hat\sigma^2_C &= \frac{y'y - \hat{b}_1' D_1 \hat{\beta}_1 - (\hat{b}_2|\hat{b}_1)' D_2\hat\beta_2}{n - N_1 - N_2}
+\end{align}$$</div>
+
+Similar to previous derivation, the individual level statistics can be replaced by $D, \beta, B$. Note that `$M_{12}, M_{21}, M_1, M_2$` can be approximated by $B$.  
+
+# Results in brief
+
+The paper performed the analysis using GIANT GWAS and two reference genotype data. If two SNPs were in low LD, the result was similar to singe-SNP model. For positively correlated SNPs (modest LD), single-SNP model tended to overestimate the effect size. While multi-SNP model gave smaller effect size, they still reached genome-wide significance. For negatively correlated SNPs, single-SNP model tended to miss one of the signal because the signal was masked by the other one. Multi-SNP model was more powerful in this case. They found 36 loci with multiple signals with 38 leading SNPs and 49 additional SNPs. The result is robust to the choice of reference sample. Conditional analysis was also performed to identify secondary associations in the loci. The analysis was also applied to case-control study where $y$ is OR instead of quantitative trait.
