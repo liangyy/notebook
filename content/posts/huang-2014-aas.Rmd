@@ -1,5 +1,5 @@
 ---
-title: "JOINT ANALYSIS OF SNP AND GENE EXPRESSION DATA IN GENETIC ASSOCIATION STUDIES OF COMPLEX DISEASES"
+title: "Joint Analysis of SNP and Gene Expression Data in Genetic Association Studies of Complex Diseases"
 date: 2017-12-20T10:16:05-06:00
 draft : false
 author: "Yanyu Liang"
