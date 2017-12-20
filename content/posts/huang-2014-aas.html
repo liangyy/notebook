@@ -1,0 +1,38 @@
+---
+title: "JOINT ANALYSIS OF SNP AND GENE EXPRESSION DATA IN GENETIC ASSOCIATION STUDIES OF COMPLEX DISEASES"
+date: 2017-12-20T10:16:05-06:00
+draft : false
+author: "Yanyu Liang"
+tags: ["gwas", 'eqtl', 'complex trait', 'integrative analysis']
+categories: ["research paper"]
+---
+
+
+
+<div id="meta-data-of-reading" class="section level1">
+<h1>Meta data of reading</h1>
+<ul>
+<li><strong>Journal</strong>: The Annals of Applied Statistics</li>
+<li><strong>Year</strong>: 2014</li>
+<li><strong>DOI</strong>: 10.1214/13-AOAS690</li>
+</ul>
+</div>
+<div id="motivation" class="section level1">
+<h1>Motivation</h1>
+<p>The goal is to assess the genetic effect of the specific gene on the disease. In this paper, the authors casted the genetic effect as two parts:</p>
+<ol style="list-style-type: decimal">
+<li>Effect through gene expression of the given gene</li>
+<li>Other genetic effect (i.e. splicing, but some gene-unrelated mechanisms are also possible as long as it is determined genetically, say enhancer activity)</li>
+</ol>
+<p>The paper used genotype data along with paired gene expression data. The variables in the paper were:</p>
+<ol style="list-style-type: decimal">
+<li>A set of SNPs within the gene (<span class="math inline">\(S\)</span>)</li>
+<li>Expression level of the given gene (<span class="math inline">\(G\)</span>)</li>
+<li>Disease status (<span class="math inline">\(Y\)</span>)</li>
+</ol>
+<p>The causal model is (Figure 1 of the paper):</p>
+<p><img src="/notebook/posts/huang-2014-aas_files/figure-html/unnamed-chunk-1-1.svg" width="30%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-model" class="section level1">
+<h1>The model</h1>
+</div>

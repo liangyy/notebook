@@ -1,0 +1,47 @@
+---
+title: "JOINT ANALYSIS OF SNP AND GENE EXPRESSION DATA IN GENETIC ASSOCIATION STUDIES OF COMPLEX DISEASES"
+date: 2017-12-20T10:16:05-06:00
+draft : false
+author: "Yanyu Liang"
+tags: ["gwas", 'eqtl', 'complex trait', 'integrative analysis']
+categories: ["research paper"]
+---
+
+# Meta data of reading
+
+* **Journal**: The Annals of Applied Statistics
+* **Year**: 2014
+* **DOI**: 10.1214/13-AOAS690
+
+# Motivation
+
+The goal is to assess the genetic effect of the specific gene on the disease. In this paper, the authors casted the genetic effect as two parts:
+
+  1. Effect through gene expression of the given gene
+  2. Other genetic effect (i.e. splicing, but some gene-unrelated mechanisms are also possible as long as it is determined genetically, say enhancer activity)
+
+The paper used genotype data along with paired gene expression data. The variables in the paper were:
+
+  1. A set of SNPs within the gene ($S$)
+  2. Expression level of the given gene ($G$)
+  3. Disease status ($Y$)
+
+The causal model is (Figure 1 of the paper):
+
+```{r, echo=FALSE, engine="tikz", fig.ext='svg', out.width="30%", fig.align='center'}
+\usetikzlibrary{arrows}
+\begin{tikzpicture}[node distance=2cm, auto,>=latex, thick, scale = 0.5]
+\node (s) {$S$};
+\node (g) [right of=s] {$G$};
+\node (x) [below of=g] {$X$};
+\node (y) [right of=g] {$Y$};
+\draw[->] (s) to (g);
+\draw[->] (s) to[out=20, in=160] (y);
+\draw[->] (g) to (y);
+\draw[->] (x) to (s);
+\draw[->] (x) to (g);
+\draw[->] (x) to (y);
+\end{tikzpicture}
+```
+
+# The model

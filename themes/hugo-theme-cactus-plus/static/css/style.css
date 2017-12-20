@@ -457,11 +457,11 @@ thead th, th {
     white-space: nowrap;
 }
 
-img {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 3px;
-}
+/*img {
+    width: 20%;
+    /*max-width: 100%;*/
+    /*border-radius: 3px;*/
+}*/
 
 
 /* Made with Cactus Badge */

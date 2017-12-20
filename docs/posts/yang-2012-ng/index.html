@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta name="author" content="Yanyu Liang">
+		
+		<meta name="generator" content="Hugo 0.31.1" />
+		<title>Conditional and joint multiple-SNP analysis of GWAS summary statistics identifies additional variants influencing complex traits &middot; Note Archive</title>
+		<link rel="shortcut icon" href="/notebook/images/favicon.ico">
+		<link rel="stylesheet" href="/notebook/css/style.css">
+		<link rel="stylesheet" href="/notebook/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="/notebook/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='/notebook/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='/notebook/posts'>Archive</a>
+	<a href='/notebook/tags'>Tags</a>
+	<a href='/notebook/about'>About</a>
+
+	
+
+	
+	<div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/notebook/js/lunr.min.js"></script>
+<script type="text/javascript" src="/notebook/js/jquery-2.x.min.js"></script>
+<script type="text/javascript" src="/notebook/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "\/notebook\/";
+</script>
+<script type="text/javascript" src="/notebook/js/search.js"></script>
+
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Conditional and joint multiple-SNP analysis of GWAS summary statistics identifies additional variants influencing complex traits
+                    </h1>
+                    <h2 class="headline">
+                    Dec 16, 2017 11:06
+                    · 1664 words
+                    · 8 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="/notebook/tags/gwas">gwas</a>
+                          
+                              <a href="/notebook/tags/integrative-analysis">integrative analysis</a>
+                          
+                              <a href="/notebook/tags/complex-trait">complex trait</a>
+                          
+                              <a href="/notebook/tags/linkage-disequilibrium">linkage disequilibrium</a>
+                          
+                              <a href="/notebook/tags/conditional-analysis">conditional analysis</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                    <div id="toc">
+                      <nav id="TableOfContents">
+<ul>
+<li><a href="#meta-data-of-reading">Meta data of reading</a></li>
+<li><a href="#motivation">Motivation</a></li>
+<li><a href="#multi-snp-model-and-joint-effect">Multi-SNP model and joint effect</a></li>
+<li><a href="#single-snp-model-and-marginal-effect">Single-SNP model and marginal effect</a></li>
+<li><a href="#inferring-joint-effect-from-single-effect">Inferring joint effect from single effect</a></li>
+<li><a href="#obtain-p-value-of-marginal-effect-under-multi-snp-model">Obtain p-value of marginal effect under multi-SNP model</a></li>
+<li><a href="#conditional-analysis">Conditional analysis</a></li>
+<li><a href="#results-in-brief">Results in brief</a></li>
+</ul>
+</nav>
+                    </div>
+                  
+                
+
+                <section id="post-body">
+                  
+                    
+
+<h1 id="meta-data-of-reading">Meta data of reading</h1>
+
+<ul>
+<li><strong>Journal</strong>: Nature Genetics</li>
+<li><strong>Year</strong>: 2012</li>
+<li><strong>DOI</strong>: 10.1038/ng.2213</li>
+</ul>
+
+<p>$$
+\newcommand\independent{\perp\!\!\!\!\perp}
+\newcommand\E{\text{E}}
+\newcommand\nocr{\nonumber\cr}
+\newcommand\cov{\text{Cov}}
+\newcommand\var{\text{Var}}
+\newcommand\cor{\text{Cor}}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+$$</p>
+
+<h1 id="motivation">Motivation</h1>
+
+<p>The GWAS procedure is to use single-SNP model to test association and select the SNP with strongest signal to represent the genomic region (~ 2Mb) and the genetic variation is computed based on this SNP only. The paper pointed out the underlying assumptions of this procedure:</p>
+
+<blockquote>
+<p>Implicit assumptions, often untested, are that the detected association at the top SNP captures the maximum amount of variation in the region by its LD with an unknown causal variant and that other SNPs in the vicinity show association because they are correlated with the top SNP.</p>
+</blockquote>
+
+<p>They pointed out 2 reasons why this assumption may fail:</p>
+
+<ol>
+<li>Suppose there is only one causal variant, a single tagging SNP may not capture all of its variation</li>
+<li>It is possible that there are more than one causal variant</li>
+</ol>
+
+<p>So, one-SNP-per-locus procedure may underestimate the underlying causal genetic variation. Some studies have performed conditional analysis to find the secondary SNP inside the locus. The paper proposed a systematic approach to perform conditional analysis by combining GWAS meta-analysis and LD correlation from the same population.</p>
+
+<h1 id="multi-snp-model-and-joint-effect">Multi-SNP model and joint effect</h1>
+
+<p>The multi-SNP model is:</p>
+
+<div>$$\begin{align}
+  \vec{y} &= X\vec{b} + \vec{e} \nonumber
+\end{align}$$</div>
+
+<p>, where <code>$X \in \mathbb{R}^{n \times N}, \vec{b} \in \mathbb{R}^N, \vec{e} \in \mathbb{R}^n$</code>. The least squares solution is:</p>
+
+<div>$$\begin{align}
+  \hat{b} &= (X'X)^{-1} X'y \label{eq:sej} \cr
+  \var(\hat{b}) &= \sigma^2_{J} (X'X)^{-1} \label{eq:varj}
+\end{align}$$</div>
+
+<p>Note that \eqref{eq:varj} is an N-by-N (co)variance matrix. It is derived as follows:</p>
+
+<div>$$\begin{align}
+  \hat{b} &= (X'X)^{-1} X'y = (X'X)^{-1} X'(Xb + e) \nocr
+  &= b + (X'X)^{-1} X'e \nocr
+  \var(\hat{b}_j) &= \var([(X'X)^{-1} X'e]_j) \text{, where $[\cdot]$ takes the $i$th row}\nocr
+  &= \var([(X'X)^{-1}]_j X'e) \nocr
+  &= [(X'X)^{-1}_j X'] \odot [(X'X)^{-1}_j X'] \var(e) \label{eq:inter1}
+\end{align}$$</div>
+
+<p>Note that in \eqref{eq:inter1}, we have <code>$[(X'X)^{-1}_j X'] \in \mathbb{R}^{1 \times n}$</code> and <code>$\var(e) \in \mathbb{R}^{n \times 1}$</code> which are vectors. But notice that $e_1, &hellip;, e_n$ are iid. The expression can be simplified as:</p>
+
+<div>$$\begin{align}
+  \eqref{eq:inter1} &= t_j X' X t_j' \sigma^2_J \nonumber
+\end{align}$$</div>
+
+<p>, where <code>$t_j := [(X'X)^{-1}]_j$</code>. Similarly,</p>
+
+<div>$$\begin{align}
+  \cov(\hat{b}_i, \hat{b}_j) &= t_i X' X t_j' \sigma^2_J \nonumber
+\end{align}$$</div>
+
+<p>So,</p>
+
+<div>$$\begin{align}
+  \var(\hat{b}) &= \sigma^2_J \begin{bmatrix} t_1 \cr \vdots \cr t_N \end{bmatrix}
+  X'X \begin{bmatrix} t_1 & \cdots & t_N \end{bmatrix} \nocr
+  &= \sigma^2_J (X'X)^{-1} (X'X) (X'X)^{-T} \nocr
+  &= \sigma^2_J (X'X)^{-1} \text{, with the fact that $X'X$ is symmetric} \nonumber
+\end{align}$$</div>
+
+<p>, which is the result of \eqref{eq:varj}.</p>
+
+<h1 id="single-snp-model-and-marginal-effect">Single-SNP model and marginal effect</h1>
+
+<p>In practice, only single-SNP model results are available. The single-SNP model is as follow:</p>
+
+<div>$$\begin{align}
+  y &= x_j \beta_j + e \nonumber
+\end{align}$$</div>
+
+<p>So, the LS estimator is:</p>
+
+<div>$$\begin{align}
+  \hat\beta &= D^{-1} X'y \label{eq:se} \cr
+  \var(\hat\beta) &= \sigma^2_M D^{-1} \label{eq:varm}
+\end{align}$$</div>
+
+<p>, where <code>$D = diag(\vec{d}), d_i = X_i' X_i$</code> and $X_i$ is the $i$th column of $X$. The derivation of \eqref{eq:varm} is as follow:</p>
+
+<div>$$\begin{align}
+  \var(\hat\beta_i) &= \var((X_i' X_i)^{-1} X_i' (X_i b_i + e)) \nocr
+  &= \var(b_i + (X_i' X_i)^{-1} X_i' e) \nocr
+  &= \var((X_i' X_i)^{-1} X_i' e) \nocr
+  &= \frac{X_i' \odot X_i'}{(X_i' X_i)^2} \var(e) \nocr
+  &= \frac{X_i' X_i}{(X_i' X_i)^2} \sigma^2_M \nocr
+  &= \sigma^2_M (X_i' X_i)^{-1} \nocr
+\end{align}$$</div>
+
+<p>Here, we treat single-SNP model as the truth. Note that we treat SNPs independently with each other (namely <code>$\cov(\hat\beta_i, \hat\beta_j) = 0$</code>). Different SNPs do not have to share the same residual variance, so a more precise expression is <code>$\var(\hat\beta_i) = \sigma^2_{M(i)} (X_i' X_i)^{-1}$</code></p>
+
+<h1 id="inferring-joint-effect-from-single-effect">Inferring joint effect from single effect</h1>
+
+<p>From \eqref{eq:se}, we have <code>$X'y = D \hat\beta$</code>. Under multiple SNP model, the proportion of variance explained by all SNPs is:</p>
+
+<div>$$\begin{align}
+  R_J^2 &= \frac{\cov(\hat{y}, y)}{\var(y)} \nocr
+  &= \frac{\hat{b}' X' y}{y'y} \nocr
+  &= \frac{\hat{b}' D \hat\beta}{y'y} \nonumber
+\end{align}$$</div>
+
+<p>Then, we can derive:</p>
+
+<div>$$\begin{align}
+  \hat\sigma^2_J &= \frac{(1 - R_J^2) y'y}{n - N} \nocr
+  &= \frac{y'y - \hat{b}' D \hat\beta}{n - N}
+\end{align}$$</div>
+
+<p>Similarly,</p>
+
+<div>$$\begin{align}
+  R_{M(j)}^2 &= \frac{\hat{y}_j' y}{y'y} \nocr
+  &= \frac{X_j' \hat\beta_j y}{y'y} \nocr
+  &= \frac{\hat\beta_j X_j'y}{y'y} \nocr
+  &= \frac{\hat\beta_j D_j \hat\beta_j}{y'y} \nocr
+  &= \frac{\hat\beta_j^2 D_j}{y'y} \nocr
+  \hat\sigma^2_{M(j)} &= \frac{(1 - R_{M(j)}) y'y}{n - 1} \nocr
+  &= \frac{y'y - \hat\beta_j^2 D_j}{n - 1} \nonumber
+\end{align}$$</div>
+
+<p>From \eqref{eq:varm}, we have <code>$\var(\hat\beta_j) = \hat\sigma^2_{M(j)} / D_j$</code>, so we get:</p>
+
+<div>$$\begin{align}
+  y'y = D_j \var(\hat\beta_j) (n - 1) + D_j \hat\beta_j^2 \label{eq:yy}
+\end{align}$$</div>
+
+<p>This expression provides a way to obtain $y&rsquo;y$ with $\hat\beta_j$ and $\hat{\var}(\hat\beta_j)$ (w/o knowing individual level data $y$). In practice, the paper used the median of inferred $y&rsquo;y$ obtained from $j = 1, &hellip;, N$.</p>
+
+<ul>
+<li>Side note</li>
+</ul>
+
+<blockquote>
+<p>The reason why the above analysis is performed is to obtain joint model statistic from the single-SNP model without querying individual level data $y$. One useful relation is: $\hat\sigma^2 = \frac{(1 - R^2) y&rsquo;y}{N - n}$. $R^2$ is computable since it is just the observed proportion of covariance between predictor and response in the overall variance of response. For the single-SNP case, $\hat\sigma^2$ is available via \eqref{eq:varm}.</p>
+</blockquote>
+
+<p>In meta-analysis, $X$ is not available as well. But since $X&rsquo;X$ is the (co)variance matrix of SNP genotypes, it can be approximated by the LD score from a matched reference population. The paper used $W$ to denote such population, where <code>$w_{ij} = -2f_j, 1 - 2 f_j, 2 - 2 f_j$</code> to denote genotypes: two major alleles, heterozygous, two minor alleles respectively. Under this set up, <code>$\E(w_j) = 0, \var(w_j) = 2f_j(1 - 2 f_j)$</code>. Therefore, we have:</p>
+
+<div>$$\begin{align}
+  \frac{\sum_i x_{ij} x_{ik}}{\sqrt{\sum_i x_{ij}^2 \sum_i x_{ik}^2}}
+  &\approx \frac{\sum_i w_{ij} w_{ik}}{\sqrt{\sum_i w_{ij}^2 \sum_i w_{ik}^2}} \nocr
+  \Rightarrow (X'X)_{jk} &= \sum_i x_{ij} x_{ik} \nocr
+  &\approx \sum_i w_{ij} w_{ik} \sqrt{\frac{D_j D_k}{D_{W(j)}D_{W(k)}}} := B_{jk} \nocr
+  \Rightarrow B &:= D^{1/2}D_W^{-1/2}W'W D_W^{-1/2} D^{1/2} \approx X'X \label{eq:app}
+\end{align}$$</div>
+
+<p>where $D, D_W$ is the diagonal matrix with diagonal entries of $X&rsquo;X, W&rsquo;W$. $D_{j}$ is not available without $X$, but it can be approximated by <code>$2p_j(1 - p_j)n$</code>. From \eqref{eq:sej}, \eqref{eq:se}, \eqref{eq:app}, we have:</p>
+
+<div>$$\begin{align}
+  \hat{b} &= (X'X)^{-1} X'y = (X'X)^{-1} D \hat\beta \nocr
+  &\approx B^{-1} D \hat\beta := \tilde{b} \nonumber
+\end{align}$$</div>
+
+<p>Similar to \eqref{eq:varj},</p>
+
+<div>$$\begin{align}
+  \var(\tilde{b}) &= \sigma^2_J B^{-1}
+\end{align}$$</div>
+
+<p>In the paper, distant SNP pairs were assigned zero correlation instead the observed one in $W$. The paper pointed out an additional complexity in practice, that is SNPs may have different effective sample sizes due to imputation failures. Therefore, the paper suggested to estimate the effective sample for each SNP and use the adjusted sample size to compute $B_{jk}$. The procedure is:</p>
+
+<ol>
+<li>From \eqref{eq:yy}, we obtain $y&rsquo;y$ by taking the median</li>
+<li>Obtain $\hat{n}_j$ using \eqref{eq:yy}:
+  <div>$$\begin{align}
+    \hat{n}_j &amp;= y&rsquo;y / D_j \var(\hat\beta_j) - \hat\beta_j^2 / \var(\hat\beta_j) + 1 \nonumber
+  \end{align}$$</div></li>
+<li>Compute $B_{jk}$ and $D_j$ using the adjusted sample size:
+  <div>$$\begin{align}
+    B_{jk} &amp;= 2 \min(\hat{n}_j, \hat{n}_k) \sqrt{\frac{p_j(1 - p_j)p_k(1 - p_k)}{D_{W(j)}D_{W(k)}}} (W&rsquo;W)_{jk} \nocr
+    W_j &amp;= 2p_j(1 - p_j) \hat{n}_j \nonumber
+  \end{align}$$</div></li>
+</ol>
+
+<h1 id="obtain-p-value-of-marginal-effect-under-multi-snp-model">Obtain p-value of marginal effect under multi-SNP model</h1>
+
+<p>In brief, the above derivation provides a way to infer joint effect distribution from single-SNP model summary statistic. Namely, we get:</p>
+
+<div>$$\begin{align}
+  (\tilde{b} - b) \sim \mathcal{N}(0, \var(\tilde{b}) \nonumber
+\end{align}$$</div>
+
+<p>The marginal distribution for each SNP&rsquo;s effect size, $\tilde{b}_i$, is:</p>
+
+<div>$$\begin{align}
+  (\tilde{b}_i - b_i) \sim \mathcal(N, \var(\tilde{b}_i)) \nonumber
+\end{align}$$</div>
+
+<p>Therefore, we can construct a test as follow:</p>
+
+<ul>
+<li>$H_0$: $b_i$ is zero</li>
+<li>$H_1$: $b_i$ is not zero</li>
+</ul>
+
+<p>Under the null, $\tilde{b}_i \sim \mathcal{N}(0, \var(\tilde{b}_i))$. Then <code>$\mathbb{P}_{H_0}(|b_i| &gt; |\tilde{b}_i| ) = 2(1 - \Phi(|\tilde{b}_i|))$</code>, which is the marginal effect of $i$th SNP under multi-SNP model.</p>
+
+<h1 id="conditional-analysis">Conditional analysis</h1>
+
+<p>The logic of this part is not very intuitive to me, but after some struggling, I end up with the following things.</p>
+
+<p>First of all, the conditional analysis takes a two step procedure to estimate $\hat{b}_2 | \hat{b}_1$. That is:</p>
+
+<ol>
+<li>Do $y \sim X_1$ and obtain <code>$\bar{b}_1 = (X_1'X_1)^{-1} X_1'y$</code></li>
+<li>Compute $\tilde{y} = y - X_1 \bar{b}_1$</li>
+<li>Do $\tilde{y} \sim X_2$ and obtain $\hat{b}_2 | \hat{b}_1 = (X_2&rsquo; X_2)^{-1} X_2&rsquo; \tilde{y}$, which matches the equation 15 in the text</li>
+</ol>
+
+<p>The variance of $\hat{b}_2 | \hat{b}_1$ stuck me for a while because it is unclear how to define $\hat\sigma^2_C$. It is still not so clear to me but what I get is the following:</p>
+
+<div>$$\begin{align}
+  y &= X_1 b_1 + X_2 b_2 + e \label{eq:y}\cr
+  \hat{b}_2 | \hat{b}_1 &= M_2^{-1} X_2'y - M_2^{-1} M_{21} M_1^{-1} X_1'y \nocr
+  &\text{, where $M_{ij} = X_i' X_j$ and $M_{ii} = M_i$} \nocr
+  &= M_2^{-1} M_{21} b_1 + M_2^{-1}M_2b_2 + M_2^{-1}X_2'e \nocr
+  &- M_2^{-1}M_{21}M_1^{-1}M_1 b_1 - M_2^{-1}M_{21}M_1^{-1}M_{12}b_2 - M_2^{-1}M_{21}M_1^{-1}X_1'e \nocr
+  &= (M_2^{-1}M_2 - M_2^{-1}M_{21}M_1^{-1}M_{12})b_2 \nocr
+  &+ (M_2^{-1}X_2' - M_2^{-1}M_{21}M_1^{-1}X_1') e \nocr
+  \var(\hat{b}_2 | \hat{b}_1) &= \var((M_2^{-1}X_2' - M_2^{-1}M_{21}M_1^{-1}X_1') e) \nocr
+  &= (M_2^{-1}X_2' - M_2^{-1}M_{21}M_1^{-1}X_1')(M_2^{-1}X_2' - M_2^{-1}M_{21}M_1^{-1}X_1')' \sigma^2_J \nocr
+  &= M_2^{-1}X_2' (I - X_1 M_1^{-1} X_1')(I - X_1 M_1^{-1} X_1')' X_2M_2^{-1} \sigma^2_J\nocr
+  &= M_2^{-1}X_2' (I - 2X_1M_1^{-1}X_1' + X_1M_1^{-1}X_1'X_1M_1^{-1}X_1') X_2M_2^{-1} \sigma^2_J\nocr
+  &= M_2^{-1}X_2' (I - X_1M_1^{-1}X_1') X_2M_2^{-1}\sigma^2_J \nocr
+  &= [M_2^{-1} - M_2^{-1}M_{21}M_1^{-1}M_{12}M_2^{-1}]\sigma^2_J \nocr
+\end{align}$$</div>
+
+<p>So, it seems to me that $\sigma^2_C$ and $\sigma^2_J$ are interchangeable if <code>$X = [X_1, X_2]$</code>. If such condition is not satisfied, \eqref{eq:y} is not the multi-SNP model, so it is better to denote the residual variance as $\sigma^2_C$. The paper computed $\hat\sigma^2_C$ using the following equation:</p>
+
+<div>$$\begin{align}
+  \hat\sigma^2_C &= \frac{y'y - \hat{b}_1' D_1 \hat{\beta}_1 - (\hat{b}_2|\hat{b}_1)' D_2\hat\beta_2}{n - N_1 - N_2}
+\end{align}$$</div>
+
+<p>Similar to previous derivation, the individual level statistics can be replaced by $D, \beta, B$. Note that <code>$M_{12}, M_{21}, M_1, M_2$</code> can be approximated by $B$.</p>
+
+<h1 id="results-in-brief">Results in brief</h1>
+
+<p>The paper performed the analysis using GIANT GWAS and two reference genotype data. If two SNPs were in low LD, the result was similar to singe-SNP model. For positively correlated SNPs (modest LD), single-SNP model tended to overestimate the effect size. While multi-SNP model gave smaller effect size, they still reached genome-wide significance. For negatively correlated SNPs, single-SNP model tended to miss one of the signal because the signal was masked by the other one. Multi-SNP model was more powerful in this case. They found 36 loci with multiple signals with 38 leading SNPs and 49 additional SNPs. The result is robust to the choice of reference sample. Conditional analysis was also performed to identify secondary associations in the loci. The analysis was also applied to case-control study where $y$ is OR instead of quantitative trait.</p>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+    <p class="small">
+    
+       © Copyright 2017 <i class="fa fa-heart" aria-hidden="true"></i> Yanyu Liang
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'],  ['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<link href="/notebook/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+<script src="/notebook/mermaid/mermaid.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+
+
+
+
+
+
+    </body>
+</html>

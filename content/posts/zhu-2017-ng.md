@@ -14,7 +14,6 @@ $$
 \newcommand\cov{\text{Cov}}
 \newcommand\var{\text{Var}}
 \newcommand\cor{\text{Cor}}
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 $$
 
 # Meta data of reading

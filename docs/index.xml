@@ -2,35 +2,72 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Note Archive</title>
-    <link>https://liangyy.github.io/notebook/</link>
+    <link>/notebook/</link>
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 08 Dec 2017 14:23:10 -0600</lastBuildDate>
+    <lastBuildDate>Wed, 20 Dec 2017 10:16:05 -0600</lastBuildDate>
     
-	<atom:link href="https://liangyy.github.io/notebook/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/notebook/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>JOINT ANALYSIS OF SNP AND GENE EXPRESSION DATA IN GENETIC ASSOCIATION STUDIES OF COMPLEX DISEASES</title>
+      <link>/notebook/posts/huang-2014-aas/</link>
+      <pubDate>Wed, 20 Dec 2017 10:16:05 -0600</pubDate>
+      
+      <guid>/notebook/posts/huang-2014-aas/</guid>
+      <description>Meta data of reading  Journal: The Annals of Applied Statistics Year: 2014 DOI: 10.1214/13-AOAS690   Motivation The goal is to assess the genetic effect of the specific gene on the disease. In this paper, the authors casted the genetic effect as two parts:
+Effect through gene expression of the given gene Other genetic effect (i.e. splicing, but some gene-unrelated mechanisms are also possible as long as it is determined genetically, say enhancer activity)  The paper used genotype data along with paired gene expression data.</description>
+    </item>
+    
+    <item>
+      <title>Sherlock: Detecting Gene-Disease Associations by Matching Patterns of Expression QTL and GWAS</title>
+      <link>/notebook/posts/sherlock-2013-ajhg/</link>
+      <pubDate>Tue, 19 Dec 2017 15:51:04 -0600</pubDate>
+      
+      <guid>/notebook/posts/sherlock-2013-ajhg/</guid>
+      <description> Meta data of reading  Journal: The American Journal of Human Genetics Year: 2013 DOI: 10.1016/j.ajhg.2013.03.022  </description>
+    </item>
+    
+    <item>
+      <title>Conditional and joint multiple-SNP analysis of GWAS summary statistics identifies additional variants influencing complex traits</title>
+      <link>/notebook/posts/yang-2012-ng/</link>
+      <pubDate>Sat, 16 Dec 2017 11:06:05 -0600</pubDate>
+      
+      <guid>/notebook/posts/yang-2012-ng/</guid>
+      <description>Meta data of reading  Journal: Nature Genetics Year: 2012 DOI: 10.1038/ng.2213  $$ \newcommand\independent{\perp\!\!\!\!\perp} \newcommand\E{\text{E}} \newcommand\nocr{\nonumber\cr} \newcommand\cov{\text{Cov}} \newcommand\var{\text{Var}} \newcommand\cor{\text{Cor}} \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} $$
+Motivation The GWAS procedure is to use single-SNP model to test association and select the SNP with strongest signal to represent the genomic region (~ 2Mb) and the genetic variation is computed based on this SNP only. The paper pointed out the underlying assumptions of this procedure:</description>
+    </item>
+    
+    <item>
+      <title>Mendelian randomization and instrumental variable regression</title>
+      <link>/notebook/posts/mendelian-randomization/</link>
+      <pubDate>Mon, 11 Dec 2017 13:35:41 -0600</pubDate>
+      
+      <guid>/notebook/posts/mendelian-randomization/</guid>
+      <description>$$ \newcommand\cov{\text{Cov}} \newcommand\var{\text{Var}} \newcommand\iv{\text{IV}} $$
+Meta data of reading  Links:  https://www.bauer.uh.edu/rsusmel/phd/ec1-8.pdf http://fmwww.bc.edu/EC-C/F2012/228/EC228.f2012.nn15.pdf http://mathworld.wolfram.com/Lindeberg-FellerCentralLimitTheorem.html http://mathworld.wolfram.com/LindebergCondition.html  Year: NA DOI: NA  The problem and the idea of MR Suppose we have phenotype $Y$, gene expression $X$, and genotype $Z$. The goal is to see if $X$ and $Y$ has some causal relationship. Since there are some unknown confounders, the residual of $Y \sim X$ is correlated with $X$. Therefore, the OLS estimator of effect size $\hat{\beta}_{xy}$ is biased.</description>
+    </item>
+    
+    <item>
       <title>Integration of summary data from GWAS and eQTL studies predicts complex trait gene targets</title>
-      <link>https://liangyy.github.io/notebook/posts/zhu-2017-ng/</link>
+      <link>/notebook/posts/zhu-2017-ng/</link>
       <pubDate>Fri, 08 Dec 2017 14:23:10 -0600</pubDate>
       
-      <guid>https://liangyy.github.io/notebook/posts/zhu-2017-ng/</guid>
-      <description>$$ \newcommand\independent{\perp\!\!\!\!\!\perp} $$
-Meta data of reading  Journal: Nature Genetics Year: 2016 DOI: 10.1038/ng.3538  The idea of instrumental variable and Mendelian randomization analysis The paper mentioned it in the background section along with Mendelian randomization (MR). I googled this term and found this site. Also, wiki page is informative.
-It appears in regression analysis where $y$ is the responsive variable and $x$ is the explanatory variable. The model is simply $Y = X \beta + \epsilon$.</description>
+      <guid>/notebook/posts/zhu-2017-ng/</guid>
+      <description>$$ \newcommand\independent{\perp\!\!\!\!\perp} \newcommand\E{\text{E}} \newcommand\nocr{\nonumber\cr} \newcommand\cov{\text{Cov}} \newcommand\var{\text{Var}} \newcommand\cor{\text{Cor}} $$
+Meta data of reading  Journal: Nature Genetics Year: 2016 DOI: 10.1038/ng.3538  Instrumental variable and Mendelian randomization analysis The paper mentioned it in the background section along with Mendelian randomization (MR). I googled this term and found this site. Also, wiki page is informative.
+It appears in regression analysis where $y$ is the responsive variable and $x$ is the explanatory variable.</description>
     </item>
     
     <item>
       <title>TEMPLATE</title>
-      <link>https://liangyy.github.io/notebook/posts/first-test/</link>
+      <link>/notebook/posts/first-test/</link>
       <pubDate>Thu, 07 Dec 2017 23:39:21 -0600</pubDate>
       
-      <guid>https://liangyy.github.io/notebook/posts/first-test/</guid>
-      <description>Meta data of reading  Journal:  JOURNAL
- Year:  YEAR
- DOI:  DOI</description>
+      <guid>/notebook/posts/first-test/</guid>
+      <description> Meta data of reading  Journal: JOURNAL Year: YEAR DOI: DOI  </description>
     </item>
     
   </channel>
