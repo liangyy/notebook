@@ -13,6 +13,11 @@ categories: ["research paper"]
 * **Year**: 2014
 * **DOI**: 10.1214/13-AOAS690
 
+$$
+\newcommand\logit{\text{logit}}
+\newcommand\nocr{\nonumber\\}
+$$
+
 # Motivation
 
 The goal is to assess the genetic effect of the specific gene on the disease. In this paper, the authors casted the genetic effect as two parts:
@@ -45,3 +50,25 @@ The causal model is (Figure 1 of the paper):
 ```
 
 # The model
+
+\begin{align}
+  \logit\{\Pr(Y_i = 1| S_i, G_i, X_i)\} &= X_i^T \alpha + S_i^T \beta_S + G_i \beta_G + G_i S_i^T \gamma \label{eq:y}
+\end{align}
+
+The interaction term modeled the combined effect of genotype and gene expression level to phenotype log odds. This term was added because it made biological sense. Since genotype can affect gene expression, such effect was modeled as following:
+
+\begin{align}
+  G_i&= X_i^T\phi + S_i^T\delta + \epsilon_i \label{eq:g}
+\end{align}
+
+, where $\epsilon_i \sim \mathcal{N}(0, \sigma_G^2)$.
+
+The goal was to test if the total effect captured by genotype and gene expression on $Y$ is non-zero. Namely,
+
+\begin{align}
+  H_0: \beta_S 0, \beta_G = 0, \gamma = 0 \nonumber
+\end{align}
+
+This test was referred as the test for *total effect of a gene*.
+
+# Testing $H_0$

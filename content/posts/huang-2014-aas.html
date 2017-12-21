@@ -1,5 +1,5 @@
 ---
-title: "JOINT ANALYSIS OF SNP AND GENE EXPRESSION DATA IN GENETIC ASSOCIATION STUDIES OF COMPLEX DISEASES"
+title: "Joint Analysis of SNP and Gene Expression Data in Genetic Association Studies of Complex Diseases"
 date: 2017-12-20T10:16:05-06:00
 draft : false
 author: "Yanyu Liang"
@@ -16,6 +16,10 @@ categories: ["research paper"]
 <li><strong>Year</strong>: 2014</li>
 <li><strong>DOI</strong>: 10.1214/13-AOAS690</li>
 </ul>
+<p><span class="math display">\[
+\newcommand\logit{\text{logit}}
+\newcommand\nocr{\nonumber\\}
+\]</span></p>
 </div>
 <div id="motivation" class="section level1">
 <h1>Motivation</h1>
@@ -35,4 +39,20 @@ categories: ["research paper"]
 </div>
 <div id="the-model" class="section level1">
 <h1>The model</h1>
+<span class="math display">\[\begin{align}
+  \logit\{\Pr(Y_i = 1| S_i, G_i, X_i)\} &amp;= X_i^T \alpha + S_i^T \beta_S + G_i \beta_G + G_i S_i^T \gamma \label{eq:y}
+\end{align}\]</span>
+<p>The interaction term modeled the combined effect of genotype and gene expression level to phenotype log odds. This term was added because it made biological sense. Since genotype can affect gene expression, such effect was modeled as following:</p>
+<span class="math display">\[\begin{align}
+  G_i&amp;= X_i^T\phi + S_i^T\delta + \epsilon_i \label{eq:g}
+\end{align}\]</span>
+<p>, where <span class="math inline">\(\epsilon_i \sim \mathcal{N}(0, \sigma_G^2)\)</span>.</p>
+<p>The goal was to test if the total effect captured by genotype and gene expression on <span class="math inline">\(Y\)</span> is non-zero. Namely,</p>
+<span class="math display">\[\begin{align}
+  H_0: \beta_S 0, \beta_G = 0, \gamma = 0 \nonumber
+\end{align}\]</span>
+<p>This test was referred as the test for <em>total effect of a gene</em>.</p>
+</div>
+<div id="testing-h_0" class="section level1">
+<h1>Testing <span class="math inline">\(H_0\)</span></h1>
 </div>
