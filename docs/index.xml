@@ -17,7 +17,7 @@
       <pubDate>Wed, 20 Dec 2017 10:16:05 -0600</pubDate>
       
       <guid>/notebook/posts/huang-2014-aas/</guid>
-      <description>Meta data of reading  Journal: The Annals of Applied Statistics Year: 2014 DOI: 10.1214/13-AOAS690  \[ \newcommand\logit{\text{logit}} \newcommand\nocr{\nonumber\\} \]
+      <description>Meta data of reading  Journal: The Annals of Applied Statistics Year: 2014 DOI: 10.1214/13-AOAS690  \[ \newcommand\logit{\text{logit}} \newcommand\E{\text{E}} \newcommand\var{\text{Var}} \newcommand\diag{\text{diag}} \newcommand\nocr{\nonumber\\} \]
  Motivation The goal is to assess the genetic effect of the specific gene on the disease. In this paper, the authors casted the genetic effect as two parts:
 Effect through gene expression of the given gene Other genetic effect (i.e. splicing, but some gene-unrelated mechanisms are also possible as long as it is determined genetically, say enhancer activity)  The paper used genotype data along with paired gene expression data.</description>
     </item>

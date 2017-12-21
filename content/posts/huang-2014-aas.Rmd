@@ -15,6 +15,9 @@ categories: ["research paper"]
 
 $$
 \newcommand\logit{\text{logit}}
+\newcommand\E{\text{E}}
+\newcommand\var{\text{Var}}
+\newcommand\diag{\text{diag}}
 \newcommand\nocr{\nonumber\\}
 $$
 
@@ -66,9 +69,86 @@ The interaction term modeled the combined effect of genotype and gene expression
 The goal was to test if the total effect captured by genotype and gene expression on $Y$ is non-zero. Namely,
 
 \begin{align}
-  H_0: \beta_S 0, \beta_G = 0, \gamma = 0 \nonumber
+  H_0: \beta_S 0, \beta_G = 0, \gamma = 0 \label{eq:h0}
 \end{align}
 
 This test was referred as the test for *total effect of a gene*.
 
 # Testing $H_0$
+
+I am not familiar with these hypothesis testing techniques so I can only sketch the general idea and leave the details untouched.
+
+The paper discussed the possiblity of using LRT or Wald test to test \eqref{eq:h0} and they argued that degree of freedom in this case was big so that the power would be limited. Alternatively, the paper proposed to test variance components. Assuming:
+
+\begin{align}
+  \beta_{S_i} \sim_{iid} \mathcal{N}(0, \tau_S) \nocr
+  \gamma_i \sim_{iid} \mathcal{N}(0, \tau_I) \nonumber
+\end{align}
+
+Namely the \eqref{eq:y} becomes a logistic midxed model. Then \eqref{eq:h0} becomes:
+
+\begin{align}
+  H_0: \tau_S = \tau_I = 0, \beta_G = 0 \nonumber
+\end{align}
+
+The scores for $\tau_S, \tau_I$ and $\beta_G$ are:
+
+\begin{align}
+  U_{\tau_S} &= \{Y - \hat{\mu}_0\}^T \mathbb{S}\mathbb{S}^T \{Y - \hat{\mu}_0\} \nocr
+  U_{\tau_I} &= \{Y - \hat{\mu}_0\}^T \mathbb{C}\mathbb{C}^T \{Y - \hat{\mu}_0\} \nocr
+  U_{\beta_G} &= G^T \{Y - \hat{\mu}_0\} \nonumber
+\end{align}
+
+, where
+
+  * $\mathbb{S} = (S_1, ..., S_n)^T$
+  * $G = (G_1, ..., G_n)^T$
+  * $\mathbb{C} = (C_1, ..., C_n)^T = (G_1S_1, ..., G_nS_n)^T$
+  * $\hat{\mu}_{0i} = \exp(X_i^T \hat{\alpha}_0) / \{1 + \exp(X_i^T \hat{\alpha}_0)\}$, and $\hat\alpha_0$ is the MLE of null model:
+    \begin{align}
+      \logit(\Pr(Y = 1|S_i, G_i, X_i)) = X_i^T \alpha \nonumber
+    \end{align}
+
+To combine the three scores to test \eqref{eq:h0}, the authors proposed the following weighted sum as the test statistic:
+
+  \begin{align}
+    Q &= n^{-1} (a_1U_{\tau_S} + a_2U_{\beta_G} + a_3U_{\tau_I}) \nocr
+    &= \{Y - \hat{\mu}_0\}^T （a_1\mathbb{S}\mathbb{S}^T + a_2GG^T + a_3 \mathbb{C}\mathbb{C}^T) \{Y - \hat{\mu}_0\}
+  \end{align}
+
+, where they proposed to use the inverse of the squared root of the corresponding variance as weights of $U_{\tau_S}, U_{\beta_G^2}, U_{\tau_I}$. The varaince can be computed in closed-form with $\hat{\mu}_{0i}$. Let $Q = Q(\hat{alpha})$ and:
+
+  \begin{align}
+    D &= \begin{bmatrix} D_{XX} & D_{XV} \\ D_{VX} & D_{VV} \end{bmatrix} \nocr
+    &= n^{-1} U^T W U \nocr
+    \text{, where} & \nocr
+    U &= \begin{bmatrix} U_1 \\ \vdots \\ U_n \end{bmatrix} \nocr
+    U_i &= (X_i^T, V_i^T) \nocr
+    V_i &= (\sqrt{a_1}S_i^T, \sqrt{a_2} G_i, \sqrt{a_3} C_i) \in \mathbb{R}^{2p + 1} \nocr
+    W &= \diag(\mu_i(1 - \mu_i)) \nonumber
+  \end{align}
+
+Under null hypothesis \eqref{eq:h0}, $Q \xrightarrow{d} Q(0) = \sum_{j}^{2p+1} (A_l^T \epsilon)^2$, where:
+
+  * $\epsilon \sim \mathcal{N}(0, D)$
+  * $A_l$ is $l$th row of $A = [-D_{XV}^T D_{XX}^{-1}, I_{2p+1}]$
+
+It means that under null hypothesis, $Q$ follows a mixture of $chi^2$ distribution, which can be approximated by scaled $chi^2$ as $Q \sim \kappa \chi_{\nu}^2$, where $\kappa = \var(Q) / [2\E(Q)]$ and $\nu = 2[E(Q)]^2 / \var(Q)$ (the expression was given in supplementary).
+
+Furthermore, some other hypothesis would be:
+
+  * $Y$ depends on $G$, $S$ but not their interaction term
+  * $Y$ depends on $S$ only
+
+Denote the previously derived $Q$ as $Q_{SGC}$, the test statistic for the above to cases are:
+
+  * $Q_{GS} = \{Y - \hat{\mu}_0\}^T （a_1\mathbb{S}\mathbb{S}^T + a_2GG^T) \{Y - \hat{\mu}_0\}$
+  * $Q_{S} = \{Y - \hat{\mu}_0\}^T （a_1\mathbb{S}\mathbb{S}^T) \{Y - \hat{\mu}_0\}$
+
+If the model was wrongly specified, then the power of test would be hurted. So, it was necessary to consider the three situations simultanously in the test. The paper proposed a omnibus test to consider these three situations together. Namely the following procedure:
+
+  1. Compute p-values for the three situations
+  2. Obtain observed minimum p-value
+  3. Compare the observed value to its null distribution
+
+, where null distribution of the minimum p-value is not available analytically because of the complicated correlation among the three statistics. Therefore, they used resampling perturbuation instead.
