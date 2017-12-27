@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/notebook/posts/simulate_multivariate_normal/</loc>
+    <lastmod>2017-12-25T17:03:40-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/notebook/posts/huang-2014-aas/</loc>
     <lastmod>2017-12-20T10:16:05-06:00</lastmod>
   </url>
@@ -68,6 +73,12 @@
   </url>
   
   <url>
+    <loc>/notebook/tags/contour/</loc>
+    <lastmod>2017-12-25T17:03:40-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/notebook/tags/eqtl/</loc>
     <lastmod>2017-12-20T10:16:05-06:00</lastmod>
     <priority>0</priority>
@@ -104,20 +115,38 @@
   </url>
   
   <url>
+    <loc>/notebook/tags/multivariate-normal/</loc>
+    <lastmod>2017-12-25T17:03:40-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/notebook/</loc>
-    <lastmod>2017-12-20T10:16:05-06:00</lastmod>
+    <lastmod>2017-12-25T17:03:40-06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/notebook/posts/</loc>
-    <lastmod>2017-12-20T10:16:05-06:00</lastmod>
+    <lastmod>2017-12-25T17:03:40-06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/notebook/categories/research-paper/</loc>
     <lastmod>2017-12-20T10:16:05-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/categories/rscript/</loc>
+    <lastmod>2017-12-25T17:03:40-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/tags/simulation/</loc>
+    <lastmod>2017-12-25T17:03:40-06:00</lastmod>
     <priority>0</priority>
   </url>
   

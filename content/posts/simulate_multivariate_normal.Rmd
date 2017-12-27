@@ -1,0 +1,108 @@
+---
+title: "Simulating Multivariate Normal by Univariate Normal"
+date: 2017-12-25T17:03:40-06:00
+draft: true
+author: "Yanyu Liang"
+tags: ['simulation', 'multivariate normal', 'contour']
+categories: ["rscript"]
+---
+
+```{r setup}
+library(knitr)
+opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE)
+```
+
+# Univariate to Multivariate
+
+\begin{align}
+  \vec{y} = \sum_i \vec{v}_i \mathcal{N}_i \nonumber
+\end{align}
+
+, where $\mathcal{N}_1, ..., \mathcal{N}_p$ are independent standard univariate normal. Then
+
+\begin{align}
+  \vec{y} \sim \mathcal{N}(\vec{0}, VV^T) \label{eq:mvn}
+\end{align}
+
+, where $V = [\vec{v}_1, ..., \vec{v}_p]$.
+
+# Example
+
+In the following example, $v_i \in \mathbb{R}^2$ and $p = 2$. The number of simulated samples is $B = 10000$.
+
+## Ploting contour in R
+
+```{r}
+# draw contour of a multivariate normal distribution
+library(mvtnorm)
+drawContour <- function(xgrid, ygrid, mu, sigma) {
+  z <- c()
+  x <- c()
+  y <- c()
+  for(i in 1 : length(xgrid)) {
+    for(j in 1 : length(ygrid)) {
+      z <- c(z, dmvnorm(c(xgrid[i], ygrid[j]), mean = mu, sigma = sigma))
+      x <- c(x, xgrid[i])
+      y <- c(y, ygrid[j])
+    }
+  }
+  return(data.frame(x = x, y = y, z = z))
+}
+```
+
+## Simulating and ploting
+
+```{r}
+library(MASS)
+library(ggplot2)
+
+# simulation
+v1 <- c(1, 2)
+v2 <- c(-1, -1)
+V <- matrix(c(v1, v2), ncol = 2, byrow = F)
+B <- 1000 # number of simulated samples
+p <- 2 # number of vectors
+n1 <- rnorm(B)
+n2 <- rnorm(B)
+n <- matrix(c(n1, n2), ncol = 2, byrow = F)
+y <- t(V %*% t(n))
+df.samples <- data.frame(x = y[, 1], y = y[, 2])
+
+# ploting - contour
+xgrid <- seq(from = min(y[, 1]) - 0.1, max(y[, 1]) + 0.1, length.out = 100)
+ygrid <- seq(from = min(y[, 2]) - 0.1, max(y[, 2]) + 0.1, length.out = 100)
+mu <- rep(0, p)
+sigma <- V %*% t(V)
+df <- drawContour(xgrid, ygrid, mu, sigma)
+ggplot() + geom_contour(data = df, aes(x = x, y = y, z = z, alpha = ..level..)) + geom_point(data = df.samples, aes(x = x, y = y), alpha = 0.1)
+
+# ploting - heatmap
+y.mvn <- mvrnorm(B, rep(0, p), V %*% t(V))
+y.combine <- rbind(y, y.mvn)
+label <- c(rep('uni -> multi',nrow(y)), rep('multivariate normal', nrow(y.mvn)))
+df <- data.frame(x = y.combine[, 1], y = y.combine[, 2], label = label)
+ggplot(df) + geom_bin2d(aes(x = x, y = y)) + facet_grid(. ~ label)
+```
+
+# Proof
+
+This is one of the definition of multivariate normal distribution according to [wikipedia](https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Definition). Here, suppose $\vec{y}$ is multivariate normal and let's check the mean and variance is the same as the one in $\eqref{eq:mvn}$.
+
+$$
+\newcommand\E{\text{E}}
+\newcommand\var{\text{Var}}
+\newcommand\cov{\text{Cov}}
+\newcommand\nocr{\nonumber\\}
+\def\ci{\perp\!\!\!\!\perp}
+$$
+
+\begin{align}
+  \E(\vec{y}) &= \E(\sum_i v_i Z_i) \text{, where $Z_i \sim \mathcal{N}(0, 1)$} \nocr
+  &= \sum_i \E(v_i)\E(Z_i) \text{, since $v_i \ci Z_i$} \nocr
+  &= 0 \nocr
+  \cov(y_k, y_j) &= \cov(\sum_i v_{ik} Z_i, \sum_{i'} v_{i'j} Z_{i'}) \nocr
+  &= \sum_{i}\sum_{i'}\cov(v_{ik}Z_i, v_{i'j}Z_{i'}) \nocr
+  &= \sum_i \cov(v_{ik}Z_i, v_{ij}Z_{i}) \text{, since $v_i \ci v_{i'}$ and $Z_i \ci Z_{i'}$} \nocr
+  &= \sum_i v_{ik}v_{ij} \nocr
+  \therefore \cov(\vec{y}) &= V V^T \nonumber
+\end{align}

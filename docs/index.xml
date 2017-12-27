@@ -6,10 +6,22 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 20 Dec 2017 10:16:05 -0600</lastBuildDate>
+    <lastBuildDate>Mon, 25 Dec 2017 17:03:40 -0600</lastBuildDate>
     
 	<atom:link href="/notebook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Simulating Multivariate Normal by Univariate Normal</title>
+      <link>/notebook/posts/simulate_multivariate_normal/</link>
+      <pubDate>Mon, 25 Dec 2017 17:03:40 -0600</pubDate>
+      
+      <guid>/notebook/posts/simulate_multivariate_normal/</guid>
+      <description>library(knitr) opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE) Univariate to Multivariate \[\begin{align} \vec{y} = \sum_i \vec{v}_i \mathcal{N}_i \nonumber \end{align}\] , where \(\mathcal{N}_1, ..., \mathcal{N}_p\) are independent standard univariate normal. Then
+\[\begin{align} \vec{y} \sim \mathcal{N}(\vec{0}, VV^T) \label{eq:mvn} \end{align}\] , where \(V = [\vec{v}_1, ..., \vec{v}_p]\).
+ Example In the following example, \(v_i \in \mathbb{R}^2\) and \(p = 2\). The number of simulated samples is \(B = 10000\).
+Ploting contour in R # draw contour of a multivariate normal distribution library(mvtnorm) drawContour &amp;lt;- function(xgrid, ygrid, mu, sigma) { z &amp;lt;- c() x &amp;lt;- c() y &amp;lt;- c() for (i in 1:length(xgrid)) { for (j in 1:length(ygrid)) { z &amp;lt;- c(z, dmvnorm(c(xgrid[i], ygrid[j]), mean = mu, sigma = sigma)) x &amp;lt;- c(x, xgrid[i]) y &amp;lt;- c(y, ygrid[j]) } } return(data.</description>
+    </item>
     
     <item>
       <title>Joint Analysis of SNP and Gene Expression Data in Genetic Association Studies of Complex Diseases</title>
@@ -17,7 +29,7 @@
       <pubDate>Wed, 20 Dec 2017 10:16:05 -0600</pubDate>
       
       <guid>/notebook/posts/huang-2014-aas/</guid>
-      <description>Meta data of reading  Journal: The Annals of Applied Statistics Year: 2014 DOI: 10.1214/13-AOAS690  \[ \newcommand\logit{\text{logit}} \newcommand\E{\text{E}} \newcommand\var{\text{Var}} \newcommand\diag{\text{diag}} \newcommand\nocr{\nonumber\\} \]
+      <description>Meta data of reading  Journal: The Annals of Applied Statistics Year: 2014 DOI: 10.1214/13-AOAS690  \[ \newcommand\logit{\text{logit}} \newcommand\E{\text{E}} \newcommand\var{\text{Var}} \newcommand\cov{\text{Cov}} \newcommand\diag{\text{diag}} \newcommand\nocr{\nonumber\\} \def\ci{\perp\!\!\!\!\perp} \]
  Motivation The goal is to assess the genetic effect of the specific gene on the disease. In this paper, the authors casted the genetic effect as two parts:
 Effect through gene expression of the given gene Other genetic effect (i.e. splicing, but some gene-unrelated mechanisms are also possible as long as it is determined genetically, say enhancer activity)  The paper used genotype data along with paired gene expression data.</description>
     </item>

@@ -17,8 +17,10 @@ $$
 \newcommand\logit{\text{logit}}
 \newcommand\E{\text{E}}
 \newcommand\var{\text{Var}}
+\newcommand\cov{\text{Cov}}
 \newcommand\diag{\text{diag}}
 \newcommand\nocr{\nonumber\\}
+\def\ci{\perp\!\!\!\!\perp}
 $$
 
 # Motivation
@@ -78,14 +80,14 @@ This test was referred as the test for *total effect of a gene*.
 
 I am not familiar with these hypothesis testing techniques so I can only sketch the general idea and leave the details untouched.
 
-The paper discussed the possiblity of using LRT or Wald test to test \eqref{eq:h0} and they argued that degree of freedom in this case was big so that the power would be limited. Alternatively, the paper proposed to test variance components. Assuming:
+The paper discussed the possiblity of using LRT or Wald test to test $\eqref{eq:h0}$ and they argued that degree of freedom in this case was big so that the power would be limited. Alternatively, the paper proposed to test variance components. Assuming:
 
 \begin{align}
   \beta_{S_i} \sim_{iid} \mathcal{N}(0, \tau_S) \nocr
   \gamma_i \sim_{iid} \mathcal{N}(0, \tau_I) \nonumber
 \end{align}
 
-Namely the \eqref{eq:y} becomes a logistic midxed model. Then \eqref{eq:h0} becomes:
+Namely the $\eqref{eq:y}$ becomes a logistic midxed model. Then $\eqref{eq:h0}$ becomes:
 
 \begin{align}
   H_0: \tau_S = \tau_I = 0, \beta_G = 0 \nonumber
@@ -109,18 +111,18 @@ The scores for $\tau_S, \tau_I$ and $\beta_G$ are:
       \logit(\Pr(Y = 1|S_i, G_i, X_i)) = X_i^T \alpha \nonumber
     \end{align}
 
-To combine the three scores to test \eqref{eq:h0}, the authors proposed the following weighted sum as the test statistic:
+To combine the three scores to test $\eqref{eq:h0}$, the authors proposed the following weighted sum as the test statistic:
 
   \begin{align}
     Q &= n^{-1} (a_1U_{\tau_S} + a_2U_{\beta_G} + a_3U_{\tau_I}) \nocr
     &= \{Y - \hat{\mu}_0\}^T （a_1\mathbb{S}\mathbb{S}^T + a_2GG^T + a_3 \mathbb{C}\mathbb{C}^T) \{Y - \hat{\mu}_0\}
   \end{align}
 
-, where they proposed to use the inverse of the squared root of the corresponding variance as weights of $U_{\tau_S}, U_{\beta_G^2}, U_{\tau_I}$. The varaince can be computed in closed-form with $\hat{\mu}_{0i}$. Let $Q = Q(\hat{alpha})$ and:
+, where they proposed to use the inverse of the squared root of the corresponding variance as weights of $U_{\tau_S}, U_{\beta_G^2}, U_{\tau_I}$. The varaince can be computed in closed-form with $\hat{\mu}_{0i}$. Let $Q = Q(\hat{\alpha})$ and:
 
   \begin{align}
     D &= \begin{bmatrix} D_{XX} & D_{XV} \\ D_{VX} & D_{VV} \end{bmatrix} \nocr
-    &= n^{-1} U^T W U \nocr
+    &= n^{-1} U^T W U \label{eq:d} \\
     \text{, where} & \nocr
     U &= \begin{bmatrix} U_1 \\ \vdots \\ U_n \end{bmatrix} \nocr
     U_i &= (X_i^T, V_i^T) \nocr
@@ -128,12 +130,18 @@ To combine the three scores to test \eqref{eq:h0}, the authors proposed the foll
     W &= \diag(\mu_i(1 - \mu_i)) \nonumber
   \end{align}
 
-Under null hypothesis \eqref{eq:h0}, $Q \xrightarrow{d} Q(0) = \sum_{j}^{2p+1} (A_l^T \epsilon)^2$, where:
+Under null hypothesis $\eqref{eq:h0}$:
+
+\begin{align}
+  Q \xrightarrow{d} Q(0) &= \sum_{j}^{2p+1} (A_l^T \epsilon)^2 \label{eq:null}
+\end{align}
+
+, where:
 
   * $\epsilon \sim \mathcal{N}(0, D)$
   * $A_l$ is $l$th row of $A = [-D_{XV}^T D_{XX}^{-1}, I_{2p+1}]$
 
-It means that under null hypothesis, $Q$ follows a mixture of $chi^2$ distribution, which can be approximated by scaled $chi^2$ as $Q \sim \kappa \chi_{\nu}^2$, where $\kappa = \var(Q) / [2\E(Q)]$ and $\nu = 2[E(Q)]^2 / \var(Q)$ (the expression was given in supplementary).
+It means that under null hypothesis, $Q$ follows a mixture of $\chi^2$ distribution, which can be approximated by scaled $chi^2$ as $Q \sim \kappa \chi_{\nu}^2$, where $\kappa = \var(Q) / [2\E(Q)]$ and $\nu = 2[E(Q)]^2 / \var(Q)$ (the expression was given in supplementary).
 
 Furthermore, some other hypothesis would be:
 
@@ -151,4 +159,123 @@ If the model was wrongly specified, then the power of test would be hurted. So, 
   2. Obtain observed minimum p-value
   3. Compare the observed value to its null distribution
 
-, where null distribution of the minimum p-value is not available analytically because of the complicated correlation among the three statistics. Therefore, they used resampling perturbuation instead.
+, where null distribution of the minimum p-value is not available analytically because of the complicated correlation among the three statistics. Therefore, they used re-sampling perturbation instead. The idea is the following. The goal is to generate the distribution of $Q$ under null hypothesis. From $\eqref{eq:null}$ we know that the randomness of $Q$ under null comes from $\epsilon$ so what we need is to obtain $\hat{\epsilon} \sim \mathcal{N}(0, D)$. Under the general re-sampling procedure (wild bootstrap), the paper proposed to use:
+
+  \begin{align}
+    \hat\epsilon &= n^{-1/2} \sum_{i = 1}^n U_i^T (Y_i - \hat{\mu}_i) \mathcal{N}_i
+  \end{align}
+
+, where $\mathcal{N}_i \sim \mathcal{N}(0, 1)$ is independent to each other.
+We can check that $\hat\epsilon$ has mean $0$ and variance $D$ (see this [post](`r htmltools::HTML("{{< ref \"posts/simulate_multivariate_normal.html\" >}}")`) on simulating multivariate normal).
+
+  \begin{align}
+    \cov(\hat\epsilon) &= 1 / n \times U^T \diag(Y_i - \hat{\mu}_i) \diag(Y_i - \hat{\mu}_i) U \nocr
+    &= 1 / n \times U^T \diag((Y_i - \hat\mu_i)^2) U \nonumber
+  \end{align}
+
+Comparing to $\eqref{eq:d}$, $\mu_i(1 - \mu_i)$ was approximated by $(Y_i - \hat\mu_i)^2$. Therefore, $\hat\epsilon$ was *asymptotically* the same as $\epsilon$. So, $\hat{Q}(0)^{(b)}$ was the sample under null hypothesis. The procedure to obtain omnibus p-value under the null is the following:
+
+  1. Generate $\hat{\epsilon}$ (Note that $\hat\epsilon$ was shared for the three cases *to preserve correlation*)
+  2. Obtain $\hat{Q}_{SGC}(0)^{(b)}$, $\hat{Q}_{SG}(0)^{(b)}$, and $\hat{Q}_{S}(0)^{(b)}$ by changing the definition of $V_i$ in $A_l$
+  3. Compute $\hat{p}_{SGC}^{(b)}$, $\hat{p}_{SG}^{(b)}$, and $\hat{p}_{S}^{(b)}$
+  4. Compute $\hat{p}_{\min}^{(b)} = \min\{\hat{p}_{SGC}^{(b)}, \hat{p}_{SG}^{(b)}, \hat{p}_{S}^{(b)}\}$
+
+The paper pointed out that this perturbation method was computationally more efficient than permutation method, since it did not need to re-calculate $Q$.
+
+# Assumption and implication of the test
+
+The authors discussed the interpretation of the null model $\eqref{eq:h0}$. First of all, they defined the *direct effect, indirect effect, total effect* (DE, IE, TE) of the SNPs as follow (see supplementary note):
+
+  \begin{align}
+    \text{DE} &= \log[\text{OR}_{s_1, s_0|x}^{\text{DE}}(S_0)] \nocr
+    &= \logit\{\Pr(Y_i(s_1, G_i(s_0)) = 1 | X_i = x)\} - \logit\{\Pr(Y(s_0, G_i(s_0)) = 1| X_i = x)\} \nocr
+    \text{IE} &= \log[\text{OR}_{s_1, s_0|x}^{\text{IE}}(s_1)] \nocr
+    &= \logit\{\Pr(Y_i(s_1, G_i(s_1)) = 1 | X_i = x)\} - \logit\{\Pr(Y_i(s_1, G_i(s_0)) = 1 | X_i = x)\} \nocr
+    \text{TE} &:= \text{DE} + \text{IE} \nocr
+    &= \log[\text{OR}_{s_1, s_0|x}^{\text{IE}}(s_1)] \nocr
+    &= \logit\{\Pr(Y_i(s_1, G_i(s_1)) = 1 | X_i = x)\} - \logit\{\Pr(Y_i(s_0, G_i(s_0)) = 1 | X_i = x)\} \nonumber
+  \end{align}
+
+$Y(s, g), G(s)$ is the *potential outcome* if $S = s, G = g$ and it may or may not be observed (but under $\eqref{eq:y} \eqref{eq:g}$, the probability is computable). When $S_i = s, G_i = g$, $Y_i(s, g) = Y_i$, namely the observed value (consistency). To identify DE and IE, the authors listed four assumptions:
+
+  1. $Y(s, g) \ci S | X$
+  2. $Y(s, g) \ci G | X, S$
+  3. $G(s) \ci S | X$
+  4. $Y(s, g) \ci G(s^*) | X$
+
+To derive DE, IE, TE, the term $\logit\{\Pr(Y(s_a, G_i(s_b)) = 1 | X_i = x)\}$ was needed to be computed.
+
+  \begin{align}
+    & \logit\{\Pr(Y_i(s_a, G_i(s_b)) = 1 | X_i = x)\} \nocr
+    &\approx \log(\Pr(Y_i(s_a, G_i(s_b)) = 1 | X_i = x)) \text{, if $Y$ is rare phenotype} \nocr
+    &= \log [\int \Pr(Y_i(s_a, g) = 1 | X_i = x, G_i(s_b) = g) \Pr(G_i(s_b) = g | X_i = x) dg] \nocr
+    &= \log [\int \Pr(Y_i(s_a, g) = 1 | X_i = x, G_i(s_a) = g, S_i = s_a, G_i = g) \Pr(G_i(s_b) = g | X_i = x, S_i = s_b) dg] \text{, by assumptions 1, 2, 3} \nocr
+    &= \log [\int \Pr(Y_i(s_a, g) = 1 | X_i = x, S_i = s_a, G_i = g) \Pr(G_i(s_b) = g | X_i = x, S_i = s_b) dg] \text{, by assumption 4} \nocr
+    &= \log [\int \Pr(Y_i = 1 | X_i = x, S_i = s_a, G_i = g) \Pr(G_i = g| X_i = x, S_i = s_b) dg] \text{, by consistency of $Y(s, g)$ and $G(s)$} \nocr
+    &\approx \log [\int \exp(x^T\alpha + s_a^T \beta_S, g + \beta_G, s_a^T g \gamma) \mathcal{N}(g| \mu = x^T \phi + s_b^T \delta, \sigma^2 = \sigma_G^2) dg] \text{, by models $\eqref{eq:y} \eqref{eq:g}$} \nocr
+    &= x^T\alpha + s_a^T\beta_S + (\beta+G + s_a^T\gamma)(x^T\phi + s_b^T\delta) + \frac{1}{2}(\beta_G + s_a^T\gamma)^2 \sigma_G^2 \label{eq:effect}
+  \end{align}
+
+With $\eqref{eq:effect}$, IE, DE, and TE were derived accordingly.
+
+  \begin{align}
+    \text{TE} &= (s_1 - s_0)^T \{\beta_S + \beta_G \delta + \gamma(x^T\phi + s_0^T\delta + \beta_G\sigma_G^2) + \delta s_1^T \gamma\} + \frac{1}{2} \sigma_G^2 (s_1 + s_0)^T\gamma(s_1 - s_0)^T\gamma \label{eq:te} \\
+    \text{DE} &= (s_1 - s_0)^T[\beta_S + \gamma(x^T\phi + s_0^T \delta + \beta_G \sigma_G^2)] + \frac{1}{2} \sigma_G^2 (s_1 + s_0)^T \gamma (s_1 - s_0)^T \gamma \label{eq:de} \\
+    \text{IE} &= (s_1 - s_0)^T \delta (\beta_G + s_1^T \gamma) \label{eq:ie}
+  \end{align}
+
+The assumption for TE was substentially simpler than IE and DE's (since it did not evolve counterfactual term). Under the assumption $Y(s) \ci S | X$:
+
+  \begin{align}
+    \Pr(Y_i(s) = 1 | X_i = x) &:= \Pr(Y_i(s, G(s)) = 1 | X_i = x) \nocr
+    &= \Pr(Y_i(s) = 1 | X_i = x, S_i = s) \nocr
+    &= \Pr(Y_i = 1 | X_i = x, S_i = s) \nocr
+    \logit(\Pr(Y_i(s, G(s)) | X_i = x)) &\approx \log[\Pr(Y_i = 1 | X_i = x, S_i = s)] \nocr
+    &= \log[\int \Pr(Y_i = 1 | X_i = x, S_i = s, G_i = g)\Pr(G_i = g | X_i = x, S_i = s)dg] \nocr
+    &= x^T\alpha + s^T\beta_S + (\beta+G + s^T\gamma)(x^T\phi + s^T\delta) + \frac{1}{2}(\beta_G + s^T\gamma)^2 \sigma_G^2 \label{eq:effect_te}
+  \end{align}
+
+
+If $S$ are eQTL SNPs ($\delta \ne 0$):
+
+  \begin{align}
+    & H_0: \beta_S = 0, \beta_G = 0, \gamma = 0 \nocr
+    \Leftrightarrow & H_0: \text{DE} = 0, \text{IE} = 0 \nocr
+    \Leftrightarrow & H_0: \text{TE} = 0 \label{eq:h0_te}
+  \end{align}
+
+Note that $\eqref{eq:h0_te}$ required only one assumption that is *no unmeasured confounding for the effect of eQTL SNPs ($S$) on the outcome ($Y$) after adjusting the covariates ($X$)*.
+
+If $S$ are non-eQTL SNPs ($\delta = 0$), the null hypothesis was testing the joint effect of $S$ and $G$ on $Y$.
+
+# Comparing to SNP only model
+
+In standard genetic association analysis, the SNP only model was used:
+
+  \begin{align}
+    \logit\{\Pr(Y_i = 1 | S_i, X_i)\} &= X_i^T \alpha^* + S_i^T \beta_S^* \label{eq:gwas}
+  \end{align}
+
+The paper compared the hypothesis test ($H_0: \beta_S^* = 0$) of this SNP only model with $\eqref{eq:y} \eqref{eq:g}$.
+
+**Case 1**: The true model is $[Y | S, G, X]$ and $[G | S, X]$ where there is no $S \times G$ interaction term, namely $\gamma = 0$.
+
+  \begin{align}
+    \eqref{eq:y} \eqref{eq:g} &\Rightarrow \nocr
+    \logit\{\Pr(Y_i = 1 | S_i, X_i, \epsilon_i)\} &= X_i^T(\alpha + \beta_G \phi) + S_i^T(\beta_S + \beta_G \delta) + \beta_G \epsilon_i \nocr
+    &\approx c[X_i^T(\alpha + \beta_G \phi) + S_i^T(\beta_S + \beta_G \delta)] \text{, where $c = (1 + 0.35 \times \sigma_G^2 \beta_G^2)^{-1/2}$} \nocr
+    \therefore \beta_S^* &\approx c(\beta_S + \beta_G \delta)
+  \end{align}
+
+So, testing $\beta_S^* = 0$ was approximately equivalent to testing $\eqref{eq:h0}$.
+
+**Case 2**: $\gamma \ne 0$. Similar to the above derivation, we have:
+
+  \begin{align}
+    \logit\{\Pr(Y_i = 1 | S_i, X_i)\} &\approx c_i^*[X_i^T(\alpha + \beta_G \phi) + S_i^T(\beta_S + \beta_G \delta) + X_i^T \phi S_i^T \gamma + S_i^T \delta S_i^T \gamma] \nocr
+    \text{, where} c_i^* &= \{1 + 0.35\sigma_G^2(\beta_G + S_i^T\gamma)^2\}^{-1/2}
+  \end{align}
+
+There was no corresponding term for cross term of $X$ and $S$ in $\eqref{eq:gwas}$, so it was misspecified. The test was still valid since the null hypothesis were shared, but the power was lost.
+
+> Comment: This result implies that the test $\eqref{eq:h0}$ under the model $\eqref{eq:y} \eqref{eq:g}$ (SGC model) increases power when gene expression and genotype affect the OR of phenotype jointly.
