@@ -1,0 +1,126 @@
+---
+title: "Score Test"
+date: 2017-12-28T10:53:20-06:00
+author: "Yanyu Liang"
+tags: ["hypothesis testing", 'score test', 'neyman-pearson lemma']
+categories: ["method note"]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+$\newcommand\E{\text{E}}$
+$\newcommand\nocr{\nonumber\\}$
+
+# Resources
+
+  1. [Score test in wikipedia](https://en.wikipedia.org/wiki/Score_test)
+  2. [Meyman-Pearson lemma in wikipedia](https://en.wikipedia.org/wiki/Neyman%E2%80%93Pearson_lemma)
+
+# Motivation
+
+It seems to me that some hypothesis testing methods use score test with which I am not familiar. This note intends to sketch the definition of score test and the intuition behind it with a concrete example in application.
+
+# Univariate case
+
+## The statistic
+
+$L$ is the likelihood function depending on parameter $\theta$ and data $x$. The score $U(\theta)$ is:
+
+  \begin{align}
+    U(\theta) &= \frac{\partial \log L(\theta | x)}{\partial \theta}
+  \end{align}
+
+Fisher information is:
+
+  \begin{align}
+    I(\theta) &= -\E \bigg[ \frac{\partial^2}{\partial \theta^2} \log L(X; \theta) | \theta \bigg]
+  \end{align}
+
+, where the expectation is taken under $X \sim D(\theta)$ with some parametrized distribution $D$.
+
+The statistic to test $\mathcal{H}_0: \theta = \theta_0$ is $S(\theta_0) = \frac{U(\theta_0)^2}{I(\theta_0)}$, which is asymptotically $\chi_1^2$ under $\mathcal{H}_0$.
+
+> comment: note that the statistic does not depend on alternative hypothesis which is different from likelihood ratio test.
+
+## Most powerful test for small deviations
+
+Consider the case where we test $\mathcal{H}_0: \theta = \theta_0$ versus $\mathcal{H}_1: \theta_0 + h$. By Neymann-Pearson lemma, the most powerful test statistic $T$ is:
+
+  \begin{align}
+    T &= \frac{L(\theta_0 + h | x)}{L(\theta_0 | x)} \ge K \nocr
+    \Leftrightarrow \log L(\theta_0 + h | x) &- \log L(\theta_0 | x) \ge \log K \nocr
+    \log L(\theta_0 + h | x) &\approx \log L(\theta_0 | x) + h \times \bigg( \frac{\partial \log L(\theta | x)}{\partial \theta}_{\theta = \theta_0} \bigg) \text{, by Taylor expansion} \nocr
+    \therefore \log T &\approx h \times U(\theta_0) \nonumber
+  \end{align}
+
+Therefore, the score test approximately uses the most powerful test statistic when the deviation is small ($\theta_1 - \theta_0$ is small).
+
+# Multivariate case
+
+Suppose $\hat{\theta}_0$ is the maximum likelihood estimate of $\theta$ under null hypothesis. Then
+
+  \begin{align}
+    U(\hat\theta_0)^T I(\hat\theta_0)^{-1} U(\hat\theta_0) &\sim \chi_k^2 \nocr
+    \text{, where} U(\hat\theta_0) &= \frac{\partial \log L(\theta | x)}{\partial \theta} \bigg|_{\theta = \hat\theta_0} \nocr
+    I(\hat\theta_0) &= -\E \bigg( \frac{\partial^2 \log L(\theta | x)}{\partial \theta \partial \theta'} \bigg|_{\theta = \hat\theta_0} \bigg) \nonumber
+  \end{align}
+
+asymptotically under $\mathcal{H}_0$, where $k$ is the number of constraints imposed by $\mathcal{H}_0$.
+
+
+# Appendix: Neyman-Pearson lemma
+
+## The statement
+
+When performing a hypothesis test between two simple hypotheses $H_0: \theta = \theta_0$ and $H_1: \theta = \theta_1$, the likelihood ratio test which rejects $H_0$ in favour of $H_1$ when
+
+  \begin{align}
+    \Gamma(x) &= \frac{L(x|\theta_0)}{L(x | \theta_1)} \le \eta \nocr
+    \text{, where} & \Pr(\Gamma(X) \le \eta | H_0) = \alpha \nocr
+  \end{align}
+
+> Namely $\eta$ is defined such that the probability of rejecting $H_0$ under $H_0$ (type I error) is $\alpha$.
+
+is the most powerful test at significance level $\alpha$ for a threshold $\eta$. If the test is most powerful for all $\theta_1 \in \Theta_1$, it is said to be uniformly most powerful (UMP) for alternatives in the set $\Theta_1$.
+
+> Comment: The term "powerful" means that the test has smallest type II error.
+
+## Proof
+
+Suppose $R_{NP}$ is the rejection area of Neyman-Pearson test. Namely,
+
+  \begin{align}
+    R_{NP} &= \{ x: \Gamma(x) \le \eta \}
+  \end{align}
+
+By the definition of $\eta$, we have:
+
+  \begin{align}
+    \int_{t \in R_{NP}} L( t | \theta_0 ) dt &= \alpha \label{eq:rnp}
+  \end{align}
+
+For any other test with significance level $\alpha$, define $R$ as the rejection area accordingly. Then
+
+  \begin{align}
+    \int_{t \in R} L( t | \theta_0 ) dt \le \alpha \label{eq:r}
+  \end{align}
+
+The power is 1 - type II error. NP test's type II error is
+
+  \begin{align}
+    \int_{R_{NP}^c} L( t | \theta_1 ) dt &= \int_{R_{NP}^c \cap R} L(t | \theta_1) dt + \int_{R_{NP}^c \cap R^c} L(t | \theta_1) dt \nocr
+    \int_{R_{NP}^c \cap R} L(t | \theta_1) dt &\le \frac{1}{\eta} \int_{R_{NP}^c \cap R} L(t | \theta_0) \text{, by the definition of $R_{NP}$} \nocr
+    &\le \frac{1}{\eta} \int_{R^c \cap R_{NP}} L(t | \theta_0) dt \text{, by $\eqref{eq:rnp} \eqref{eq:r}$} \nocr
+    &\le \frac{1}{\eta} \int_{R^c \cap R_{NP}} \eta L(t | \theta_1) dt \text{, by the definition of $R_{NP}$} \nocr
+    \therefore \int_{R_{NP}^c} L( t | \theta_1 ) dt &\le \int_{R^c \cap R_{NP}} L(t | \theta_1) dt + \int_{R_{NP}^c \cap R^c} L(t | \theta_1) dt \nocr
+    &= \int_{R^c} L(t | \theta_1) dt
+  \end{align}
+
+So, NP test has smallest type II error (namely the largest power).
+
+# An concrete example in biostatistics
+
+The [post](`r htmltools::HTML("{{< ref \"posts/huang-2014-aas.html\" >}}")`) provides an concrete example of the deviation of score test. Note that the weight was taken as the variance which is a deviation of Fisher information. 

@@ -1,0 +1,37 @@
+---
+title: "The genetic architecture of type 2 diabetes"
+date: 2017-12-27T10:15:16-06:00
+author: "Yanyu Liang"
+tags: ["genetics", 'type 2 diabetes', 'complex trait', 'genetic architecture']
+categories: ["research paper - biology"]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+# Meta data of reading
+
+* **Journal**: Nature
+* **Year**: 2016
+* **DOI**: 10.1038/nature18642
+
+# In brief
+
+The idea of this paper is:
+
+  * **GoT2D**: To perform genetic association analysis by considering not only common variants (SNPs) but also rare variants. To get rare variant data, they performed whole genome sequencing on cohort. Furthermore, they included imputed genotypes as well. They estimated the power of the analysis for both common variants and rare variants (SNPs: OR $\ge$ 1.87, MAF $\ge$ 5%; rare: OR $\ge$ 4.7, MAF $\ge$ 0.5%)
+  * **T2D-GENES**: To perform genetic association analysis by considering coding variants. The data was obtained from whole exome sequencing in five descents. The original sequencing data gave only one signal in one population. The further chip data was designed on the basis of the WES and the integrated data gave more signals. It helped to pinpoint causal variants in previous established T2D GWAS loci.
+
+This paper did comprehensive analysis including:
+
+  1. Association analysis of genome-wide variation
+  2. Association analysis of coding variation
+  3. Gene-based analysis
+  4. Enrichment of rare variation in Mendelian T2D genes
+  5. Excluding synthetic association (association of common variant is caused by linkage to rare variant by chance) by conditional analysis
+  6. Nominating functional variants in GWAS loci
+  7. Modeling disease architecture (contribution of common/rare variants) by simulation (as an example of late-onset disease)
+
+# Methods

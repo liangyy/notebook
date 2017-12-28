@@ -4,7 +4,7 @@ date: 2017-12-16T11:06:05-06:00
 draft : false
 author: "Yanyu Liang"
 tags: ["gwas", 'integrative analysis', 'complex trait', 'linkage disequilibrium', 'conditional analysis']
-categories: ["research paper"]
+categories: ["research paper - method"]
 ---
 
 # Meta data of reading
@@ -244,7 +244,7 @@ So, it seems to me that $\sigma^2\_C$ and $\sigma^2\_J$ are interchangeable if `
   \hat\sigma^2_C &= \frac{y'y - \hat{b}_1' D_1 \hat{\beta}_1 - (\hat{b}_2|\hat{b}_1)' D_2\hat\beta_2}{n - N_1 - N_2}
 \end{align}$$</div>
 
-Similar to previous derivation, the individual level statistics can be replaced by $D, \beta, B$. Note that `$M_{12}, M_{21}, M_1, M_2$` can be approximated by $B$.  
+Similar to previous derivation, the individual level statistics can be replaced by $D, \beta, B$. Note that `$M_{12}, M_{21}, M_1, M_2$` can be approximated by $B$.
 
 # Results in brief
 

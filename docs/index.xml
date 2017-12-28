@@ -6,10 +6,30 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 25 Dec 2017 17:03:40 -0600</lastBuildDate>
+    <lastBuildDate>Thu, 28 Dec 2017 10:53:20 -0600</lastBuildDate>
     
 	<atom:link href="/notebook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Score Test</title>
+      <link>/notebook/posts/score-test/</link>
+      <pubDate>Thu, 28 Dec 2017 10:53:20 -0600</pubDate>
+      
+      <guid>/notebook/posts/score-test/</guid>
+      <description>Resources Motivation Univariate case Multivariate case Appendix: Neyman-Pearson lemma An concrete example in biostatistics   \(\newcommand\E{\text{E}}\) \(\newcommand\nocr{\nonumber\\}\)
+Resources Score test in wikipedia Meyman-Pearson lemma in wikipedia   Motivation It seems to me that some hypothesis testing methods use score test with which I am not familiar. This note intends to sketch the definition of score test and the intuition behind it with a concrete example in application.</description>
+    </item>
+    
+    <item>
+      <title>The genetic architecture of type 2 diabetes</title>
+      <link>/notebook/posts/t2b-genetic-architecture-2016/</link>
+      <pubDate>Wed, 27 Dec 2017 10:15:16 -0600</pubDate>
+      
+      <guid>/notebook/posts/t2b-genetic-architecture-2016/</guid>
+      <description>Meta data of reading In brief Methods   Meta data of reading  Journal: Nature Year: 2016 DOI: 10.1038/nature18642   In brief The idea of this paper is:
+ GoT2D: To perform genetic association analysis by considering not only common variants (SNPs) but also rare variants. To get rare variant data, they performed whole genome sequencing on cohort. Furthermore, they included imputed genotypes as well. They estimated the power of the analysis for both common variants and rare variants (SNPs: OR \(\ge\) 1.</description>
+    </item>
     
     <item>
       <title>Simulating Multivariate Normal by Univariate Normal</title>
@@ -17,7 +37,7 @@
       <pubDate>Mon, 25 Dec 2017 17:03:40 -0600</pubDate>
       
       <guid>/notebook/posts/simulate_multivariate_normal/</guid>
-      <description>library(knitr) opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE) Univariate to Multivariate \[\begin{align} \vec{y} = \sum_i \vec{v}_i \mathcal{N}_i \nonumber \end{align}\] , where \(\mathcal{N}_1, ..., \mathcal{N}_p\) are independent standard univariate normal. Then
+      <description>Univariate to Multivariate Example Proof   library(knitr) opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE) Univariate to Multivariate \[\begin{align} \vec{y} = \sum_i \vec{v}_i \mathcal{N}_i \nonumber \end{align}\] , where \(\mathcal{N}_1, ..., \mathcal{N}_p\) are independent standard univariate normal. Then
 \[\begin{align} \vec{y} \sim \mathcal{N}(\vec{0}, VV^T) \label{eq:mvn} \end{align}\] , where \(V = [\vec{v}_1, ..., \vec{v}_p]\).
  Example In the following example, \(v_i \in \mathbb{R}^2\) and \(p = 2\). The number of simulated samples is \(B = 10000\).
 Ploting contour in R # draw contour of a multivariate normal distribution library(mvtnorm) drawContour &amp;lt;- function(xgrid, ygrid, mu, sigma) { z &amp;lt;- c() x &amp;lt;- c() y &amp;lt;- c() for (i in 1:length(xgrid)) { for (j in 1:length(ygrid)) { z &amp;lt;- c(z, dmvnorm(c(xgrid[i], ygrid[j]), mean = mu, sigma = sigma)) x &amp;lt;- c(x, xgrid[i]) y &amp;lt;- c(y, ygrid[j]) } } return(data.</description>
@@ -29,9 +49,8 @@ Ploting contour in R # draw contour of a multivariate normal distribution librar
       <pubDate>Wed, 20 Dec 2017 10:16:05 -0600</pubDate>
       
       <guid>/notebook/posts/huang-2014-aas/</guid>
-      <description>Meta data of reading  Journal: The Annals of Applied Statistics Year: 2014 DOI: 10.1214/13-AOAS690  \[ \newcommand\logit{\text{logit}} \newcommand\E{\text{E}} \newcommand\var{\text{Var}} \newcommand\cov{\text{Cov}} \newcommand\diag{\text{diag}} \newcommand\nocr{\nonumber\\} \def\ci{\perp\!\!\!\!\perp} \]
- Motivation The goal is to assess the genetic effect of the specific gene on the disease. In this paper, the authors casted the genetic effect as two parts:
-Effect through gene expression of the given gene Other genetic effect (i.e. splicing, but some gene-unrelated mechanisms are also possible as long as it is determined genetically, say enhancer activity)  The paper used genotype data along with paired gene expression data.</description>
+      <description>Meta data of reading Motivation The model Testing \(H_0\) Assumption and implication of the test Comparing to SNP only model   Meta data of reading  Journal: The Annals of Applied Statistics Year: 2014 DOI: 10.1214/13-AOAS690  \[ \newcommand\logit{\text{logit}} \newcommand\E{\text{E}} \newcommand\var{\text{Var}} \newcommand\cov{\text{Cov}} \newcommand\diag{\text{diag}} \newcommand\nocr{\nonumber\\} \def\ci{\perp\!\!\!\!\perp} \]
+ Motivation The goal is to assess the genetic effect of the specific gene on the disease. In this paper, the authors casted the genetic effect as two parts:</description>
     </item>
     
     <item>

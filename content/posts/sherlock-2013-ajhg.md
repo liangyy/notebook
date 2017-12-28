@@ -4,7 +4,7 @@ date: 2017-12-19T15:51:04-06:00
 draft : false
 author: "Yanyu Liang"
 tags: ["gwas", 'eqtl', 'integrative analysis', 'target gene']
-categories: ["research paper"]
+categories: ["research paper - method"]
 ---
 
 # Meta data of reading

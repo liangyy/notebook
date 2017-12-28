@@ -5,6 +5,10 @@ draft: true
 author: "Yanyu Liang"
 tags: ['simulation', 'multivariate normal', 'contour']
 categories: ["rscript"]
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
 ---
 
 ```{r setup}

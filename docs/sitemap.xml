@@ -3,6 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/notebook/posts/score-test/</loc>
+    <lastmod>2017-12-28T10:53:20-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/notebook/posts/t2b-genetic-architecture-2016/</loc>
+    <lastmod>2017-12-27T10:15:16-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/notebook/posts/simulate_multivariate_normal/</loc>
     <lastmod>2017-12-25T17:03:40-06:00</lastmod>
   </url>
@@ -62,7 +72,7 @@
   
   <url>
     <loc>/notebook/tags/complex-trait/</loc>
-    <lastmod>2017-12-20T10:16:05-06:00</lastmod>
+    <lastmod>2017-12-27T10:15:16-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -85,8 +95,26 @@
   </url>
   
   <url>
+    <loc>/notebook/tags/genetic-architecture/</loc>
+    <lastmod>2017-12-27T10:15:16-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/tags/genetics/</loc>
+    <lastmod>2017-12-27T10:15:16-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/notebook/tags/gwas/</loc>
     <lastmod>2017-12-20T10:16:05-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/tags/hypothesis-testing/</loc>
+    <lastmod>2017-12-28T10:53:20-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -110,7 +138,7 @@
   
   <url>
     <loc>/notebook/categories/method-note/</loc>
-    <lastmod>2017-12-11T13:35:41-06:00</lastmod>
+    <lastmod>2017-12-28T10:53:20-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -121,19 +149,31 @@
   </url>
   
   <url>
+    <loc>/notebook/tags/neyman-pearson-lemma/</loc>
+    <lastmod>2017-12-28T10:53:20-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/notebook/</loc>
-    <lastmod>2017-12-25T17:03:40-06:00</lastmod>
+    <lastmod>2017-12-28T10:53:20-06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/notebook/posts/</loc>
-    <lastmod>2017-12-25T17:03:40-06:00</lastmod>
+    <lastmod>2017-12-28T10:53:20-06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/notebook/categories/research-paper/</loc>
+    <loc>/notebook/categories/research-paper---biology/</loc>
+    <lastmod>2017-12-27T10:15:16-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/categories/research-paper---method/</loc>
     <lastmod>2017-12-20T10:16:05-06:00</lastmod>
     <priority>0</priority>
   </url>
@@ -141,6 +181,12 @@
   <url>
     <loc>/notebook/categories/rscript/</loc>
     <lastmod>2017-12-25T17:03:40-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/tags/score-test/</loc>
+    <lastmod>2017-12-28T10:53:20-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -165,6 +211,12 @@
   <url>
     <loc>/notebook/tags/target-gene/</loc>
     <lastmod>2017-12-19T15:51:04-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/tags/type-2-diabetes/</loc>
+    <lastmod>2017-12-27T10:15:16-06:00</lastmod>
     <priority>0</priority>
   </url>
   

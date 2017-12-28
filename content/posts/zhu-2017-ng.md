@@ -4,7 +4,7 @@ date: 2017-12-08T14:23:10-06:00
 draft : false
 author: "Yanyu Liang"
 tags: ["gwas", 'integrative analysis', 'eqtl', 'target gene', 'mendelian randomization', 'causality', 'complex trait', 'linkage disequilibrium']
-categories: ["research paper"]
+categories: ["research paper - method"]
 ---
 
 $$
@@ -158,7 +158,7 @@ With z-score known, we have:
 
 # Accounting for linkage
 
-In practice, variants are correlated with each other because of LD. Therefore, the loci that is used for computation may show association if it is correlated with two causal variants which affect transcription and phenotype respectively. Figure 1b illustrated the scenarios.  
+In practice, variants are correlated with each other because of LD. Therefore, the loci that is used for computation may show association if it is correlated with two causal variants which affect transcription and phenotype respectively. Figure 1b illustrated the scenarios.
 
 {{< figure src="/notebook/images/linkage.png" title="Three possible explanations of an association" >}}
 

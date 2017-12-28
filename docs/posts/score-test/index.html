@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta name="author" content="Yanyu Liang">
+		
+		<meta name="generator" content="Hugo 0.31.1" />
+		<title>Score Test &middot; Note Archive</title>
+		<link rel="shortcut icon" href="/notebook/images/favicon.ico">
+		<link rel="stylesheet" href="/notebook/css/style.css">
+		<link rel="stylesheet" href="/notebook/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="/notebook/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='/notebook/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='/notebook/posts'>Archive</a>
+	<a href='/notebook/tags'>Tags</a>
+	<a href='/notebook/about'>About</a>
+
+	
+
+	
+	<div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/notebook/js/lunr.min.js"></script>
+<script type="text/javascript" src="/notebook/js/jquery-2.x.min.js"></script>
+<script type="text/javascript" src="/notebook/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "\/notebook\/";
+</script>
+<script type="text/javascript" src="/notebook/js/search.js"></script>
+
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Score Test
+                    </h1>
+                    <h2 class="headline">
+                    Dec 28, 2017 10:53
+                    · 716 words
+                    · 4 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="/notebook/tags/hypothesis-testing">hypothesis testing</a>
+                          
+                              <a href="/notebook/tags/score-test">score test</a>
+                          
+                              <a href="/notebook/tags/neyman-pearson-lemma">neyman-pearson lemma</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                
+
+                <section id="post-body">
+                  
+                    <div id="TOC">
+<ul>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#motivation">Motivation</a></li>
+<li><a href="#univariate-case">Univariate case</a></li>
+<li><a href="#multivariate-case">Multivariate case</a></li>
+<li><a href="#appendix-neyman-pearson-lemma">Appendix: Neyman-Pearson lemma</a></li>
+<li><a href="#an-concrete-example-in-biostatistics">An concrete example in biostatistics</a></li>
+</ul>
+</div>
+
+<p><span class="math inline">\(\newcommand\E{\text{E}}\)</span> <span class="math inline">\(\newcommand\nocr{\nonumber\\}\)</span></p>
+<div id="resources" class="section level1">
+<h1>Resources</h1>
+<ol style="list-style-type: decimal">
+<li><a href="https://en.wikipedia.org/wiki/Score_test">Score test in wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Neyman%E2%80%93Pearson_lemma">Meyman-Pearson lemma in wikipedia</a></li>
+</ol>
+</div>
+<div id="motivation" class="section level1">
+<h1>Motivation</h1>
+<p>It seems to me that some hypothesis testing methods use score test with which I am not familiar. This note intends to sketch the definition of score test and the intuition behind it with a concrete example in application.</p>
+</div>
+<div id="univariate-case" class="section level1">
+<h1>Univariate case</h1>
+<div id="the-statistic" class="section level2">
+<h2>The statistic</h2>
+<p><span class="math inline">\(L\)</span> is the likelihood function depending on parameter <span class="math inline">\(\theta\)</span> and data <span class="math inline">\(x\)</span>. The score <span class="math inline">\(U(\theta)\)</span> is:</p>
+<span class="math display">\[\begin{align}
+    U(\theta) &amp;= \frac{\partial \log L(\theta | x)}{\partial \theta}
+  \end{align}\]</span>
+<p>Fisher information is:</p>
+<span class="math display">\[\begin{align}
+    I(\theta) &amp;= -\E \bigg[ \frac{\partial^2}{\partial \theta^2} \log L(X; \theta) | \theta \bigg]
+  \end{align}\]</span>
+<p>, where the expectation is taken under <span class="math inline">\(X \sim D(\theta)\)</span> with some parametrized distribution <span class="math inline">\(D\)</span>.</p>
+<p>The statistic to test <span class="math inline">\(\mathcal{H}_0: \theta = \theta_0\)</span> is <span class="math inline">\(S(\theta_0) = \frac{U(\theta_0)^2}{I(\theta_0)}\)</span>, which is asymptotically <span class="math inline">\(\chi_1^2\)</span> under <span class="math inline">\(\mathcal{H}_0\)</span>.</p>
+<blockquote>
+<p>comment: note that the statistic does not depend on alternative hypothesis which is different from likelihood ratio test.</p>
+</blockquote>
+</div>
+<div id="most-powerful-test-for-small-deviations" class="section level2">
+<h2>Most powerful test for small deviations</h2>
+<p>Consider the case where we test <span class="math inline">\(\mathcal{H}_0: \theta = \theta_0\)</span> versus <span class="math inline">\(\mathcal{H}_1: \theta_0 + h\)</span>. By Neymann-Pearson lemma, the most powerful test statistic <span class="math inline">\(T\)</span> is:</p>
+<span class="math display">\[\begin{align}
+    T &amp;= \frac{L(\theta_0 + h | x)}{L(\theta_0 | x)} \ge K \nocr
+    \Leftrightarrow \log L(\theta_0 + h | x) &amp;- \log L(\theta_0 | x) \ge \log K \nocr
+    \log L(\theta_0 + h | x) &amp;\approx \log L(\theta_0 | x) + h \times \bigg( \frac{\partial \log L(\theta | x)}{\partial \theta}_{\theta = \theta_0} \bigg) \text{, by Taylor expansion} \nocr
+    \therefore \log T &amp;\approx h \times U(\theta_0) \nonumber
+  \end{align}\]</span>
+<p>Therefore, the score test approximately uses the most powerful test statistic when the deviation is small (<span class="math inline">\(\theta_1 - \theta_0\)</span> is small).</p>
+</div>
+</div>
+<div id="multivariate-case" class="section level1">
+<h1>Multivariate case</h1>
+<p>Suppose <span class="math inline">\(\hat{\theta}_0\)</span> is the maximum likelihood estimate of <span class="math inline">\(\theta\)</span> under null hypothesis. Then</p>
+<span class="math display">\[\begin{align}
+    U(\hat\theta_0)^T I(\hat\theta_0)^{-1} U(\hat\theta_0) &amp;\sim \chi_k^2 \nocr
+    \text{, where} U(\hat\theta_0) &amp;= \frac{\partial \log L(\theta | x)}{\partial \theta} \bigg|_{\theta = \hat\theta_0} \nocr
+    I(\hat\theta_0) &amp;= -\E \bigg( \frac{\partial^2 \log L(\theta | x)}{\partial \theta \partial \theta&#39;} \bigg|_{\theta = \hat\theta_0} \bigg) \nonumber
+  \end{align}\]</span>
+<p>asymptotically under <span class="math inline">\(\mathcal{H}_0\)</span>, where <span class="math inline">\(k\)</span> is the number of constraints imposed by <span class="math inline">\(\mathcal{H}_0\)</span>.</p>
+</div>
+<div id="appendix-neyman-pearson-lemma" class="section level1">
+<h1>Appendix: Neyman-Pearson lemma</h1>
+<div id="the-statement" class="section level2">
+<h2>The statement</h2>
+<p>When performing a hypothesis test between two simple hypotheses <span class="math inline">\(H_0: \theta = \theta_0\)</span> and <span class="math inline">\(H_1: \theta = \theta_1\)</span>, the likelihood ratio test which rejects <span class="math inline">\(H_0\)</span> in favour of <span class="math inline">\(H_1\)</span> when</p>
+<span class="math display">\[\begin{align}
+    \Gamma(x) &amp;= \frac{L(x|\theta_0)}{L(x | \theta_1)} \le \eta \nocr
+    \text{, where} &amp; \Pr(\Gamma(X) \le \eta | H_0) = \alpha \nocr
+  \end{align}\]</span>
+<blockquote>
+<p>Namely <span class="math inline">\(\eta\)</span> is defined such that the probability of rejecting <span class="math inline">\(H_0\)</span> under <span class="math inline">\(H_0\)</span> (type I error) is <span class="math inline">\(\alpha\)</span>.</p>
+</blockquote>
+<p>is the most powerful test at significance level <span class="math inline">\(\alpha\)</span> for a threshold <span class="math inline">\(\eta\)</span>. If the test is most powerful for all <span class="math inline">\(\theta_1 \in \Theta_1\)</span>, it is said to be uniformly most powerful (UMP) for alternatives in the set <span class="math inline">\(\Theta_1\)</span>.</p>
+<blockquote>
+<p>Comment: The term “powerful” means that the test has smallest type II error.</p>
+</blockquote>
+</div>
+<div id="proof" class="section level2">
+<h2>Proof</h2>
+<p>Suppose <span class="math inline">\(R_{NP}\)</span> is the rejection area of Neyman-Pearson test. Namely,</p>
+<span class="math display">\[\begin{align}
+    R_{NP} &amp;= \{ x: \Gamma(x) \le \eta \}
+  \end{align}\]</span>
+<p>By the definition of <span class="math inline">\(\eta\)</span>, we have:</p>
+<span class="math display">\[\begin{align}
+    \int_{t \in R_{NP}} L( t | \theta_0 ) dt &amp;= \alpha \label{eq:rnp}
+  \end{align}\]</span>
+<p>For any other test with significance level <span class="math inline">\(\alpha\)</span>, define <span class="math inline">\(R\)</span> as the rejection area accordingly. Then</p>
+<span class="math display">\[\begin{align}
+    \int_{t \in R} L( t | \theta_0 ) dt \le \alpha \label{eq:r}
+  \end{align}\]</span>
+<p>The power is 1 - type II error. NP test’s type II error is</p>
+<span class="math display">\[\begin{align}
+    \int_{R_{NP}^c} L( t | \theta_1 ) dt &amp;= \int_{R_{NP}^c \cap R} L(t | \theta_1) dt + \int_{R_{NP}^c \cap R^c} L(t | \theta_1) dt \nocr
+    \int_{R_{NP}^c \cap R} L(t | \theta_1) dt &amp;\le \frac{1}{\eta} \int_{R_{NP}^c \cap R} L(t | \theta_0) \text{, by the definition of $R_{NP}$} \nocr
+    &amp;\le \frac{1}{\eta} \int_{R^c \cap R_{NP}} L(t | \theta_0) dt \text{, by $\eqref{eq:rnp} \eqref{eq:r}$} \nocr
+    &amp;\le \frac{1}{\eta} \int_{R^c \cap R_{NP}} \eta L(t | \theta_1) dt \text{, by the definition of $R_{NP}$} \nocr
+    \therefore \int_{R_{NP}^c} L( t | \theta_1 ) dt &amp;\le \int_{R^c \cap R_{NP}} L(t | \theta_1) dt + \int_{R_{NP}^c \cap R^c} L(t | \theta_1) dt \nocr
+    &amp;= \int_{R^c} L(t | \theta_1) dt
+  \end{align}\]</span>
+<p>So, NP test has smallest type II error (namely the largest power).</p>
+</div>
+</div>
+<div id="an-concrete-example-in-biostatistics" class="section level1">
+<h1>An concrete example in biostatistics</h1>
+<p>The <a href="/notebook/posts/huang-2014-aas/">post</a> provides an concrete example of the deviation of score test. Note that the weight was taken as the variance which is a deviation of Fisher information.</p>
+</div>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+    <p class="small">
+    
+       © Copyright 2017 <i class="fa fa-heart" aria-hidden="true"></i> Yanyu Liang
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'],  ['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<link href="/notebook/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+<script src="/notebook/mermaid/mermaid.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+
+
+
+
+
+
+    </body>
+</html>

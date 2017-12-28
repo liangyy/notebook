@@ -4,7 +4,11 @@ date: 2017-12-20T10:16:05-06:00
 draft : false
 author: "Yanyu Liang"
 tags: ["gwas", 'eqtl', 'complex trait', 'integrative analysis']
-categories: ["research paper"]
+categories: ["research paper - method"]
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
 ---
 
 # Meta data of reading
