@@ -1,5 +1,12 @@
 [
 {
+	"uri": "/notebook/posts/optimal-skat-2012/",
+	"title": "Optimal tests for rare variant effects in sequencing association studies",
+	"tags": [""],
+	"description": "",
+	"content": " Meta data of reading Motivation The approach   \\[ \\newcommand\\E{\\text{E}} \\newcommand\\nocr{\\nonumber\\\\} \\newcommand\\var{\\text{Var}} \\newcommand\\diag{\\text{diag}} \\]\nMeta data of reading  Journal: Biostatistics Year: 2012 DOI: 10.1093/biostatistics/kxs014   Motivation Rare variants have very low MAF so GWAS doesn’t work under current sample size. To increase power, the strategy is to aggregate variants according to biological knowledge (or assumptions). There are two main types of tests: burden tests and non-burden tests. Burden test is region-based and it suffers from the assumption that all rare variants have the same direction of the effect and the power is low if there are too many non-causal variants. The non-burden test, sequence kernel association test (SKAT) does not make such assumption but it is less powerful than burden test if the assumption is almost true. The motivation of this paper is to propose a general version of hypothesis test which includes burden/non-burden tests as special cases. It provides a way to maximize the power no matter how the true model looks like.\n The approach They proposed to construct a class of test that is an arbitrary linear combination of burden test and SKAT statistics. The optimal test could be identified by maximizing the power within the class.\nThe goal is to test whether the rare variants in a single region are associated with a complex trait. Suppose sample size is \\(n\\) and the number of SNVs is \\(p\\). For \\(i\\)th subject, \\(y_i\\) is phenotype and \\(G_i = (g_{i1}, ..., g_{ip})\\) is genotype where \\(g_{ij} = 0, 1, 2\\). \\(X_i = (x_{i1}, ..., x_{iq})\\) is the covariates that are needed to be adjusted for. For continuous/categorical phenotypes, they used generalized linear model where \\(\\E(y_{i}) = \\mu_i\\) and \\(\\var(y_i) = \\phi \\nu(\\mu_i)\\) with a link function\n\\[\\begin{align} g(\\mu_i) \u0026amp;= X_i \\alpha + G_i \\beta \\label{eq:glm} \\end{align}\\] \\(\\nu(\\cdot)\\) is a variance function and \\(\\alpha, \\beta\\) are the vectors of regression coefficients for covariates and rare variants. With \\(\\eqref{eq:glm}\\), the test for association can be constructed as \\(H_0: \\beta = (\\beta_1, ..., \\beta_p)\u0026#39; = \\vec{0}\\). But such test suffers from large degree of freedom (d.f.) (\\(p\\)). To reduce d.f., additional assumptions were made.\nThe popular burden-based tests reduce the d.f. by making the assumptions that each \\(\\beta_j\\) is a function of the MAFs such that \\(\\beta_j = w(m_j) = w_j\\beta_0\\), where \\(m_j\\) is the MAF of the \\(j\\)th variant. With this assumption, \\(\\eqref{eq:glm}\\) becomes:\n\\[\\begin{align} g(\\mu_i) \u0026amp;= X_i \\alpha + \\beta_0 \\sum_{j = 1}^p w_j g_{ij} \\label{eq:burden} \\end{align}\\] Then the test \\(H_0: \\beta_0 = 0\\) has 1 d.f. The test was referred as weighted counting burden test (WBT).\nSKAT takes a different approach to reduce d.f. It assumes that each \\(\\beta_j\\) independently follows an arbitrary distribution with mean zero and variance \\(w_j^2 \\psi\\), where \\(w_j\\) is a fixed number that may depend on MAF. With this assumption, the null hypothesis \\(H_0: \\beta = \\vec{0}\\) is equivalent to \\(H_0: \\psi\\) under variance component test in GLMM. Suppose\n\\(X\\) is \\(n \\times q\\) \\(G\\) is \\(n \\times p\\) \\(W = \\diag(w_1, ..., w_p)\\)  \\(K = GWWG\u0026#39;\\) is \\(n \\times n\\) is an weighted linear kernel matrix. SKAT paper proposed to use a class of flexible weight functions of MAF, \\(w_j = \\text{Beta}(m_j, a_1, a_2)\\) where \\(a_1, a_2\\) were pre-specified and \\(m_j\\) were estimated using the sample MAF of the \\(j\\)th variant.\nThis paper defined the working vector by \\(y^* = X\\alpha + \\Delta (y - \\mu)\\), where \\(\\Delta = \\diag\\{g\u0026#39;(\\mu_i))\\), and the variance matrix by \\(V = \\diag(\\phi \\nu(\\mu_i)[g\u0026#39;(\\mu_i)]\\}\\).\n "
+},
+{
 	"uri": "/notebook/posts/score-test/",
 	"title": "Score Test",
 	"tags": ["hypothesis testing", "score test", "neyman-pearson lemma"],
@@ -68,6 +75,20 @@
 	"tags": [],
 	"description": "",
 	"content": "github repository\nTheme is derived from hugo-theme-cactus-plus.\nThe page is rendered by blogdown\n"
+},
+{
+	"uri": "/notebook/tags/",
+	"title": "",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/notebook/categories/",
+	"title": "",
+	"tags": [],
+	"description": "",
+	"content": ""
 },
 {
 	"uri": "/notebook/categories/cat/",
