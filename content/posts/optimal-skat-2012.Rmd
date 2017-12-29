@@ -56,4 +56,22 @@ Then the test $H_0: \beta_0 = 0$ has 1 d.f. The test was referred as weighted co
 
 $K = GWWG'$ is $n \times n$  is an weighted linear kernel matrix. SKAT paper proposed to use a class of flexible weight functions of MAF, $w_j = \text{Beta}(m_j, a_1, a_2)$ where $a_1, a_2$ were pre-specified and $m_j$ were estimated using the sample MAF of the $j$th variant.
 
-**This paper** defined the working vector by $y^* = X\alpha + \Delta (y - \mu)$, where $\Delta = \diag\{g'(\mu_i))$, and the variance matrix by $V = \diag(\phi \nu(\mu_i)[g'(\mu_i)]\}$.
+Define the working vector by $y^* = X\alpha + \Delta (y - \mu)$, where $\Delta = \diag\{g'(\mu_i))$, and the variance matrix by $V = \diag(\phi \nu(\mu_i)[g'(\mu_i)]\}$. The estimates under the null were: $\tilde{y} = X\hat\alpha + \hat\Delta (y - \hat\mu)$, $\hat\Delta = \diag\{g'(\hat\mu_i))$, and $\hat{V} = \diag(\phi \nu(\hat\mu_i)[g'(\hat\mu_i)]\}$. Where all estimates were obtained under the null hypothesis. It *turned out* that the score test statistic of the variance component $\phi$ is
+
+  \begin{align}
+    Q &= (\tilde{y} - X\alpha)' \hat{V}^{-1} K \hat{V}^{-1} (\tilde{y} - X\hat\alpha) \nocr
+    &= (y - \hat\mu)' \hat\Delta \hat{V}^{-1} K \hat{V}^{-1} \hat\Delta (y - \hat\mu) \nonumber
+  \end{align}
+
+The weighted linear kernel was constructed under the assumption that $\beta_j$s were independent. But it is not true if the region is of high risk to have deleterious mutations. **This paper** introduced a new family of kernels. They proposed to allow $\beta$ to follow a multivariate distribution with exchangable correlation structure. Let the correlation matrix of $\beta$ be $R_\rho = (1 - \rho)I + \rho \vec{1} \vec{1}'$. Then the SKAT test statistic becomes
+
+  \begin{align}
+    Q_{\rho} = (y - \hat\mu)' \hat\Delta \hat{V}^{-1} K_\rho \hat{V}^{-1} \hat\Delta (y - \hat\mu) \nonumber
+  \end{align}
+
+This family of statistic contains both WBT and SKAT:
+
+  1. $\rho = 0$, it becomes SKAT
+  2. $\rho = 1$, it becomes WBT
+
+Then, $Q_\rho = (1 - \rho) Q_{SKAT} + \rho Q_{burden}$.

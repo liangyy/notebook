@@ -58,5 +58,19 @@ output:
 <li><span class="math inline">\(W = \diag(w_1, ..., w_p)\)</span></li>
 </ol>
 <p><span class="math inline">\(K = GWWG&#39;\)</span> is <span class="math inline">\(n \times n\)</span> is an weighted linear kernel matrix. SKAT paper proposed to use a class of flexible weight functions of MAF, <span class="math inline">\(w_j = \text{Beta}(m_j, a_1, a_2)\)</span> where <span class="math inline">\(a_1, a_2\)</span> were pre-specified and <span class="math inline">\(m_j\)</span> were estimated using the sample MAF of the <span class="math inline">\(j\)</span>th variant.</p>
-<p><strong>This paper</strong> defined the working vector by <span class="math inline">\(y^* = X\alpha + \Delta (y - \mu)\)</span>, where <span class="math inline">\(\Delta = \diag\{g&#39;(\mu_i))\)</span>, and the variance matrix by <span class="math inline">\(V = \diag(\phi \nu(\mu_i)[g&#39;(\mu_i)]\}\)</span>.</p>
+<p>Define the working vector by <span class="math inline">\(y^* = X\alpha + \Delta (y - \mu)\)</span>, where <span class="math inline">\(\Delta = \diag\{g&#39;(\mu_i))\)</span>, and the variance matrix by <span class="math inline">\(V = \diag(\phi \nu(\mu_i)[g&#39;(\mu_i)]\}\)</span>. The estimates under the null were: <span class="math inline">\(\tilde{y} = X\hat\alpha + \hat\Delta (y - \hat\mu)\)</span>, <span class="math inline">\(\hat\Delta = \diag\{g&#39;(\hat\mu_i))\)</span>, and <span class="math inline">\(\hat{V} = \diag(\phi \nu(\hat\mu_i)[g&#39;(\hat\mu_i)]\}\)</span>. Where all estimates were obtained under the null hypothesis. It <em>turned out</em> that the score test statistic of the variance component <span class="math inline">\(\phi\)</span> is</p>
+<span class="math display">\[\begin{align}
+    Q &amp;= (\tilde{y} - X\alpha)&#39; \hat{V}^{-1} K \hat{V}^{-1} (\tilde{y} - X\hat\alpha) \nocr
+    &amp;= (y - \hat\mu)&#39; \hat\Delta \hat{V}^{-1} K \hat{V}^{-1} \hat\Delta (y - \hat\mu) \nonumber
+  \end{align}\]</span>
+<p>The weighted linear kernel was constructed under the assumption that <span class="math inline">\(\beta_j\)</span>s were independent. But it is not true if the region is of high risk to have deleterious mutations. <strong>This paper</strong> introduced a new family of kernels. They proposed to allow <span class="math inline">\(\beta\)</span> to follow a multivariate distribution with exchangable correlation structure. Let the correlation matrix of <span class="math inline">\(\beta\)</span> be <span class="math inline">\(R_\rho = (1 - \rho)I + \rho \vec{1} \vec{1}&#39;\)</span>. Then the SKAT test statistic becomes</p>
+<span class="math display">\[\begin{align}
+    Q_{\rho} = (y - \hat\mu)&#39; \hat\Delta \hat{V}^{-1} K_\rho \hat{V}^{-1} \hat\Delta (y - \hat\mu) \nonumber
+  \end{align}\]</span>
+<p>This family of statistic contains both WBT and SKAT:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\rho = 0\)</span>, it becomes SKAT</li>
+<li><span class="math inline">\(\rho = 1\)</span>, it becomes WBT</li>
+</ol>
+<p>Then, <span class="math inline">\(Q_\rho = (1 - \rho) Q_{SKAT} + \rho Q_{burden}\)</span>.</p>
 </div>
