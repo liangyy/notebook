@@ -6,10 +6,19 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 28 Dec 2017 15:45:19 -0600</lastBuildDate>
+    <lastBuildDate>Fri, 29 Dec 2017 11:37:51 -0600</lastBuildDate>
     
 	<atom:link href="/notebook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Variance component testing in generalised linear models with random effects</title>
+      <link>/notebook/posts/variance-component-test-glmm-1997/</link>
+      <pubDate>Fri, 29 Dec 2017 11:37:51 -0600</pubDate>
+      
+      <guid>/notebook/posts/variance-component-test-glmm-1997/</guid>
+      <description> Meta data of reading   Meta data of reading  Journal: Biometrika Year: 1997 DOI: 10.1093/biomet/84.2.309   </description>
+    </item>
     
     <item>
       <title>Optimal tests for rare variant effects in sequencing association studies</title>

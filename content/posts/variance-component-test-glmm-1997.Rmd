@@ -1,0 +1,18 @@
+---
+title: "Variance component testing in generalised linear models with random effects"
+date: 2017-12-29T11:37:51-06:00
+author: "Yanyu Liang"
+tags: [""]
+categories: [""]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+# Meta data of reading
+
+* **Journal**: Biometrika
+* **Year**: 1997
+* **DOI**: 10.1093/biomet/84.2.309
