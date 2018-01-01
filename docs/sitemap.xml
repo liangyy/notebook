@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/notebook/posts/epistasis-nrg-2014/</loc>
+    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/notebook/posts/variance-component-test-glmm-1997/</loc>
     <lastmod>2017-12-29T11:37:51-06:00</lastmod>
   </url>
@@ -75,6 +80,12 @@
   </url>
   
   <url>
+    <loc>/notebook/categories/biology---research-review/</loc>
+    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/notebook/categories/cat/</loc>
     <lastmod>2017-12-07T23:39:21-06:00</lastmod>
     <priority>0</priority>
@@ -94,7 +105,7 @@
   
   <url>
     <loc>/notebook/tags/complex-trait/</loc>
-    <lastmod>2017-12-27T10:15:16-06:00</lastmod>
+    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -107,6 +118,12 @@
   <url>
     <loc>/notebook/tags/contour/</loc>
     <lastmod>2017-12-25T17:03:40-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/tags/epistasis/</loc>
+    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -130,7 +147,7 @@
   
   <url>
     <loc>/notebook/tags/gwas/</loc>
-    <lastmod>2017-12-20T10:16:05-06:00</lastmod>
+    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -178,13 +195,13 @@
   
   <url>
     <loc>/notebook/</loc>
-    <lastmod>2017-12-29T11:37:51-06:00</lastmod>
+    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/notebook/posts/</loc>
-    <lastmod>2017-12-29T11:37:51-06:00</lastmod>
+    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
     <priority>0</priority>
   </url>
   

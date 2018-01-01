@@ -34,4 +34,4 @@ This paper did comprehensive analysis including:
   6. Nominating functional variants in GWAS loci
   7. Modeling disease architecture (contribution of common/rare variants) by simulation (as an example of late-onset disease)
 
-# Methods
+<!-- # Methods -->

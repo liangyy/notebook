@@ -6,10 +6,20 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 29 Dec 2017 11:37:51 -0600</lastBuildDate>
+    <lastBuildDate>Sat, 30 Dec 2017 10:30:32 -0600</lastBuildDate>
     
 	<atom:link href="/notebook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Detecting epistasis in human complex traits</title>
+      <link>/notebook/posts/epistasis-nrg-2014/</link>
+      <pubDate>Sat, 30 Dec 2017 10:30:32 -0600</pubDate>
+      
+      <guid>/notebook/posts/epistasis-nrg-2014/</guid>
+      <description>Meta data of reading Motivation Methods for detecting epistasis Overview of empirical evidence for epistasis Summary   \[ \newcommand\E{\text{E}} \newcommand\nocr{\nonumber\\} \newcommand\var{\text{Var}} \newcommand\logit{\text{logit}} \]
+Meta data of reading  Journal: Nature Review Genetics Year: 2014 DOI: 10.1038/nrg3747   Motivation Under GWAS framework, the causal variants are found with independent with additive and cumulative effects. But such assumption is arguably unrealistic. So it is necessary to consider the case where variants do not act independently (genetic interaction, epistasis).</description>
+    </item>
     
     <item>
       <title>Variance component testing in generalised linear models with random effects</title>
@@ -46,7 +56,7 @@ Resources Score test in wikipedia Meyman-Pearson lemma in wikipedia   Motivation
       <pubDate>Wed, 27 Dec 2017 10:15:16 -0600</pubDate>
       
       <guid>/notebook/posts/t2b-genetic-architecture-2016/</guid>
-      <description>Meta data of reading In brief Methods   Meta data of reading  Journal: Nature Year: 2016 DOI: 10.1038/nature18642   In brief The idea of this paper is:
+      <description>Meta data of reading In brief   Meta data of reading  Journal: Nature Year: 2016 DOI: 10.1038/nature18642   In brief The idea of this paper is:
  GoT2D: To perform genetic association analysis by considering not only common variants (SNPs) but also rare variants. To get rare variant data, they performed whole genome sequencing on cohort. Furthermore, they included imputed genotypes as well. They estimated the power of the analysis for both common variants and rare variants (SNPs: OR \(\ge\) 1.</description>
     </item>
     

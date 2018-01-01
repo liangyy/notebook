@@ -83,4 +83,13 @@ output:
 </ol>
 <p>Then, <span class="math inline">\(Q_\rho = (1 - \rho) Q_{SKAT} + \rho Q_{burden}\)</span>. For a fixed <span class="math inline">\(\rho\)</span>, <span class="math inline">\(Q_\rho\)</span> follows a mixture of <span class="math inline">\(\chi^2\)</span> distributions. Namely if <span class="math inline">\(\lambda_1, ..., \lambda_m\)</span> are eigenvalues of <span class="math inline">\(\hat{V}^{-1/2}K_\rho\hat{V}^{-1/2}\)</span>, the null distribution of <span class="math inline">\(Q_\rho\)</span> can be closely approximated by <span class="math inline">\(\sum \lambda_j \chi_{1, j}^2\)</span>, where <span class="math inline">\(\chi_{1, j}^2\)</span>s are iid <span class="math inline">\(\chi_1^2\)</span> random variables. The p-values can be obtained by <em>matching moments or inverting characteristic function</em>.</p>
 </div>
+<div id="optimal-test" class="section level2">
+<h2>Optimal test</h2>
+<p>In practice, <span class="math inline">\(\rho\)</span> is unknown. This paper proposed the test statistic <span class="math inline">\(T = \inf_{0 \le \rho \le 1} p_\rho\)</span> to obtain tthe optimal performance. It turns out that <span class="math inline">\(Q_\rho\)</span> can be approximated by the mixture of two independent random variables (<span class="math inline">\((1 - \rho)\kappa + \tau(\rho)\eta_0, \kappa = \sum_k \lambda_k \eta_k + \xi\)</span>) which can be further approximated. Let <span class="math inline">\(q_{\min}(\rho)\)</span> denote the <span class="math inline">\((1 - T)\)</span>th percentile of the distribution of <span class="math inline">\(Q_\rho\)</span>. Then the p-value of <span class="math inline">\(T\)</span> is</p>
+<span class="math display">\[\begin{align}
+    1 - \Pr(Q_{\rho_1} &amp;&lt; q_{\min}(\rho_1), ..., Q_{\rho_b} &lt; q_{\min}(\rho_b)) \nocr
+    &amp;= 1 - \E[\Pr(\kappa &lt; \min\{(q_\min(\rho_nv) - \tau(\rho_\nu)\eta_0)/(1 - \rho_\nu)\})|\eta_0]
+  \end{align}\]</span>
+<p>, which can be computed efficiently.</p>
+</div>
 </div>
