@@ -6,10 +6,20 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 30 Dec 2017 10:30:32 -0600</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jan 2018 10:04:05 -0600</lastBuildDate>
     
 	<atom:link href="/notebook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The background puzzle: how identical mutations in the same gene lead to different disease symptoms</title>
+      <link>/notebook/posts/kammenga-febs-2017/</link>
+      <pubDate>Mon, 01 Jan 2018 10:04:05 -0600</pubDate>
+      
+      <guid>/notebook/posts/kammenga-febs-2017/</guid>
+      <description>Meta data of reading Terminology Experimental evidence of genetic background effects Environmental effects Stochastic and epigenetic effects Summary   Meta data of reading  Journal: FEBS Year: 2017 DOI: 10.1111/febs.14080   Terminology This paper discusses the current insights about the phenotypic variation caused by gene interaction, epigenetics and stochasticity in model organism.
+Penetrance and expressivity Penetrance (according to wikipedia) is the proportion of individuals with the variant (allele) that also express an associated trait (phenotype).</description>
+    </item>
     
     <item>
       <title>Detecting epistasis in human complex traits</title>

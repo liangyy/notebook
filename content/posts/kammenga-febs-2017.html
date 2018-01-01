@@ -1,0 +1,86 @@
+---
+title: "The background puzzle: how identical mutations in the same gene lead to different disease symptoms"
+date: 2018-01-01T10:04:05-06:00
+author: "Yanyu Liang"
+tags: ["epistasis", 'complex trait']
+categories: ["biology - research review"]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#meta-data-of-reading">Meta data of reading</a></li>
+<li><a href="#terminology">Terminology</a></li>
+<li><a href="#experimental-evidence-of-genetic-background-effects">Experimental evidence of genetic background effects</a></li>
+<li><a href="#environmental-effects">Environmental effects</a></li>
+<li><a href="#stochastic-and-epigenetic-effects">Stochastic and epigenetic effects</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+</div>
+
+<div id="meta-data-of-reading" class="section level1">
+<h1>Meta data of reading</h1>
+<ul>
+<li><strong>Journal</strong>: FEBS</li>
+<li><strong>Year</strong>: 2017</li>
+<li><strong>DOI</strong>: 10.1111/febs.14080</li>
+</ul>
+</div>
+<div id="terminology" class="section level1">
+<h1>Terminology</h1>
+<p>This paper discusses the current insights about the phenotypic variation caused by gene interaction, epigenetics and stochasticity in model organism.</p>
+<div id="penetrance-and-expressivity" class="section level2">
+<h2>Penetrance and expressivity</h2>
+<p>Penetrance (according to <a href="https://en.wikipedia.org/wiki/Penetrance">wikipedia</a>) is the proportion of individuals with the variant (allele) that also express an associated trait (phenotype).</p>
+<p>Expressivity (according to <a href="https://www.nature.com/scitable/topicpage/phenotype-variability-penetrance-and-expressivity-573#">this note</a>) is the degree to which the trait expression differs among individuals. For instance, there is a polydactyly (extra toes) trait in inbreeding cats. Individual carriers may have different number of extra toes. Therefore expressivity is only meaningful when the trait is quantitatively measurable in some sense. An extreme case is that the trait/disease is binary, in which the expressivity for an individual is the trait/disease state. And its population average is penetrance.</p>
+</div>
+<div id="genetic-background-effect-and-examples" class="section level2">
+<h2>Genetic background effect and examples</h2>
+<p>It has been found that there are cases where the individual carries the Mendelian disease causing mutation but has no disease symptom. It implies that the incomplete penetrance may depend on the genetic background. The genetic background includes the genes that affect/interact with the disease causing genes.</p>
+<p>Also, the same disease with the same mutated genes (involves multiple loci), the expressivity is different among loci, which can also result from the various genetic background.</p>
+<p>Cystic fibrosis is monogenic disease. 50% patients carry the same disease causing allele but the disease symptoms are highly variable because of the modifier background genes. There is also case where pedigree-specific phenotype is found. In such case, the same exon deletion causes one syndrome in one pedigree but a more severe one in another.</p>
+</div>
+</div>
+<div id="experimental-evidence-of-genetic-background-effects" class="section level1">
+<h1>Experimental evidence of genetic background effects</h1>
+<div id="single-gene-mutations-depend-on-multiple-background-loci" class="section level2">
+<h2>Single gene mutations depend on multiple background loci</h2>
+<p>The idea is that the expressivity and penetrance of a mutation <span class="math inline">\(M\)</span> is the function of <span class="math inline">\(M\)</span> and the interaction between <span class="math inline">\(M\)</span> and <span class="math inline">\(B\)</span>. There are experimental support of <span class="math inline">\(M \times B\)</span> effect in fruit flies and mice.</p>
+</div>
+<div id="genome-wide-and-molecular-insights-into-background-interactions" class="section level2">
+<h2>Genome-wide and molecular insights into background interactions</h2>
+<p>Using RNAi researchers have looked for the background interaction in <span class="math inline">\(C. elegans\)</span>. The studies indicate that</p>
+<ol style="list-style-type: decimal">
+<li>The effect of background interact is small individually but big together.</li>
+<li>The effect may depend on the expression level of the affected gene</li>
+</ol>
+</div>
+<div id="cryptic-genetic-variants" class="section level2">
+<h2>Cryptic genetic variants</h2>
+<p>Cryptic genetic variants are SNVs that show phenotypic effect under atypical conditions. Such studies imply that gene regulatory network may play a role in genetic background effects. Also, disease-related signaling pathway may be enriched for CGVs.</p>
+</div>
+<div id="the-contribution-of-genetic-background-is-ignored-by-current-genetic-research" class="section level2">
+<h2>The contribution of genetic background is ignored by current genetic research</h2>
+<p>The effect of genetic background can confound the result so geneticists tend to remove such confounding factor by using organisms with single genetic background. This strategy is to maximize the reproducibility but it miss the genetic background effect which is of great importance in understanding the phenotypic variability of human diseases.</p>
+<p>The author points out the general experimental framework to study genetic background effect using model organism. With two populations, <span class="math inline">\(M \times B_1\)</span> and <span class="math inline">\(M \times B_2\)</span> where both of them have disease causing mutation but only one of them has phenotype. By crossing the two populations and performing linkage analysis, the locus associated with the background effect can be identified.</p>
+<p>Besides genetic background effects, the phenotypic effects of a mutation can differ in the population with the same genetic background due to environmental effects and stochastic effects.</p>
+</div>
+</div>
+<div id="environmental-effects" class="section level1">
+<h1>Environmental effects</h1>
+<p><span class="math inline">\(G \times E\)</span> interactions also contribute to disease risk. It has been found the cholesterol level and cardiovascular disease have different effects across generations. Also the genetic background and environmental factors (diet) act jointly on the outcome.</p>
+</div>
+<div id="stochastic-and-epigenetic-effects" class="section level1">
+<h1>Stochastic and epigenetic effects</h1>
+<p>Chaperon acts as the mutation buffering system which can decrease the penetrance (the function of chaperon can also be affected by environment, i.e. stress). Also, epigenetic effect can lead to different outcomes in individuals with the same genetic background.</p>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+{{< figure src="/notebook/images/genetic_background_effect.png" title="Illustration of the genetic background effect" >}}
+<p>Genetic background acts through gene-gene interaction, epigenetics adn stochasticity and it is as important as disease-causing mutations. Research also finds that <em>the mutations in the same gene can increase the severity of many complex psychiatric disorders, which indicates that the effect of genetic background can be pervasive and complex</em>.</p>
+</div>

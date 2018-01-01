@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/notebook/posts/kammenga-febs-2017/</loc>
+    <lastmod>2018-01-01T10:04:05-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/notebook/posts/epistasis-nrg-2014/</loc>
     <lastmod>2017-12-30T10:30:32-06:00</lastmod>
   </url>
@@ -81,7 +86,7 @@
   
   <url>
     <loc>/notebook/categories/biology---research-review/</loc>
-    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
+    <lastmod>2018-01-01T10:04:05-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -105,7 +110,7 @@
   
   <url>
     <loc>/notebook/tags/complex-trait/</loc>
-    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
+    <lastmod>2018-01-01T10:04:05-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -123,7 +128,7 @@
   
   <url>
     <loc>/notebook/tags/epistasis/</loc>
-    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
+    <lastmod>2018-01-01T10:04:05-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -195,13 +200,13 @@
   
   <url>
     <loc>/notebook/</loc>
-    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
+    <lastmod>2018-01-01T10:04:05-06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/notebook/posts/</loc>
-    <lastmod>2017-12-30T10:30:32-06:00</lastmod>
+    <lastmod>2018-01-01T10:04:05-06:00</lastmod>
     <priority>0</priority>
   </url>
   
