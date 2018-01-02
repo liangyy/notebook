@@ -1,0 +1,47 @@
+---
+title: "From Peas to Disease: Modifier Genes, Network Resilience, and the Genetics of Health"
+date: 2018-01-01T21:36:35-06:00
+author: "Yanyu Liang"
+tags: ["epistasis", 'complex trait']
+categories: ["biology - research review"]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+# Meta data of reading
+
+* **Journal**: AJHG
+* **Year**: 2017
+* **DOI**: 10.1016/j.ajhg.2017.06.004
+
+# In brief
+
+This paper reviewed *the principles of modifier genetics and assess progress in the studies of modifier genes and their targets in both simple and complex traits*. They proposed that the modifier effects come from gene interaction network which depends on genetic background and it is of great use for *prevent, stabilize, and reverse disease and dysfunction.
+
+# Modifier genes
+
+The causal gene does not act in isolation so the phenotypic outcome depends not only on identified causal variants but also on some related genetic variants (here "related" often means "related in functional network"). Those "related" genes are called modifier genes and they are often the results of: i) physical interaction; ii）mechanistic contribution (i.e. involved in the same biological pathway); iii) functional compensation (i.e. the modifier gene acts in redundant/alternative pathway of the causal one).
+
+To experimentally detect modifier genes, we need the common functional variants with similar environmental factors in two populations with distinct genetic background.
+
+## Modifier effects and functional significance
+
+## Principles of modifier Genetics
+
+`r htmltools::HTML("{{< figure src=\"/notebook/images/modifier.png\" title=\"The illustration of modifier gene\" >}}")`
+
+The effect of modifier and target genes on phenotype are not additive (i.e. there is genetic interaction between the two). As shown in the above figure, modifier itself would not lead to phenotype. Taking another view, phenotype is the outcome of the integration of not only so called disease-causing genes but also environmental context and genetic background.
+
+## Types of target genes
+
+It can be single target gene ot multigenic but the number of modifier-affected genes are largely unknown thanks to the lack of knowledge of genetic architecture and gene regulatory network.
+
+## Types of modifier effects
+
+1. **Penetrance**: The modifier gene changes the penetrance of the disease-causing variant
+2. **Expressivity**: The modifier gene changes the expressivity of the disease-causing variant
+3. **Dominance**: Dominance measures the genetic dosage required for a phenotype (complete dominant means heterozygous and homozygous have exactly the same phenotype). The modifier gene changes the dominance of the disease-causing variant
+4. **Pleiotropy**: When the modifier gene presents, it induces novel phenotypes
