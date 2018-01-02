@@ -51,3 +51,51 @@ It can be single target gene ot multigenic but the number of modifier-affected g
 For single-gene phenotype, modifier study use multigenic background among a population sharing the same target variant. But for complex trait, only single modifier variant can be tested in a genetically clean population for differential phenotype. Note that the modifier effect is also context-dependent.
 
 # From modified phenotypes to modifier genes
+
+## To identify genetic modifier in humans
+
+Two strategies are i) Look for shared variants between individuals with disease-causing variants without disease; iii) Perform target sequencing on disease gene to identify candidate with causal variant but phenotypically unaffected.
+
+Through sequencing, researchers have found the reason of low penetrance of a disease-causing variant in a family where the occurrence of a common variant along with the disease-causing variant reaches 100% penetrance. Also, another research reported that the over-expression of one gene is protective to a LoF variant of disease gene.
+
+GWAS type of study takes the strategy that collect a population which share the same disease-causing variant but with various phenotypic outcome (severity, age of onset, etc). Also, the same strategy can be used in family-based study (linkage study) where the signal-noise ratio is better.
+
+## To identify genetic modifiers in mice
+
+...
+
+# Features of modifier genes
+
+## Nature of sequence variation
+
+The number of identified modifier variants is small but it has suggested considerable heterogeneity. The following lists several outcomes of modifier variants:
+
+  1. Partial or complete loss of function (missense mutation or gene deletion)
+  2. Enhanced function (increased protein stability)
+  3. Gain of alternative function (novel protein-protein interaction)
+
+Currently discovered modifier variants often occur in protein-coding exon but may act as regulatory variant (UTRs or promoters). **In general, any variant that affect gene function by affecting interaction with other genes and networks is modifier variant.**
+
+## Nature of modifier functions
+
+**One interesting question is that whether modifier genes tend to alter a general regulatory process or affect the target gene locally.** It turns out that the latter is the case according to current data.
+
+## Mutational buffering
+
+Here the authors discussed a general mechanism to suppress the effect of deleterious mutations by chaperones. But there is not mapping study showing that chaperone is modifier gene, but it is clear that the change of chaperone can modify the effect of a causal variant.
+
+**Global modifier** refers to the genes that regulate the outcome of variant via general mechanisms, such as chaperones, chromatin modifiers, and transcriptional regulators.
+
+It seems that global modifiers respond to generalized stress and modifier genes target specific dysfunctions.
+
+# Modifiers as mediators of network resilience
+
+Modifier effect can be seen as an consequence of causal variant to compensate or enlarge the effect of the target variant on phenotype. Another view is that modifier effect indicates the network interaction (it can be molecularly direct interaction or related functionally, i.e. in the related pathway).
+
+So, such coordination between target variant and modifier should be context-dependent (i.e. genetic background, environmental factors). The number of deleterious mutations per generation is hundreds in human including disease-causing ones but human is still alive. One possibility is that some genes act as the buffering system (latent modifiers) to counteract these deleterious variants in a genetic background-specific and environment-specific manner.
+
+The complexity is that whether the gene is target, modifier, or QTL depends on the nature of the variant, genetic background, and environmental context. Network feature can provide substantial information but it is unavailable right now.
+
+# Summary
+
+Modifier effect is pervasive and it works coordinately with target genes. Its occurrence indicates that the functionally related role between the target and modifier in gene network. Modifier effect provides a mechanism in the network to overcome the deleterious variant occurring naturally in individuals. 
