@@ -27,7 +27,7 @@ The causal gene does not act in isolation so the phenotypic outcome depends not 
 
 To experimentally detect modifier genes, we need the common functional variants with similar environmental factors in two populations with distinct genetic background.
 
-## Modifier effects and functional significance
+# Modifier effects and functional significance
 
 ## Principles of modifier Genetics
 
@@ -45,3 +45,9 @@ It can be single target gene ot multigenic but the number of modifier-affected g
 2. **Expressivity**: The modifier gene changes the expressivity of the disease-causing variant
 3. **Dominance**: Dominance measures the genetic dosage required for a phenotype (complete dominant means heterozygous and homozygous have exactly the same phenotype). The modifier gene changes the dominance of the disease-causing variant
 4. **Pleiotropy**: When the modifier gene presents, it induces novel phenotypes
+
+## Modifiers of complex traits
+
+For single-gene phenotype, modifier study use multigenic background among a population sharing the same target variant. But for complex trait, only single modifier variant can be tested in a genetically clean population for differential phenotype. Note that the modifier effect is also context-dependent.
+
+# From modified phenotypes to modifier genes
