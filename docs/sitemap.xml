@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/notebook/posts/patrick-nrg-2008/</loc>
+    <lastmod>2018-01-03T09:30:59-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/notebook/posts/riordan-ajhg-2017/</loc>
     <lastmod>2018-01-01T21:36:35-06:00</lastmod>
   </url>
@@ -91,7 +96,7 @@
   
   <url>
     <loc>/notebook/categories/biology---research-review/</loc>
-    <lastmod>2018-01-01T21:36:35-06:00</lastmod>
+    <lastmod>2018-01-03T09:30:59-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -134,6 +139,12 @@
   <url>
     <loc>/notebook/tags/epistasis/</loc>
     <lastmod>2018-01-01T21:36:35-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/tags/epistasis-in-evolution/</loc>
+    <lastmod>2018-01-03T09:30:59-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -205,13 +216,13 @@
   
   <url>
     <loc>/notebook/</loc>
-    <lastmod>2018-01-01T21:36:35-06:00</lastmod>
+    <lastmod>2018-01-03T09:30:59-06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/notebook/posts/</loc>
-    <lastmod>2018-01-01T21:36:35-06:00</lastmod>
+    <lastmod>2018-01-03T09:30:59-06:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -6,10 +6,20 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 01 Jan 2018 21:36:35 -0600</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jan 2018 09:30:59 -0600</lastBuildDate>
     
 	<atom:link href="/notebook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Epistasis — the essential role of gene interactions in the structure and evolution of genetic systems</title>
+      <link>/notebook/posts/patrick-nrg-2008/</link>
+      <pubDate>Wed, 03 Jan 2018 09:30:59 -0600</pubDate>
+      
+      <guid>/notebook/posts/patrick-nrg-2008/</guid>
+      <description>Meta data of reading Three meanings of epistasis Comments Epistasis as a tool Epistasis as an obstacle Structure and evolution of complex systems Conclusion References   Meta data of reading  Journal: Nature Review Genetics Year: 2008 DOI: 10.1038/nrg2452   Three meanings of epistasis Functional epistasis Two genes are physically interacting with each other or functionally related to each other (i.e. in the same/redundant pathways).
+ Compositional epistasis It refers to the deviation from Mendelian segregation ratio.</description>
+    </item>
     
     <item>
       <title>From Peas to Disease: Modifier Genes, Network Resilience, and the Genetics of Health</title>
