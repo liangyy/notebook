@@ -1,5 +1,12 @@
 [
 {
+	"uri": "/notebook/posts/sex-paradox-nrg-2002/",
+	"title": "Resolving the Paradox of Sex and Recombination",
+	"tags": ["epistasis in evolution"],
+	"description": "",
+	"content": " Meta data of reading Paradox of sex Evolutionary explanations Terminology   Meta data of reading  Journal: Nature Review Genetics Year: 2002 DOI: 10.1038/nrg761   Paradox of sex The paradox is that despite the high cost of sex, it is extremely common.\n Evolutionary explanations The idea of the most evolutionary hypotheses stem from the the fact that segretation and recombination break down genetic association. (The table below lists the sources of genetic association)\n The forces that generate genetic associations in populations   Also, the modifier alleles is introduced to refer to the alleles that favor sex and recombination.\n Terminology The linkage disequilibrium, \\(D\\), of two loci, A and B, is defined as the difference between the observed and expected frequency of each haplotype. In this paper, the sign of \\(D\\) is positive if the more extreme haplotype (AB and ab) are overrepresented.\nThe fraction of the sexual reproduction in the population is \\(\\sigma\\).\nThe rate of effective recombination is \\(\\rho\\).\nEffect of sec on genetic variation: Suppose \\(D \u0026lt; 0\\), the genetic mixing increase the genetic variation (by increasing the number of extreme genotypes). If \\(D \u0026gt; 0\\), the genetic mixing will decrease the genetic variation (by decreasing the number of extreme genotypes).\nVariation can be selected against: Suppose heterozygote Aa is favored in the absence of sex, the sexual reproduction will generate AA and aa which are not as fit as Aa. Therefore, the genetic variation in this case is selected against.\nVariation alone in not sufficient:\n "
+},
+{
 	"uri": "/notebook/posts/patrick-nrg-2008/",
 	"title": "Epistasis — the essential role of gene interactions in the structure and evolution of genetic systems",
 	"tags": ["epistasis in evolution"],

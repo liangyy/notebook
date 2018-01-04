@@ -1,0 +1,44 @@
+---
+title: "Resolving the Paradox of Sex and Recombination"
+date: 2018-01-04T11:31:32-06:00
+author: "Yanyu Liang"
+tags: ["epistasis in evolution"]
+categories: ["biology - research review"]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+# Meta data of reading
+
+* **Journal**: Nature Review Genetics
+* **Year**: 2002
+* **DOI**: 10.1038/nrg761
+
+# Paradox of sex
+
+The paradox is that despite the high cost of sex, it is extremely common.
+
+# Evolutionary explanations
+
+The idea of the most evolutionary hypotheses stem from the the fact that segretation and recombination break down genetic association. (The table below lists the sources of genetic association)
+
+`r htmltools::HTML("{{< figure src=\"/notebook/images/genetic_association.png\" title=\"The forces that generate genetic associations in populations\" >}}")`
+
+Also, the modifier alleles is introduced to refer to the alleles that favor sex and recombination.
+
+# Terminology
+
+The linkage disequilibrium, $D$, of two loci, A and B, is defined as the difference between the observed and expected frequency of each haplotype. In this paper, the sign of $D$ is positive if the more extreme haplotype (AB and ab) are overrepresented.
+
+The fraction of the sexual reproduction in the population is $\sigma$.
+
+The rate of effective recombination is $\rho$.
+
+**Effect of sec on genetic variation**: Suppose $D < 0$, the genetic mixing increase the genetic variation (by increasing the number of extreme genotypes). If $D > 0$, the genetic mixing will decrease the genetic variation (by decreasing the number of extreme genotypes).
+
+**Variation can be selected against**: Suppose heterozygote Aa is favored in the absence of sex, the sexual reproduction will generate AA and aa which are not as fit as Aa. Therefore, the genetic variation in this case is selected against.
+
+**Variation alone in not sufficient**: 
