@@ -88,13 +88,13 @@
   </url>
   
   <url>
-    <loc>/notebook/tags/</loc>
+    <loc>/notebook/categories/</loc>
     <lastmod>2017-12-29T11:37:51-06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/notebook/categories/</loc>
+    <loc>/notebook/tags/</loc>
     <lastmod>2017-12-29T11:37:51-06:00</lastmod>
     <priority>0</priority>
   </url>

@@ -9,6 +9,7 @@ output:
   blogdown::html_page:
     toc: true
     toc_depth: 1
+bibliography: sex-paradox-nrg-2002.bib
 ---
 
 
@@ -17,7 +18,9 @@ output:
 <li><a href="#meta-data-of-reading">Meta data of reading</a></li>
 <li><a href="#paradox-of-sex">Paradox of sex</a></li>
 <li><a href="#evolutionary-explanations">Evolutionary explanations</a></li>
-<li><a href="#terminology">Terminology</a></li>
+<li><a href="#terminology-and-evolutionary-perspective-of-sex">Terminology and Evolutionary Perspective of Sex</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#reference">Reference</a></li>
 </ul>
 </div>
 
@@ -39,12 +42,33 @@ output:
 {{< figure src="/notebook/images/genetic_association.png" title="The forces that generate genetic associations in populations" >}}
 <p>Also, the modifier alleles is introduced to refer to the alleles that favor sex and recombination.</p>
 </div>
-<div id="terminology" class="section level1">
-<h1>Terminology</h1>
+<div id="terminology-and-evolutionary-perspective-of-sex" class="section level1">
+<h1>Terminology and Evolutionary Perspective of Sex</h1>
 <p>The linkage disequilibrium, <span class="math inline">\(D\)</span>, of two loci, A and B, is defined as the difference between the observed and expected frequency of each haplotype. In this paper, the sign of <span class="math inline">\(D\)</span> is positive if the more extreme haplotype (AB and ab) are overrepresented.</p>
 <p>The fraction of the sexual reproduction in the population is <span class="math inline">\(\sigma\)</span>.</p>
 <p>The rate of effective recombination is <span class="math inline">\(\rho\)</span>.</p>
+<p>The epistasis <span class="math inline">\(\epsilon\)</span> is a measure of fitness interaction between alleles at different loci. In haplotype, <span class="math inline">\(\epsilon = \text{fitness}(AB) \times \text{fitness}(ab) - \text{fitness}(Ab) \times \text{fitness}(aB)\)</span>.</p>
 <p><strong>Effect of sec on genetic variation</strong>: Suppose <span class="math inline">\(D &lt; 0\)</span>, the genetic mixing increase the genetic variation (by increasing the number of extreme genotypes). If <span class="math inline">\(D &gt; 0\)</span>, the genetic mixing will decrease the genetic variation (by decreasing the number of extreme genotypes).</p>
 <p><strong>Variation can be selected against</strong>: Suppose heterozygote Aa is favored in the absence of sex, the sexual reproduction will generate AA and aa which are not as fit as Aa. Therefore, the genetic variation in this case is selected against.</p>
-<p><strong>Variation alone in not sufficient</strong>:</p>
+<p><strong>Variation alone is not sufficient</strong>: In general, variation benefits in long-term but in short term it may hurt (in other word, <em>variation alone is not sufficient</em>). <span class="citation">(Barton 1995)</span> discussed the conditions when sex and recombination are favored (namely modifier gene is spread). Suppose there is a haplotype involving gene A and B. Whenever <span class="math inline">\(D\)</span> is negative, recombination will increase the genetic variation so that under a changing environment, it would be favored. But the spread of modifier gene depends on short-term effect as well. Since the genetic association that has been established in the current environment, the breakdown of it on average will decrease the fitness, which is known as <strong>recombination load</strong>. Combining the thought above, <span class="citation">(Barton 1995)</span> gives the following result:</p>
+<span class="math display">\[\begin{align}
+    \text{selection on modifier} &amp;= \frac{\delta \rho}{\rho_{MAB}}D(\lambda - \epsilon) \\
+    \lambda &amp;= -S_aS_b\bigg[ \frac{1}{\rho_{MA}} + \frac{1}{\rho_{MB}} - 1\bigg]
+  \end{align}\]</span>
+<p>, and the condition where modifier gene is evolutionarily favored as follow.</p>
+{{< figure src="/notebook/images/selection_of_modifier.png" title="The conditions where selection of modifier is positive" >}}
+<p>In particular, the diagonal line corresponds to the case where linkage disequilibrium completely comes from epistasis. The red arrow corresponds to the situation where fitness of genotype is positively correlation in spatial space. T blue arrow corresponds to the situation where genetic drift exists. Therefore, in the system where epistasis is the only driving force for genetic association, sex is favored only in Zone 1 where epistasis is weak and extreme case is under-represented.</p>
+<p><strong>Effects of sex on segregation</strong>: The idea is similar to the recombination case when consider the genotype in diploids. The inbreeding coefficient (the discrepency to Hardy-Weinberg state), <span class="math inline">\(F\)</span>, is similar to <span class="math inline">\(D\)</span>. The single-locus interaction <span class="math inline">\(\tau\)</span> is defined as <span class="math inline">\(\tau = \text{fitness}(AA) \times \text{fitness}(aa) - \text{fitness}(Aa)^2\)</span>. Then the similar idea follows.</p>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<p>From the above evolutionary model, it turns out that sex is favored as the result of epistasis, environmental difference in space, and genetic drift. Without the latter two, the condition that favors sex under the epistasis alone is very limited.</p>
+</div>
+<div id="reference" class="section level1 unnumbered">
+<h1>Reference</h1>
+<div id="refs" class="references">
+<div id="ref-barton1995general">
+<p>Barton, NH. 1995. “A General Model for the Evolution of Recombination.” <em>Genetics Research</em> 65 (2). Cambridge University Press: 123–44.</p>
+</div>
+</div>
 </div>
