@@ -6,10 +6,20 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 04 Jan 2018 11:31:32 -0600</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jan 2018 10:23:56 -0600</lastBuildDate>
     
 	<atom:link href="/notebook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Statistical Epistasis Is a Generic Feature of Gene Regulatory Networks</title>
+      <link>/notebook/posts/gjuvsland-genetics-2007/</link>
+      <pubDate>Sat, 06 Jan 2018 10:23:56 -0600</pubDate>
+      
+      <guid>/notebook/posts/gjuvsland-genetics-2007/</guid>
+      <description>Meta data of reading Main question Method and result in brief   Meta data of reading  Journal: Genetics Year: 2007 DOI: 10.1534/genetics.106.058859   Main question It has been found that even in yeast, the GWAS analysis of statistical epistasis varies a lot between different genetic variation. The question is whether such difference is due to the different functional dependency patterns between genes (regulatory architecture).
+ Method and result in brief This paper takes the approach that focuses on 12 regulatory motifs and simulates data on the basis of these dynamical system.</description>
+    </item>
     
     <item>
       <title>Resolving the Paradox of Sex and Recombination</title>
