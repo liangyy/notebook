@@ -88,3 +88,97 @@ If allowing loci to be linked but distant loci are not linked, under Gaussian in
 \end{align*}
 
 For Gaussian mixture prior, the posterior mean is obtained by MCMC Gibbs sampler.
+
+# Some derivations
+
+This section sketches some derivations of the results listed above. The term 'unlinked' means that the single-locus model captures the proper effect which is the same as the multi-loci model. The term 'infinitesimal' means that the effect $\beta_i$ with measure zero at zero.
+
+## Unlinked markers and infinitesimal effect
+
+Suppose $\beta_i \sim \mathcal{N}(0, h^2 / M)$ (then variance of $\beta$ is $h^2$).
+\begin{align*}
+  \tilde\beta_i | \beta_i &\sim \mathcal{N}(\beta_i, \frac{1}{N}(1 - h^2 / M)) \\
+  &\quad\text{, since 'unlinked', one loci explains $h^2/M$ variance}\\
+  \beta_i | \tilde\beta_i &\sim \mathcal{N}(\frac{1}{1 + M / h^2N}\tilde\beta_i, \frac{1}{N}\frac{1}{1 + M / h^2N}) \\
+  &\quad\text{, derived from prior and conditional with large $M$}
+\end{align*}
+
+## Unlinked markers and non-infinitesimal effect
+
+Suppose
+\begin{align}
+  \beta_i &\sim \begin{cases}
+    \delta_0(\beta_i) & \text{, with prob $1 - p$} \\
+    \mathcal{N}(0, h^2 / Mp)(\beta_i) & \text{, with prob $p$}
+  \end{cases} \label{eq:auxiliary}
+\end{align}
+, where $\var(\beta_i)$ is kept to be $h^2 / M$
+
+Let's first introduce auxiliary variable $Z_i \sim \text{Ber}(p)$ and
+\begin{align*}
+  f(\beta_i| Z_i) &= (1 - Z_i) \delta_0(\beta_i) + Z_i\mathcal{N}(0, h^2/Mp)(\beta_i)
+\end{align*}
+, then $f(\beta_i)$ is kept to be \eqref{eq:auxiliary}. The independences of variables is
+```{r, echo=FALSE, engine="tikz", fig.ext='pdf', fig.width=3, fig.align='center'}
+\usetikzlibrary{fit,calc,positioning,decorations.pathreplacing,matrix}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes, arrows, calc, positioning}
+\begin{tikzpicture}[auto]
+  \tikzstyle{node}=[draw, circle, text width=1em, text centered, node distance=3em]
+  \tikzstyle{arrow}=[draw, ->]
+  \node [node] (tilde-beta) {$\tilde{\beta}$};
+  \node [node, left of=tilde-beta] (beta) {$\beta$};
+  \node [node, left of=beta] (z) {$Z_i$};
+  \path [arrow] (z) -- (beta);
+  \path [arrow] (beta) -- (tilde-beta);
+\end{tikzpicture}
+```
+Similarly,
+\begin{align*}
+  \tilde\beta_i | \beta_i &\sim \mathcal{N}(\beta_i, \frac{1}{N}(1 - h^2 / M)) \\
+  &\quad\text{, since $\var(\beta_i)$ is kept the same as before} \\
+  f(\beta_i | \tilde\beta_i, Z_i = 0) &\propto f(\beta_i | Z_i = 0) \times f(\tilde\beta_i | \beta_i) \\
+  &\propto \delta_0(\beta_i) \times \mathcal{N}(\beta_i, \sigma_1^2)(\tilde\beta_i) \\
+  &\propto \delta_0(\beta_i) \\
+  f(\beta_i | \tilde\beta_i, Z_i = 1) &\propto \mathcal{N}(0, \sigma_2^2)(\beta_i) \times \mathcal{N}(\beta_i, \sigma_1^2)(\tilde\beta_i) \\
+  &\propto \mathcal{N}(k \tilde\beta_i, k / N)
+\end{align*}
+, where $\sigma_1^2 = \frac{1}{N}(1 - h^2 / M), \sigma_2^2 = \var(\beta_i), k = \sigma_2^2 / (\sigma_1^2 + \sigma_2^2)$.
+
+The posterior mean is
+\begin{align*}
+  \E(\beta_i | \tilde\beta_i) &= \E_{Z_i | \tilde\beta_i}[\E(\beta_i | \tilde\beta_i, Z_i)] \\
+  &= \E_{Z_i | \tilde\beta_i}[Z_i \times k\tilde\beta_i + (1 - Z_i) \times 0] \\
+  &= k\bar{p}_i\tilde\beta_i \quad\text{, where $\bar{p}_i = \E(Z_i | \tilde\beta_i)$}
+\end{align*}
+
+## Linked markers and infinitesimal effect
+
+Suppose the $i$th region contains $N_i$ SNPs and the SNPs are linked with each other within the region but no correlation outside the region. Then, the marginal effect $\tilde\beta_i \in \mathbb{R}^{M_i}$ conditional on $\beta_i$ is
+\begin{align*}
+  \E(\tilde\beta_i | \beta_i) &= D_i \beta_i \\
+  \var(\tilde\beta_i | \beta_i) &= \frac{1}{N} (1 - h_i^2) D_i  \\
+  \text{, where} & \\
+  D_i &= X_i'X_i / N \\
+  \tilde\beta_i &= X_i'Y / N \\
+  h_i^2 &\text{is} \text{ phenotype variance explained by the $i$th region}
+\end{align*}
+, which can be deduced by replacing $Y$ with $X_i\beta_i + \epsilon_i$.
+
+Then,
+\begin{align*}
+  \tilde\beta_i | \beta_i &\sim \mathcal{N}(D_i\beta_i, \Sigma_1) \\
+  \beta_i &\sim \mathcal{N}(0, \Sigma_2) \\
+  \text{, where} & \\
+  \Sigma_1 &= \frac{1}{N} (1 - h_i^2) D_i \\
+  \Sigma_2 &= (h_i^2 / M)I
+\end{align*}
+, so that we can get the posterior distribution
+\begin{align*}
+  \beta_i | \tilde\beta_i &\sim \mathcal{N}(A\tilde\beta_i, \Sigma) \\
+  \text{where, }& \\
+  \Sigma &= (\Sigma_2^{-1} + D_i\Sigma_1^{-1}D_i)^{-1} = \frac{1}{N}(\frac{1}{1 - h_i^2}D_i + \frac{M}{Nh_i^2}I)^{-1}\\
+  A &= \Sigma D_i \Sigma_1^{-1} \\
+  \text{when } & h^2 \approx 0 \\
+  A &\approx (\frac{1}{1 - h_i^2}D_i + \frac{M}{Nh_i^2}I)^{-1}
+\end{align*}

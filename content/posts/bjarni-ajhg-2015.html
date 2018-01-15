@@ -17,6 +17,7 @@ output:
 <li><a href="#meta-data-of-reading">Meta data of reading</a></li>
 <li><a href="#in-brief">In brief</a></li>
 <li><a href="#the-model">The model</a></li>
+<li><a href="#some-derivations">Some derivations</a></li>
 </ul>
 </div>
 
@@ -92,5 +93,81 @@ If allowing loci to be linked but distant loci are not linked, under Gaussian in
   \E(\beta^l | \tilde\beta^l, D) &amp;\approx (\frac{M}{Nh_g^2}I + D_l)^{-1} \tilde\beta^l
 \end{align*}\]</span>
 <p>For Gaussian mixture prior, the posterior mean is obtained by MCMC Gibbs sampler.</p>
+</div>
+</div>
+<div id="some-derivations" class="section level1">
+<h1>Some derivations</h1>
+<p>This section sketches some derivations of the results listed above. The term ‘unlinked’ means that the single-locus model captures the proper effect which is the same as the multi-loci model. The term ‘infinitesimal’ means that the effect <span class="math inline">\(\beta_i\)</span> with measure zero at zero.</p>
+<div id="unlinked-markers-and-infinitesimal-effect" class="section level2">
+<h2>Unlinked markers and infinitesimal effect</h2>
+Suppose <span class="math inline">\(\beta_i \sim \mathcal{N}(0, h^2 / M)\)</span> (then variance of <span class="math inline">\(\beta\)</span> is <span class="math inline">\(h^2\)</span>).
+<span class="math display">\[\begin{align*}
+  \tilde\beta_i | \beta_i &amp;\sim \mathcal{N}(\beta_i, \frac{1}{N}(1 - h^2 / M)) \\
+  &amp;\quad\text{, since &#39;unlinked&#39;, one loci explains $h^2/M$ variance}\\
+  \beta_i | \tilde\beta_i &amp;\sim \mathcal{N}(\frac{1}{1 + M / h^2N}\tilde\beta_i, \frac{1}{N}\frac{1}{1 + M / h^2N}) \\
+  &amp;\quad\text{, derived from prior and conditional with large $M$}
+\end{align*}\]</span>
+</div>
+<div id="unlinked-markers-and-non-infinitesimal-effect" class="section level2">
+<h2>Unlinked markers and non-infinitesimal effect</h2>
+Suppose
+<span class="math display">\[\begin{align}
+  \beta_i &amp;\sim \begin{cases}
+    \delta_0(\beta_i) &amp; \text{, with prob $1 - p$} \\
+    \mathcal{N}(0, h^2 / Mp)(\beta_i) &amp; \text{, with prob $p$}
+  \end{cases} \label{eq:auxiliary}
+\end{align}\]</span>
+<p>, where <span class="math inline">\(\var(\beta_i)\)</span> is kept to be <span class="math inline">\(h^2 / M\)</span></p>
+Let’s first introduce auxiliary variable <span class="math inline">\(Z_i \sim \text{Ber}(p)\)</span> and
+<span class="math display">\[\begin{align*}
+  f(\beta_i| Z_i) &amp;= (1 - Z_i) \delta_0(\beta_i) + Z_i\mathcal{N}(0, h^2/Mp)(\beta_i)
+\end{align*}\]</span>
+, then <span class="math inline">\(f(\beta_i)\)</span> is kept to be . The independences of variables is <embed src="/notebook/posts/bjarni-ajhg-2015_files/figure-html/unnamed-chunk-1-1.pdf" width="288" style="display: block; margin: auto;" type="application/pdf" /> Similarly,
+<span class="math display">\[\begin{align*}
+  \tilde\beta_i | \beta_i &amp;\sim \mathcal{N}(\beta_i, \frac{1}{N}(1 - h^2 / M)) \\
+  &amp;\quad\text{, since $\var(\beta_i)$ is kept the same as before} \\
+  f(\beta_i | \tilde\beta_i, Z_i = 0) &amp;\propto f(\beta_i | Z_i = 0) \times f(\tilde\beta_i | \beta_i) \\
+  &amp;\propto \delta_0(\beta_i) \times \mathcal{N}(\beta_i, \sigma_1^2)(\tilde\beta_i) \\
+  &amp;\propto \delta_0(\beta_i) \\
+  f(\beta_i | \tilde\beta_i, Z_i = 1) &amp;\propto \mathcal{N}(0, \sigma_2^2)(\beta_i) \times \mathcal{N}(\beta_i, \sigma_1^2)(\tilde\beta_i) \\
+  &amp;\propto \mathcal{N}(k \tilde\beta_i, k / N)
+\end{align*}\]</span>
+<p>, where <span class="math inline">\(\sigma_1^2 = \frac{1}{N}(1 - h^2 / M), \sigma_2^2 = \var(\beta_i), k = \sigma_2^2 / (\sigma_1^2 + \sigma_2^2)\)</span>.</p>
+The posterior mean is
+<span class="math display">\[\begin{align*}
+  \E(\beta_i | \tilde\beta_i) &amp;= \E_{Z_i | \tilde\beta_i}[\E(\beta_i | \tilde\beta_i, Z_i)] \\
+  &amp;= \E_{Z_i | \tilde\beta_i}[Z_i \times k\tilde\beta_i + (1 - Z_i) \times 0] \\
+  &amp;= k\bar{p}_i\tilde\beta_i \quad\text{, where $\bar{p}_i = \E(Z_i | \tilde\beta_i)$}
+\end{align*}\]</span>
+</div>
+<div id="linked-markers-and-infinitesimal-effect" class="section level2">
+<h2>Linked markers and infinitesimal effect</h2>
+Suppose the <span class="math inline">\(i\)</span>th region contains <span class="math inline">\(N_i\)</span> SNPs and the SNPs are linked with each other within the region but no correlation outside the region. Then, the marginal effect <span class="math inline">\(\tilde\beta_i \in \mathbb{R}^{M_i}\)</span> conditional on <span class="math inline">\(\beta_i\)</span> is
+<span class="math display">\[\begin{align*}
+  \E(\tilde\beta_i | \beta_i) &amp;= D_i \beta_i \\
+  \var(\tilde\beta_i | \beta_i) &amp;= \frac{1}{N} (1 - h_i^2) D_i  \\
+  \text{, where} &amp; \\
+  D_i &amp;= X_i&#39;X_i / N \\
+  \tilde\beta_i &amp;= X_i&#39;Y / N \\
+  h_i^2 &amp;\text{is} \text{ phenotype variance explained by the $i$th region}
+\end{align*}\]</span>
+<p>, which can be deduced by replacing <span class="math inline">\(Y\)</span> with <span class="math inline">\(X_i\beta_i + \epsilon_i\)</span>.</p>
+Then,
+<span class="math display">\[\begin{align*}
+  \tilde\beta_i | \beta_i &amp;\sim \mathcal{N}(D_i\beta_i, \Sigma_1) \\
+  \beta_i &amp;\sim \mathcal{N}(0, \Sigma_2) \\
+  \text{, where} &amp; \\
+  \Sigma_1 &amp;= \frac{1}{N} (1 - h_i^2) D_i \\
+  \Sigma_2 &amp;= (h_i^2 / M)I
+\end{align*}\]</span>
+, so that we can get the posterior distribution
+<span class="math display">\[\begin{align*}
+  \beta_i | \tilde\beta_i &amp;\sim \mathcal{N}(A\tilde\beta_i, \Sigma) \\
+  \text{where, }&amp; \\
+  \Sigma &amp;= (\Sigma_2^{-1} + D_i\Sigma_1^{-1}D_i)^{-1} = \frac{1}{N}(\frac{1}{1 - h_i^2}D_i + \frac{M}{Nh_i^2}I)^{-1}\\
+  A &amp;= \Sigma D_i \Sigma_1^{-1} \\
+  \text{when } &amp; h^2 \approx 0 \\
+  A &amp;\approx (\frac{1}{1 - h_i^2}D_i + \frac{M}{Nh_i^2}I)^{-1}
+\end{align*}\]</span>
 </div>
 </div>

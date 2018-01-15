@@ -189,7 +189,7 @@
   
   <url>
     <loc>/notebook/tags/hypothesis-testing/</loc>
-    <lastmod>2017-12-28T10:53:20-06:00</lastmod>
+    <lastmod>2017-12-28T15:45:19-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -304,6 +304,12 @@
   <url>
     <loc>/notebook/tags/type-2-diabetes/</loc>
     <lastmod>2017-12-27T10:15:16-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/tags/variance-component-test/</loc>
+    <lastmod>2017-12-28T15:45:19-06:00</lastmod>
     <priority>0</priority>
   </url>
   

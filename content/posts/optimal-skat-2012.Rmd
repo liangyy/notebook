@@ -2,8 +2,8 @@
 title: "Optimal tests for rare variant effects in sequencing association studies"
 date: 2017-12-28T15:45:19-06:00
 author: "Yanyu Liang"
-tags: [""]
-categories: [""]
+tags: ["hypothesis testing", 'variance component test']
+categories: ["research paper - method"]
 draft: false
 output:
   blogdown::html_page:
@@ -93,4 +93,4 @@ In practice, $\rho$ is unknown. This paper proposed the test statistic $T = \inf
     &= 1 - \E[\Pr(\kappa < \min\{(q_\min(\rho_nv) - \tau(\rho_\nu)\eta_0)/(1 - \rho_\nu)\})|\eta_0]
   \end{align}
 
-, which can be computed efficiently. 
+, which can be computed efficiently.
