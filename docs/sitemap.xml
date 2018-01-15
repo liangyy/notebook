@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/notebook/posts/bjarni-ajhg-2015/</loc>
+    <lastmod>2018-01-14T11:47:23-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/notebook/posts/gjuvsland-genetics-2007/</loc>
     <lastmod>2018-01-06T10:23:56-06:00</lastmod>
   </url>
@@ -195,6 +200,12 @@
   </url>
   
   <url>
+    <loc>/notebook/tags/ld-pruning/</loc>
+    <lastmod>2018-01-14T11:47:23-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/notebook/tags/linkage-disequilibrium/</loc>
     <lastmod>2017-12-16T11:06:05-06:00</lastmod>
     <priority>0</priority>
@@ -226,13 +237,19 @@
   
   <url>
     <loc>/notebook/</loc>
-    <lastmod>2018-01-06T10:23:56-06:00</lastmod>
+    <lastmod>2018-01-14T11:47:23-06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/notebook/posts/</loc>
-    <lastmod>2018-01-06T10:23:56-06:00</lastmod>
+    <lastmod>2018-01-14T11:47:23-06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/notebook/tags/predict-disease-risk/</loc>
+    <lastmod>2018-01-14T11:47:23-06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -244,7 +261,7 @@
   
   <url>
     <loc>/notebook/categories/research-paper---method/</loc>
-    <lastmod>2017-12-20T10:16:05-06:00</lastmod>
+    <lastmod>2018-01-14T11:47:23-06:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -1,5 +1,12 @@
 [
 {
+	"uri": "/notebook/posts/bjarni-ajhg-2015/",
+	"title": "Modeling Linkage Disequilibrium Increases Accuracy of Polygenic Risk Scores",
+	"tags": ["predict disease risk", "ld pruning"],
+	"description": "",
+	"content": " Meta data of reading In brief The model   Meta data of reading  Journal: AJHG Year: 2015 DOI: 10.1016/j.ajhg.2015.09.001  \\[ \\newcommand\\E{\\text{E}} \\newcommand\\var{\\text{Var}} \\]\n In brief This paper proposed a method to estimate disease risk using GWAS summary statistics. The previous method is to do LD pruning and p-value thresholding but it potentially drop out informative SNPs and leads to lack of explained heritability. This paper proposed a Bayesian polygenic risk scores (PRS), LDpred, that estimates the posterior mean causal effect sizes from GWAS results by assigning prior on genetic architecture of the disease and the LD information from a reference panel.\n The model Assume that phenotype \\(Y\\), genotype \\(X\\) are both standardized. \\[\\begin{align*} Y \u0026amp;= \\sum_{i = 1}^M X_i \\beta_i + \\epsilon \\\\ \\hat\\beta_i \u0026amp;= X_i\u0026#39; Y / N \\end{align*}\\] , where \\(\\hat\\beta_i\\) is marginal effect estimate.\nIf \\(z_i\\) is provided instead, \\(\\hat\\beta_i = s_i(z_i / \\sqrt{N})\\), where \\(s_i\\) is the sign of \\(z_i\\).\nUnadjusted PRS \\[\\begin{align*} S_i \u0026amp;= \\sum_{j = 1}^M X_{ji} \\hat\\beta_j \\end{align*}\\] , where \\(S_i\\) is the predicted diseases risk of \\(i\\)th individual. Note that here all SNPs are used to predict the outcome and marginal effects are used which implicitly assume that every loci is not correlated with each other.\n P+T In practice, LD pruning and p-value thresholding improve the accuracy. For instance, LD pruning with \\(r^2 \u0026gt; 0.2\\) and p-value thresholding with various values over a grid to optimize the performance (validation data should be available).\n Bpred In the sense of minimizing prediction error variance, the posterior mean prediction is optimal linear prediction (see Bayes estimator on wikipedia). Namely, \\[\\begin{align} \\E(Y | \\tilde\\beta, \\hat{D}) \u0026amp;= \\sum_{i = 1}^M X_i\u0026#39; \\E(\\beta_i | \\tilde\\beta, \\hat{D}) \\label{eq:posterior-mean-estimate} \\end{align}\\] , where \\(\\tilde\\beta\\) is the marginal least-squares estimate and \\(\\hat{D}\\) is observed LD in the training data.\nUnder standardized \\(X\\), \\(\\var(Y) = h_g^2 \\Theta + (1 - h_g^2) I\\) because \\[\\begin{align*} \\var(Y) \u0026amp;:= \\var_{\\beta, \\epsilon}(Y) \\\\ \u0026amp;= \\var_{\\beta, \\epsilon}(X\\beta + \\epsilon) \\\\ \u0026amp;= \\var_{\\beta}(X\\beta) + \\var_{\\epsilon}(\\epsilon) \\quad \\text{, since $\\beta$, $\\epsilon$ are independent} \\\\ \u0026amp;= h_g^2 (XX\u0026#39; / M) + (1 - h_g^2) I \\quad\\text{, here it seems that one assumption is $\\beta$ iid}\\\\ \u0026amp;= h_g^2 \\Theta + (1 - h_g^2) I \\end{align*}\\] If all samples are independent and marks are unlinked with \\(\\beta_i \\sim_{iid} \\mathcal{N}(0, h_g^2 / M)\\) (Gaussian infinitesimal prior), then \\[\\begin{align*} \\E(\\beta_i | \\tilde{\\beta}) \u0026amp;= \\E(\\beta_i | \\tilde\\beta_i) = \\frac{h_g^2}{h_g^2 + M / N} \\tilde\\beta_i \\\\ \\text{cor}(\\hat{Y}_\\text{PRS}, Y) \u0026amp;= \\frac{h_g^2}{h_g^2 + M / N} h_g^2 \\end{align*}\\] If a Gaussian mixture is assumed instead, namely \\[\\begin{align*} \\beta_i \u0026amp;\\sim \\begin{cases} \\mathcal{N}(0, h_g^2 / (h_g^2 + Mp/N)) \u0026amp; \\text{prob } p \\\\ 0 \u0026amp; \\text{prob } (1 - p)\\end{cases}$) \\end{align*}\\] , then \\[\\begin{align*} \\E(\\beta_i | \\tilde\\beta) \u0026amp;= \\frac{h_g^2}{h_g^2 + Mp / N} \\bar{p}_i \\tilde\\beta_i \\end{align*}\\]  LDpred If allowing loci to be linked but distant loci are not linked, under Gaussian infinitesimal prior \\[\\begin{align*} \\E(\\beta^l | \\tilde\\beta^l, D) \u0026amp;\\approx (\\frac{M}{Nh_g^2}I + D_l)^{-1} \\tilde\\beta^l \\end{align*}\\] For Gaussian mixture prior, the posterior mean is obtained by MCMC Gibbs sampler.\n  "
+},
+{
 	"uri": "/notebook/posts/gjuvsland-genetics-2007/",
 	"title": "Statistical Epistasis Is a Generic Feature of Gene Regulatory Networks",
 	"tags": ["epistasis in evolution"],
@@ -245,6 +252,13 @@
 	"content": ""
 },
 {
+	"uri": "/notebook/tags/ld-pruning/",
+	"title": "Ld Pruning",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
 	"uri": "/notebook/tags/linkage-disequilibrium/",
 	"title": "Linkage Disequilibrium",
 	"tags": [],
@@ -289,6 +303,13 @@
 {
 	"uri": "/notebook/posts/",
 	"title": "Posts",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/notebook/tags/predict-disease-risk/",
+	"title": "Predict Disease Risk",
 	"tags": [],
 	"description": "",
 	"content": ""

@@ -1,0 +1,96 @@
+---
+title: "Modeling Linkage Disequilibrium Increases Accuracy of Polygenic Risk Scores"
+date: 2018-01-14T11:47:23-06:00
+author: "Yanyu Liang"
+tags: ["predict disease risk", 'ld pruning']
+categories: ["research paper - method"]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#meta-data-of-reading">Meta data of reading</a></li>
+<li><a href="#in-brief">In brief</a></li>
+<li><a href="#the-model">The model</a></li>
+</ul>
+</div>
+
+<div id="meta-data-of-reading" class="section level1">
+<h1>Meta data of reading</h1>
+<ul>
+<li><strong>Journal</strong>: AJHG</li>
+<li><strong>Year</strong>: 2015</li>
+<li><strong>DOI</strong>: 10.1016/j.ajhg.2015.09.001</li>
+</ul>
+<p><span class="math display">\[
+\newcommand\E{\text{E}}
+\newcommand\var{\text{Var}}
+\]</span></p>
+</div>
+<div id="in-brief" class="section level1">
+<h1>In brief</h1>
+<p>This paper proposed a method to estimate disease risk using GWAS summary statistics. The previous method is to do LD pruning and p-value thresholding but it potentially drop out informative SNPs and leads to lack of explained heritability. This paper proposed a Bayesian polygenic risk scores (PRS), LDpred, that estimates the posterior mean causal effect sizes from GWAS results by assigning prior on genetic architecture of the disease and the LD information from a reference panel.</p>
+</div>
+<div id="the-model" class="section level1">
+<h1>The model</h1>
+Assume that phenotype <span class="math inline">\(Y\)</span>, genotype <span class="math inline">\(X\)</span> are both standardized.
+<span class="math display">\[\begin{align*}
+  Y &amp;= \sum_{i = 1}^M X_i \beta_i + \epsilon \\
+  \hat\beta_i &amp;= X_i&#39; Y / N
+\end{align*}\]</span>
+<p>, where <span class="math inline">\(\hat\beta_i\)</span> is <strong>marginal</strong> effect estimate.</p>
+<p>If <span class="math inline">\(z_i\)</span> is provided instead, <span class="math inline">\(\hat\beta_i = s_i(z_i / \sqrt{N})\)</span>, where <span class="math inline">\(s_i\)</span> is the sign of <span class="math inline">\(z_i\)</span>.</p>
+<div id="unadjusted-prs" class="section level2">
+<h2>Unadjusted PRS</h2>
+<span class="math display">\[\begin{align*}
+  S_i &amp;= \sum_{j = 1}^M X_{ji} \hat\beta_j
+\end{align*}\]</span>
+<p>, where <span class="math inline">\(S_i\)</span> is the predicted diseases risk of <span class="math inline">\(i\)</span>th individual. Note that here all SNPs are used to predict the outcome and marginal effects are used which implicitly assume that every loci is not correlated with each other.</p>
+</div>
+<div id="pt" class="section level2">
+<h2>P+T</h2>
+<p>In practice, LD pruning and p-value thresholding improve the accuracy. For instance, LD pruning with <span class="math inline">\(r^2 &gt; 0.2\)</span> and p-value thresholding with various values over a grid to optimize the performance (validation data should be available).</p>
+</div>
+<div id="bpred" class="section level2">
+<h2>Bpred</h2>
+In the sense of minimizing prediction error variance, the posterior mean prediction is optimal linear prediction (see <a href="https://en.wikipedia.org/wiki/Bayes_estimator#Minimum_mean_square_error_estimation">Bayes estimator on wikipedia</a>). Namely,
+<span class="math display">\[\begin{align}
+  \E(Y | \tilde\beta, \hat{D}) &amp;= \sum_{i = 1}^M X_i&#39; \E(\beta_i | \tilde\beta, \hat{D}) \label{eq:posterior-mean-estimate}
+\end{align}\]</span>
+<p>, where <span class="math inline">\(\tilde\beta\)</span> is the marginal least-squares estimate and <span class="math inline">\(\hat{D}\)</span> is observed LD in the training data.</p>
+Under standardized <span class="math inline">\(X\)</span>, <span class="math inline">\(\var(Y) = h_g^2 \Theta + (1 - h_g^2) I\)</span> because
+<span class="math display">\[\begin{align*}
+  \var(Y) &amp;:= \var_{\beta, \epsilon}(Y) \\
+  &amp;= \var_{\beta, \epsilon}(X\beta + \epsilon) \\
+  &amp;= \var_{\beta}(X\beta) + \var_{\epsilon}(\epsilon) \quad \text{, since $\beta$, $\epsilon$ are independent} \\
+  &amp;= h_g^2 (XX&#39; / M) + (1 - h_g^2) I \quad\text{, here it seems that one assumption is $\beta$ iid}\\
+  &amp;= h_g^2 \Theta + (1 - h_g^2) I
+\end{align*}\]</span>
+If all samples are independent and marks are unlinked with <span class="math inline">\(\beta_i \sim_{iid} \mathcal{N}(0, h_g^2 / M)\)</span> (Gaussian infinitesimal prior), then
+<span class="math display">\[\begin{align*}
+  \E(\beta_i | \tilde{\beta}) &amp;= \E(\beta_i | \tilde\beta_i) = \frac{h_g^2}{h_g^2 + M / N} \tilde\beta_i \\
+  \text{cor}(\hat{Y}_\text{PRS}, Y) &amp;= \frac{h_g^2}{h_g^2 + M / N} h_g^2
+\end{align*}\]</span>
+If a Gaussian mixture is assumed instead, namely
+<span class="math display">\[\begin{align*}
+  \beta_i &amp;\sim \begin{cases} \mathcal{N}(0, h_g^2 / (h_g^2 + Mp/N)) &amp; \text{prob } p \\ 0 &amp; \text{prob } (1 - p)\end{cases}$)
+\end{align*}\]</span>
+, then
+<span class="math display">\[\begin{align*}
+  \E(\beta_i | \tilde\beta) &amp;= \frac{h_g^2}{h_g^2 + Mp / N} \bar{p}_i \tilde\beta_i
+\end{align*}\]</span>
+</div>
+<div id="ldpred" class="section level2">
+<h2>LDpred</h2>
+If allowing loci to be linked but distant loci are not linked, under Gaussian infinitesimal prior
+<span class="math display">\[\begin{align*}
+  \E(\beta^l | \tilde\beta^l, D) &amp;\approx (\frac{M}{Nh_g^2}I + D_l)^{-1} \tilde\beta^l
+\end{align*}\]</span>
+<p>For Gaussian mixture prior, the posterior mean is obtained by MCMC Gibbs sampler.</p>
+</div>
+</div>
