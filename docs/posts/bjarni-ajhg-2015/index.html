@@ -59,8 +59,8 @@
                     </h1>
                     <h2 class="headline">
                     Jan 14, 2018 11:47
-                    · 988 words
-                    · 5 minutes read
+                    · 1137 words
+                    · 6 minutes read
                       <span class="tags">
                       
                       
@@ -147,7 +147,7 @@ If all samples are independent and marks are unlinked with <span class="math inl
 \end{align*}\]</span>
 If a Gaussian mixture is assumed instead, namely
 <span class="math display">\[\begin{align*}
-  \beta_i &amp;\sim \begin{cases} \mathcal{N}(0, h_g^2 / (h_g^2 + Mp/N)) &amp; \text{prob } p \\ 0 &amp; \text{prob } (1 - p)\end{cases}$)
+  \beta_i &amp;\sim \begin{cases} \mathcal{N}(0, h_g^2 / (h_g^2 + Mp/N)) &amp; \text{prob } p \\ 0 &amp; \text{prob } (1 - p)\end{cases}
 \end{align*}\]</span>
 , then
 <span class="math display">\[\begin{align*}
@@ -237,6 +237,20 @@ Then,
   \text{when } &amp; h^2 \approx 0 \\
   A &amp;\approx (\frac{1}{1 - h_i^2}D_i + \frac{M}{Nh_i^2}I)^{-1}
 \end{align*}\]</span>
+</div>
+<div id="linked-markers-and-non-infinitesimal-effect" class="section level2">
+<h2>Linked markers and non-infinitesimal effect</h2>
+The goal is to obtain posterior mean and the paper proposed to use a Gibbs sampler by sampling <span class="math inline">\(\beta_i | \tilde\beta, \beta_{-i}\)</span>. Specifically, the sampling can be decomposed as <span class="math inline">\(Z_i | \tilde\beta, \beta_{-i}\)</span> and <span class="math inline">\(\beta_i | \tilde\beta, \beta_{-i}, Z_i\)</span>. These two variables can be approximately sampled as follow
+<span class="math display">\[\begin{align*}
+  f(Z_i | \tilde\beta, \beta_{-i}) &amp;\approx f(Z_i | \tilde\beta_i, \beta_{-i}) \\
+  &amp;\approx f(Z_i | \tilde\beta_i) \quad\text{, assuming unlinked $\beta$} \\
+  f(\beta_i | \tilde\beta, \beta_{-i}, Z_i = 1) &amp;\approx f(\beta_i | \tilde\beta_i, \beta_{-i}, Z_i = 1) \\
+  &amp;\approx f(\beta_i | \tilde\beta_i, Z_i = 1) \quad\text{, assuming unlinked $\beta$}
+\end{align*}\]</span>
+<blockquote>
+<p>Comment: I did not quite get the underlying rationale of this approximation. In the text they stated that the effect of LD has been captured by <span class="math inline">\(\tilde\beta_i\)</span>.</p>
+</blockquote>
+<p>Consider two-loci case in term of the graphical model <embed src="/notebook/posts/bjarni-ajhg-2015_files/figure-html/unnamed-chunk-2-1.pdf" width="288" style="display: block; margin: auto;" type="application/pdf" /> Namely, inside Gibbs sampler, the dependencies annotated by light line are dropped.</p>
 </div>
 </div>
 
