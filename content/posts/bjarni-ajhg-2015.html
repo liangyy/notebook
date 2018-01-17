@@ -31,6 +31,7 @@ output:
 <p><span class="math display">\[
 \newcommand\E{\text{E}}
 \newcommand\var{\text{Var}}
+\newcommand\diag{\text{diag}}
 \]</span></p>
 </div>
 <div id="in-brief" class="section level1">
@@ -174,14 +175,19 @@ Then,
 <h2>Linked markers and non-infinitesimal effect</h2>
 The goal is to obtain posterior mean and the paper proposed to use a Gibbs sampler by sampling <span class="math inline">\(\beta_i | \tilde\beta, \beta_{-i}\)</span>. Specifically, the sampling can be decomposed as <span class="math inline">\(Z_i | \tilde\beta, \beta_{-i}\)</span> and <span class="math inline">\(\beta_i | \tilde\beta, \beta_{-i}, Z_i\)</span>. These two variables can be approximately sampled as follow
 <span class="math display">\[\begin{align*}
-  f(Z_i | \tilde\beta, \beta_{-i}) &amp;\approx f(Z_i | \tilde\beta_i, \beta_{-i}) \\
-  &amp;\approx f(Z_i | \tilde\beta_i) \quad\text{, assuming unlinked $\beta$} \\
+  \Pr(Z_i | \tilde\beta, \beta_{-i}) &amp;\approx \Pr(Z_i | \tilde\beta_i, \beta_{-i}) \\
   f(\beta_i | \tilde\beta, \beta_{-i}, Z_i = 1) &amp;\approx f(\beta_i | \tilde\beta_i, \beta_{-i}, Z_i = 1) \\
-  &amp;\approx f(\beta_i | \tilde\beta_i, Z_i = 1) \quad\text{, assuming unlinked $\beta$}
 \end{align*}\]</span>
 <blockquote>
-<p>Comment: I did not quite get the underlying rationale of this approximation. In the text they stated that the effect of LD has been captured by <span class="math inline">\(\tilde\beta_i\)</span>.</p>
+<p>Comment: At first, I did not get the idea of this approximation. After reading their <a href="https://github.com/bvilhjal/ldpred/blob/master/ldpred/LDpred.py">code</a> on Gibbs sampler, I kind of get the point.</p>
 </blockquote>
-<p>Consider two-loci case in term of the graphical model <embed src="/notebook/posts/bjarni-ajhg-2015_files/figure-html/unnamed-chunk-2-1.pdf" width="288" style="display: block; margin: auto;" type="application/pdf" /> Namely, inside Gibbs sampler, the dependencies annotated by light line are dropped.</p>
+<p>Consider two-loci case in term of the graphical model <embed src="/notebook/posts/bjarni-ajhg-2015_files/figure-html/unnamed-chunk-2-1.pdf" width="288" style="display: block; margin: auto;" type="application/pdf" /></p>
+Since <span class="math inline">\(\tilde\beta_i\)</span> is collidar node, <span class="math inline">\(f(\beta_i|\tilde\beta, \beta_{-i}) \ne f(\beta_i | \tilde\beta_i, \beta_{-i})\)</span>. To obtain <span class="math inline">\(f(\beta_i | \tilde\beta, \beta_{-i})\)</span>
+<span class="math display">\[\begin{align*}
+  f(\beta_i | \tilde\beta, \beta_{-i}, Z_i = 1) &amp;= \int f(\tilde\beta | \beta) \prod_{j \ne i} f(\beta_j) \mathcal{N}(0, \sigma^2)(\beta_i) d\beta_i \\
+  &amp;= \prod_{j \ne i} f(\beta_j) \frac{1}{\sqrt{2\pi|\Sigma|}}\int \exp\{-\frac{1}{2}(\tilde\beta - D\beta)&#39; \Sigma^{-1} (\tilde\beta - D\beta)\} \exp\{-\frac{1}{2}\beta_i^2\sigma^{-2}\} d\beta_i \\
+  &amp;= \prod_{j \ne i} f(\beta_j) \frac{1}{\sqrt{2\pi|\Sigma|}} \times \sqrt{2\pi(\omega + \hat\beta&#39;\Omega\hat\beta)} \int \exp\{\hat\beta&#39;X\hat\beta)\} \quad\text{, where $X = \Omega - \Omega(\Omega + \Sigma_2)^{-1}\Omega$}
+\end{align*}\]</span>
+<p>, where <span class="math inline">\(\hat\beta = \tilde\beta - \beta|_{\beta_i = 0}\)</span> and <span class="math inline">\(\Omega = \Sigma^{-1}, \omega = \sigma^{-2}, \Sigma_2 = \diag(1, ..., \omega, 1, ..., 1)\)</span> at the <span class="math inline">\(i\)</span>th entry. To compute <span class="math inline">\(|\Sigma|\)</span> is computationally intensive. To avoid it, we need to work with univariate normal instead. Therefore, the paper proposed to use <span class="math inline">\(f(\beta_i|\tilde\beta_i, \beta_{-i})\)</span> to approximate it since <span class="math inline">\(\tilde\beta_i | \beta\)</span> is simply <span class="math inline">\(\mathcal{N}(\beta_i, (1 - h^2) / N)\)</span> (directly get from <span class="math inline">\(\tilde\beta|\beta\)</span>).</p>
 </div>
 </div>

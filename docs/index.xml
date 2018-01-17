@@ -17,8 +17,8 @@
       <pubDate>Sun, 14 Jan 2018 11:47:23 -0600</pubDate>
       
       <guid>/notebook/posts/bjarni-ajhg-2015/</guid>
-      <description>Meta data of reading In brief The model Some derivations   Meta data of reading  Journal: AJHG Year: 2015 DOI: 10.1016/j.ajhg.2015.09.001  \[ \newcommand\E{\text{E}} \newcommand\var{\text{Var}} \]
- In brief This paper proposed a method to estimate disease risk using GWAS summary statistics. The previous method is to do LD pruning and p-value thresholding but it potentially drop out informative SNPs and leads to lack of explained heritability. This paper proposed a Bayesian polygenic risk scores (PRS), LDpred, that estimates the posterior mean causal effect sizes from GWAS results by assigning prior on genetic architecture of the disease and the LD information from a reference panel.</description>
+      <description>Meta data of reading In brief The model Some derivations   Meta data of reading  Journal: AJHG Year: 2015 DOI: 10.1016/j.ajhg.2015.09.001  \[ \newcommand\E{\text{E}} \newcommand\var{\text{Var}} \newcommand\diag{\text{diag}} \]
+ In brief This paper proposed a method to estimate disease risk using GWAS summary statistics. The previous method is to do LD pruning and p-value thresholding but it potentially drop out informative SNPs and leads to lack of explained heritability.</description>
     </item>
     
     <item>

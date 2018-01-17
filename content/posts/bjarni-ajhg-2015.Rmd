@@ -20,6 +20,7 @@ output:
 $$
 \newcommand\E{\text{E}}
 \newcommand\var{\text{Var}}
+\newcommand\diag{\text{diag}}
 $$
 
 # In brief
@@ -187,13 +188,11 @@ Then,
 
 The goal is to obtain posterior mean and the paper proposed to use a Gibbs sampler by sampling $\beta_i | \tilde\beta, \beta_{-i}$. Specifically, the sampling can be decomposed as $Z_i | \tilde\beta, \beta_{-i}$ and $\beta_i | \tilde\beta, \beta_{-i}, Z_i$. These two variables can be approximately sampled as follow
 \begin{align*}
-  f(Z_i | \tilde\beta, \beta_{-i}) &\approx f(Z_i | \tilde\beta_i, \beta_{-i}) \\
-  &\approx f(Z_i | \tilde\beta_i) \quad\text{, assuming unlinked $\beta$} \\
+  \Pr(Z_i | \tilde\beta, \beta_{-i}) &\approx \Pr(Z_i | \tilde\beta_i, \beta_{-i}) \\
   f(\beta_i | \tilde\beta, \beta_{-i}, Z_i = 1) &\approx f(\beta_i | \tilde\beta_i, \beta_{-i}, Z_i = 1) \\
-  &\approx f(\beta_i | \tilde\beta_i, Z_i = 1) \quad\text{, assuming unlinked $\beta$}
 \end{align*}
 
-> Comment: I did not quite get the underlying rationale of this approximation. In the text they stated that the effect of LD has been captured by $\tilde\beta_i$.
+> Comment: At first, I did not get the idea of this approximation. After reading their [code](https://github.com/bvilhjal/ldpred/blob/master/ldpred/LDpred.py) on Gibbs sampler, I kind of get the point.
 
 Consider two-loci case in term of the graphical model
 ```{r, echo=FALSE, engine="tikz", fig.ext='pdf', fig.width=3, fig.align='center'}
@@ -218,4 +217,11 @@ Consider two-loci case in term of the graphical model
   \path [larrow] (b2) -- (tb1);
 \end{tikzpicture}
 ```
-Namely, inside Gibbs sampler, the dependencies annotated by light line are dropped.
+
+Since $\tilde\beta_i$ is collidar node, $f(\beta_i|\tilde\beta, \beta_{-i}) \ne f(\beta_i | \tilde\beta_i, \beta_{-i})$. To obtain $f(\beta_i | \tilde\beta, \beta_{-i})$
+\begin{align*}
+  f(\beta_i | \tilde\beta, \beta_{-i}, Z_i = 1) &= \int f(\tilde\beta | \beta) \prod_{j \ne i} f(\beta_j) \mathcal{N}(0, \sigma^2)(\beta_i) d\beta_i \\
+  &= \prod_{j \ne i} f(\beta_j) \frac{1}{\sqrt{2\pi|\Sigma|}}\int \exp\{-\frac{1}{2}(\tilde\beta - D\beta)' \Sigma^{-1} (\tilde\beta - D\beta)\} \exp\{-\frac{1}{2}\beta_i^2\sigma^{-2}\} d\beta_i \\
+  &= \prod_{j \ne i} f(\beta_j) \frac{1}{\sqrt{2\pi|\Sigma|}} \times \sqrt{2\pi(\omega + \hat\beta'\Omega\hat\beta)} \int \exp\{\hat\beta'X\hat\beta)\} \quad\text{, where $X = \Omega - \Omega(\Omega + \Sigma_2)^{-1}\Omega$}
+\end{align*}
+, where $\hat\beta = \tilde\beta - \beta|_{\beta_i = 0}$ and $\Omega = \Sigma^{-1}, \omega = \sigma^{-2}, \Sigma_2 = \diag(1, ..., \omega, 1, ..., 1)$ at the $i$th entry. To compute $|\Sigma|$ is computationally intensive. To avoid it, we need to work with univariate normal instead. Therefore, the paper proposed to use $f(\beta_i|\tilde\beta_i, \beta_{-i})$ to approximate it since $\tilde\beta_i | \beta$ is simply $\mathcal{N}(\beta_i, (1 - h^2) / N)$ (directly get from $\tilde\beta|\beta$).
