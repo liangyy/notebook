@@ -1,0 +1,49 @@
+---
+title: "Reverse Pathway Genetic Approach Identifies Epistasis in Autism Spectrum Disorders"
+date: 2018-03-19T14:33:55-05:00
+author: "Yanyu Liang"
+tags: ["epistasis"]
+categories: ["biology - research paper"]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#meta-data-of-reading">Meta data of reading</a></li>
+<li><a href="#rationale">Rationale</a></li>
+<li><a href="#method-and-result">Method and result</a></li>
+</ul>
+</div>
+
+<div id="meta-data-of-reading" class="section level1">
+<h1>Meta data of reading</h1>
+<ul>
+<li><strong>Journal</strong>: PLOS Genetics</li>
+<li><strong>Year</strong>: 2017</li>
+<li><strong>DOI</strong>: 10.1371/journal.pgen</li>
+</ul>
+</div>
+<div id="rationale" class="section level1">
+<h1>Rationale</h1>
+<p>It has been found that the common variation contributes more to heritability than what is calculated based on additive model in schizophrenia and ASD. This result suggests that genetic interaction may play a role. Furthermore, the epistatic effect can be larger than marginal one, since the individual effect is subject to strong negative selection (unlikely for disease individual to reproduce) whereas gene-gene interaction is allowed to have stronger effect.</p>
+<p>The authors reasoned that certain subtypes of autism which is inherited as Mendelian disorder may help the discovery of epistatic effect in autism. The intuition is that some pathways or syndromes (Mendelian ones) have been implicated to associated with autism risk so it’s very likely that they partially share the same mechanism. Therefore, it is likely that the common variants for autism risk interacts with these loci. The nice thing about Mendelian disorders is that the disease-causing genes and causal variants are much clearer than complex traits. Here, the authors referred this idea as ‘reverse pathway analysis’.</p>
+<p>Following this idea, the authors proposed two strategies to search for epistasis in autism.</p>
+<ol style="list-style-type: decimal">
+<li>To search for epistatic pair for Ras/MAPK pathway in idiopathic ASD (where Ras/MARK pathway is suspected to associated with ASD risk)</li>
+<li>Identify QTL of social responsiveness in RASopathy subjects</li>
+</ol>
+<blockquote>
+<p>side note: ‘idiopathic ASD’ is the major case of ASD. It means that the cause of ASD is unknown (on the contrary to the case where the cause is abnormal chromosome, or single gene mutation, etc)</p>
+</blockquote>
+<p>In short, the first strategy utilizes the information of the related gene set of the pathway of interest. The second one is ‘sort of’ performing a conditional analysis where the goal is to look for large effect loci on autism (social responsiveness is a measure of it) conditioning on abnormal Ras/MARK pathway.</p>
+</div>
+<div id="method-and-result" class="section level1">
+<h1>Method and result</h1>
+<p>They used <code>plink</code> to test interaction where case-only mode was used and the test is perform on a two-by-two table (see <a href="http://zzz.bwh.harvard.edu/plink/epidetails.shtml"><code>--fast-epistasis</code></a> for details).</p>
+<p>They found several interaction pairs with genome-wide significance using the first strategy. For the second strategy, no genome-wide significant hit but the top locus is very close to a hit in the first strategy (though not in high LD). They examined the expression level of the gene in this region in RASopathy individuals and obtained one differentially expressed gene, which potentially explain the epistatic effect between Ras/MARK pathway and the target gene.</p>
+</div>

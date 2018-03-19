@@ -8,7 +8,7 @@
 		<meta name="author" content="Yanyu Liang">
 		
 		<meta name="generator" content="Hugo 0.31.1" />
-		<title>The genetic architecture of type 2 diabetes &middot; Note Archive</title>
+		<title>Reverse Pathway Genetic Approach Identifies Epistasis in Autism Spectrum Disorders &middot; Note Archive</title>
 		<link rel="shortcut icon" href="https://liangyy.github.io/notebook/images/favicon.ico">
 		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/style.css">
 		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/highlight.css">
@@ -55,23 +55,17 @@
             <article>
                 <header>
                     <h1>
-                        The genetic architecture of type 2 diabetes
+                        Reverse Pathway Genetic Approach Identifies Epistasis in Autism Spectrum Disorders
                     </h1>
                     <h2 class="headline">
-                    Dec 27, 2017 10:15
-                    · 217 words
+                    Mar 19, 2018 14:33
+                    · 416 words
                     · 2 minutes read
                       <span class="tags">
                       
                       
                           
-                              <a href="https://liangyy.github.io/notebook/tags/genetics">genetics</a>
-                          
-                              <a href="https://liangyy.github.io/notebook/tags/type-2-diabetes">type 2 diabetes</a>
-                          
-                              <a href="https://liangyy.github.io/notebook/tags/complex-trait">complex trait</a>
-                          
-                              <a href="https://liangyy.github.io/notebook/tags/genetic-architecture">genetic architecture</a>
+                              <a href="https://liangyy.github.io/notebook/tags/epistasis">epistasis</a>
                           
                       
                       
@@ -87,36 +81,37 @@
                     <div id="TOC">
 <ul>
 <li><a href="#meta-data-of-reading">Meta data of reading</a></li>
-<li><a href="#in-brief">In brief</a></li>
+<li><a href="#rationale">Rationale</a></li>
+<li><a href="#method-and-result">Method and result</a></li>
 </ul>
 </div>
 
 <div id="meta-data-of-reading" class="section level1">
 <h1>Meta data of reading</h1>
 <ul>
-<li><strong>Journal</strong>: Nature</li>
-<li><strong>Year</strong>: 2016</li>
-<li><strong>DOI</strong>: 10.1038/nature18642</li>
+<li><strong>Journal</strong>: PLOS Genetics</li>
+<li><strong>Year</strong>: 2017</li>
+<li><strong>DOI</strong>: 10.1371/journal.pgen</li>
 </ul>
 </div>
-<div id="in-brief" class="section level1">
-<h1>In brief</h1>
-<p>The idea of this paper is:</p>
-<ul>
-<li><strong>GoT2D</strong>: To perform genetic association analysis by considering not only common variants (SNPs) but also rare variants. To get rare variant data, they performed whole genome sequencing on cohort. Furthermore, they included imputed genotypes as well. They estimated the power of the analysis for both common variants and rare variants (SNPs: OR <span class="math inline">\(\ge\)</span> 1.87, MAF <span class="math inline">\(\ge\)</span> 5%; rare: OR <span class="math inline">\(\ge\)</span> 4.7, MAF <span class="math inline">\(\ge\)</span> 0.5%)</li>
-<li><strong>T2D-GENES</strong>: To perform genetic association analysis by considering coding variants. The data was obtained from whole exome sequencing in five descents. The original sequencing data gave only one signal in one population. The further chip data was designed on the basis of the WES and the integrated data gave more signals. It helped to pinpoint causal variants in previous established T2D GWAS loci.</li>
-</ul>
-<p>This paper did comprehensive analysis including:</p>
+<div id="rationale" class="section level1">
+<h1>Rationale</h1>
+<p>It has been found that the common variation contributes more to heritability than what is calculated based on additive model in schizophrenia and ASD. This result suggests that genetic interaction may play a role. Furthermore, the epistatic effect can be larger than marginal one, since the individual effect is subject to strong negative selection (unlikely for disease individual to reproduce) whereas gene-gene interaction is allowed to have stronger effect.</p>
+<p>The authors reasoned that certain subtypes of autism which is inherited as Mendelian disorder may help the discovery of epistatic effect in autism. The intuition is that some pathways or syndromes (Mendelian ones) have been implicated to associated with autism risk so it’s very likely that they partially share the same mechanism. Therefore, it is likely that the common variants for autism risk interacts with these loci. The nice thing about Mendelian disorders is that the disease-causing genes and causal variants are much clearer than complex traits. Here, the authors referred this idea as ‘reverse pathway analysis’.</p>
+<p>Following this idea, the authors proposed two strategies to search for epistasis in autism.</p>
 <ol style="list-style-type: decimal">
-<li>Association analysis of genome-wide variation</li>
-<li>Association analysis of coding variation</li>
-<li>Gene-based analysis</li>
-<li>Enrichment of rare variation in Mendelian T2D genes</li>
-<li>Excluding synthetic association (association of common variant is caused by linkage to rare variant by chance) by conditional analysis</li>
-<li>Nominating functional variants in GWAS loci</li>
-<li>Modeling disease architecture (contribution of common/rare variants) by simulation (as an example of late-onset disease)</li>
+<li>To search for epistatic pair for Ras/MAPK pathway in idiopathic ASD (where Ras/MARK pathway is suspected to associated with ASD risk)</li>
+<li>Identify QTL of social responsiveness in RASopathy subjects</li>
 </ol>
-<!-- # Methods -->
+<blockquote>
+<p>side note: ‘idiopathic ASD’ is the major case of ASD. It means that the cause of ASD is unknown (on the contrary to the case where the cause is abnormal chromosome, or single gene mutation, etc)</p>
+</blockquote>
+<p>In short, the first strategy utilizes the information of the related gene set of the pathway of interest. The second one is ‘sort of’ performing a conditional analysis where the goal is to look for large effect loci on autism (social responsiveness is a measure of it) conditioning on abnormal Ras/MARK pathway.</p>
+</div>
+<div id="method-and-result" class="section level1">
+<h1>Method and result</h1>
+<p>They used <code>plink</code> to test interaction where case-only mode was used and the test is perform on a two-by-two table (see <a href="http://zzz.bwh.harvard.edu/plink/epidetails.shtml"><code>--fast-epistasis</code></a> for details).</p>
+<p>They found several interaction pairs with genome-wide significance using the first strategy. For the second strategy, no genome-wide significant hit but the top locus is very close to a hit in the first strategy (though not in high LD). They examined the expression level of the gene in this region in RASopathy individuals and obtained one differentially expressed gene, which potentially explain the epistatic effect between Ras/MARK pathway and the target gene.</p>
 </div>
 
                 </section>
