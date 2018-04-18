@@ -1,0 +1,24 @@
+---
+title: "PennCNV "
+date: 2018-04-18T11:21:18-05:00
+author: "Yanyu Liang"
+tags: ["hmm"]
+categories: ["research paper - method"]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+# Meta data of reading
+
+* **Journal**: Genome research
+* **Year**: 2007
+* **DOI**: 10.1101/gr.6861907
+
+# Motivation
+
+This paper calls CNV from genotype microarray data. It is a nice example of how HMM is built up based on how the data is generated (emission) and underlying process works (transition). For the computation part, since the emission and transition probability is parameterized by some standard distribution and it is different from what is always taught in class (transition matrix and emission matrix), I will briefly discuss the idea behind the Baum-Welch algorithm in this more general set up. Hopefully, this discussion will help to understand B-W algorithm better and in a more general perspective.
+
+Furthermore, this paper also discussed how to incorporate family-based information into the framework. Intuitively, family information constraint the solution probabilistically in the such a way that children CNV event is the result of inheritance and *de novo* event so that there should be dependency between parent state and child state. So, the Viterbi algorithm needs to be run on sequences in the family jointly. 
