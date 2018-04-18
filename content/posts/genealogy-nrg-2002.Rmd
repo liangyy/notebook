@@ -1,0 +1,82 @@
+---
+title: "Genealogical trees, coalescent theory and the analysis of genetic polymorphisms"
+date: 2018-04-08T11:02:18-05:00
+author: "Yanyu Liang"
+tags: ["population genetics"]
+categories: ["biology - research review"]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+# Meta data of reading
+
+* **Journal**: Nature Review Genetics
+* **Year**: 2002
+* **DOI**: 10.1038/nrg795
+
+# In brief 
+
+I encountered this paper when studying population genetics along a course to understand human variation and disease. This paper discussed the idea of genealogy and clarified some concepts which I felt were really helpful for beginner like me.
+
+# Phylogenetics and genealogy
+
+Phylogenetics is interested in the species tree and genealogy is studying how a locus is descented (usually the unit of interest is gene, so that gene tree is involved). In Box 1, the paper discussed how gene tree is related to species tree. The general idea is that if the species population quickly coalesce to one single ancestor belonging to that species ($T_{MRCA}$ is less than the branch length of the latest speciation), then gene tree is consistent with species tree. Otherwise, they can be different. 
+
+Consider a gene tree embedded in species tree (Box 1 figure on the top), 
+![](/images/gene_vs_species.png)
+
+If the above condition does not hold, the MCRA of species b and species a may occur at the very top. In other word, the MRCA of b and MRCA of c may encounter each other before MRCA of b coalesce with MRCA of a. So, it is possible that some genes are more closely related between b and c than a and b in this case.
+
+# Sample size for coalescent-based inference
+
+For iid samples, the variance of estimate usually scaled $1 / n$ with sample size $n$. But for $\theta_S$, the scaling is $1 / \log(n)$. This implies that for a single locus, to increase sample size will not improve estimate as much as what we can get for iid case. The reason, as stated in the paper, is that for a single locus, only one underlying genealogical tree is there, so the randomness coming from genealogy is still not well sampled. 
+
+This paper also mentioned another result, that is the probablity that a sample size $n$ sample has MRCA the same as the one of the whole population is $\frac{n-1}{n+1}$ which means that enlarging sample size does not help much.
+
+# Likelihood in inference
+
+For phylogenetics problem
+\begin{align*}
+  L &= \Pr(D | G, \mu)
+\end{align*}
+, where $D$ is data, $G$ is species tree, and $\mu$ is parameter set which specifies how sequence mutates along the tree.
+
+For coalescent-based inference,
+\begin{align}
+  L &= \sum_G \Pr(D | G, \mu) \Pr(G|\alpha) \label{eq:coal}
+\end{align}
+, where $\alpha$ is the parameter set telling how $G$ is generated. For instance, Wright-Fish model specifies a way to generate $G$ and the parameters are population size. 
+
+# How to use coalescent theory to infer $\alpha$
+
+The paper discussed the hypothesis test approach. Namely, to simulate data under certain coalescent model (the model can be very complicated) and to see how the observed statistic deviate from the simulation. 
+
+The mitochondrial DNA tree (Box 3) has been built and it has been shown that all present human population share the same common female 200,000 years ago. But the difficulty of phylogenetic method is that it cannot distinguish out-of-Africa model with multiregional model since their gene tree of mtDNA are fairly similar to each other. In other word, the intrinsic problem of phylogenetic approach is that, as the paper stated, a single gene tree does not suffice to provide us with enough information to distinguish demographical models about population histories. So, the gene tree itself is not sufficient to tell all details of the demographic history.
+
+![](/images/mtdna.png)
+
+On the contrary, coalescent-based approach integrates all possible trees under one demographical model, so gene trees do not go into inference and it consider demographic model directly. Using this approach, the researchers have found more supports for out-of-Africa model rather than mutliregional model.   
+
+Also, coalescent-based simulation can be used for evaluate hypothesis test and study design (how many samples are needed to obtain sufficent power). 
+
+# Estimate demographic parameters with likelihood approach
+
+Even if, in principle, we can use \eqref{eq:coal} to estimate demographic parameters through maximizing likelihood, in practice, it is difficult since we need to integrate out all possible genealogical trees. Computationally, we can tackle such problem using some techniques, such as, importance sampling or MCMC, but it is still tricky. 
+
+An alternative approach mentioned in the paper is to make use of summary statistic instead. The idea is to evaluate likelihood function of data with the following procedure:
+
+1. Define a set of summary statistics, $S$
+2. Compute $S_D$ using observed data $D$
+3. Run simulation using various $\alpha_i$
+4. For each $\alpha_i$, $L(\alpha_i; D) \approx \text{fraction of simulated data that has similar $S_i$ as $S_D$}$
+
+The challenge part is to find a good set of $S$ such that it captures as much information in the demographic model as possible (or as much information in the data as possible).
+
+# Summary 
+
+Coalescent theory is useful when the quantity of interest is the history of some locus rather than the parameters in evolutionary model itself.
+
+The paper pointed out that coalescent theory relies on the assumption of the absence of selection (selection is usually tested by the deivation from coalescent model). 

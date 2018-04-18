@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta name="author" content="Yanyu Liang">
+		
+		<meta name="generator" content="Hugo 0.31.1" />
+		<title>Reverse Pathway Genetic Approach Identifies Epistasis in Autism Spectrum Disorders &middot; Note Archive</title>
+		<link rel="shortcut icon" href="/notebook/images/favicon.ico">
+		<link rel="stylesheet" href="/notebook/css/style.css">
+		<link rel="stylesheet" href="/notebook/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="/notebook/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='/notebook/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='/notebook/posts'>Archive</a>
+	<a href='/notebook/tags'>Tags</a>
+	<a href='/notebook/about'>About</a>
+
+	
+
+	
+	<div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/notebook/js/lunr.min.js"></script>
+<script type="text/javascript" src="/notebook/js/jquery-2.x.min.js"></script>
+<script type="text/javascript" src="/notebook/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "\/notebook\/";
+</script>
+<script type="text/javascript" src="/notebook/js/search.js"></script>
+
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Reverse Pathway Genetic Approach Identifies Epistasis in Autism Spectrum Disorders
+                    </h1>
+                    <h2 class="headline">
+                    Mar 19, 2018 14:33
+                    · 416 words
+                    · 2 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="/notebook/tags/epistasis">epistasis</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                
+
+                <section id="post-body">
+                  
+                    <div id="TOC">
+<ul>
+<li><a href="#meta-data-of-reading">Meta data of reading</a></li>
+<li><a href="#rationale">Rationale</a></li>
+<li><a href="#method-and-result">Method and result</a></li>
+</ul>
+</div>
+
+<div id="meta-data-of-reading" class="section level1">
+<h1>Meta data of reading</h1>
+<ul>
+<li><strong>Journal</strong>: PLOS Genetics</li>
+<li><strong>Year</strong>: 2017</li>
+<li><strong>DOI</strong>: 10.1371/journal.pgen</li>
+</ul>
+</div>
+<div id="rationale" class="section level1">
+<h1>Rationale</h1>
+<p>It has been found that the common variation contributes more to heritability than what is calculated based on additive model in schizophrenia and ASD. This result suggests that genetic interaction may play a role. Furthermore, the epistatic effect can be larger than marginal one, since the individual effect is subject to strong negative selection (unlikely for disease individual to reproduce) whereas gene-gene interaction is allowed to have stronger effect.</p>
+<p>The authors reasoned that certain subtypes of autism which is inherited as Mendelian disorder may help the discovery of epistatic effect in autism. The intuition is that some pathways or syndromes (Mendelian ones) have been implicated to associated with autism risk so it’s very likely that they partially share the same mechanism. Therefore, it is likely that the common variants for autism risk interacts with these loci. The nice thing about Mendelian disorders is that the disease-causing genes and causal variants are much clearer than complex traits. Here, the authors referred this idea as ‘reverse pathway analysis’.</p>
+<p>Following this idea, the authors proposed two strategies to search for epistasis in autism.</p>
+<ol style="list-style-type: decimal">
+<li>To search for epistatic pair for Ras/MAPK pathway in idiopathic ASD (where Ras/MARK pathway is suspected to associated with ASD risk)</li>
+<li>Identify QTL of social responsiveness in RASopathy subjects</li>
+</ol>
+<blockquote>
+<p>side note: ‘idiopathic ASD’ is the major case of ASD. It means that the cause of ASD is unknown (on the contrary to the case where the cause is abnormal chromosome, or single gene mutation, etc)</p>
+</blockquote>
+<p>In short, the first strategy utilizes the information of the related gene set of the pathway of interest. The second one is ‘sort of’ performing a conditional analysis where the goal is to look for large effect loci on autism (social responsiveness is a measure of it) conditioning on abnormal Ras/MARK pathway.</p>
+</div>
+<div id="method-and-result" class="section level1">
+<h1>Method and result</h1>
+<p>They used <code>plink</code> to test interaction where case-only mode was used and the test is perform on a two-by-two table (see <a href="http://zzz.bwh.harvard.edu/plink/epidetails.shtml"><code>--fast-epistasis</code></a> for details).</p>
+<p>They found several interaction pairs with genome-wide significance using the first strategy. For the second strategy, no genome-wide significant hit but the top locus is very close to a hit in the first strategy (though not in high LD). They examined the expression level of the gene in this region in RASopathy individuals and obtained one differentially expressed gene, which potentially explain the epistatic effect between Ras/MARK pathway and the target gene.</p>
+</div>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> Yanyu Liang
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'],  ['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<link href="/notebook/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+<script src="/notebook/mermaid/mermaid.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+
+
+
+
+
+
+    </body>
+</html>

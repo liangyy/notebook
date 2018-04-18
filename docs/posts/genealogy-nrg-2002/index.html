@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta name="author" content="Yanyu Liang">
+		
+		<meta name="generator" content="Hugo 0.31.1" />
+		<title>Genealogical trees, coalescent theory and the analysis of genetic polymorphisms &middot; Note Archive</title>
+		<link rel="shortcut icon" href="/notebook/images/favicon.ico">
+		<link rel="stylesheet" href="/notebook/css/style.css">
+		<link rel="stylesheet" href="/notebook/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="/notebook/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='/notebook/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='/notebook/posts'>Archive</a>
+	<a href='/notebook/tags'>Tags</a>
+	<a href='/notebook/about'>About</a>
+
+	
+
+	
+	<div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/notebook/js/lunr.min.js"></script>
+<script type="text/javascript" src="/notebook/js/jquery-2.x.min.js"></script>
+<script type="text/javascript" src="/notebook/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "\/notebook\/";
+</script>
+<script type="text/javascript" src="/notebook/js/search.js"></script>
+
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Genealogical trees, coalescent theory and the analysis of genetic polymorphisms
+                    </h1>
+                    <h2 class="headline">
+                    Apr 8, 2018 11:02
+                    · 868 words
+                    · 5 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="/notebook/tags/population-genetics">population genetics</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                
+
+                <section id="post-body">
+                  
+                    <div id="TOC">
+<ul>
+<li><a href="#meta-data-of-reading">Meta data of reading</a></li>
+<li><a href="#in-brief">In brief</a></li>
+<li><a href="#phylogenetics-and-genealogy">Phylogenetics and genealogy</a></li>
+<li><a href="#sample-size-for-coalescent-based-inference">Sample size for coalescent-based inference</a></li>
+<li><a href="#likelihood-in-inference">Likelihood in inference</a></li>
+<li><a href="#how-to-use-coalescent-theory-to-infer-alpha">How to use coalescent theory to infer <span class="math inline">\(\alpha\)</span></a></li>
+<li><a href="#estimate-demographic-parameters-with-likelihood-approach">Estimate demographic parameters with likelihood approach</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+</div>
+
+<div id="meta-data-of-reading" class="section level1">
+<h1>Meta data of reading</h1>
+<ul>
+<li><strong>Journal</strong>: Nature Review Genetics</li>
+<li><strong>Year</strong>: 2002</li>
+<li><strong>DOI</strong>: 10.1038/nrg795</li>
+</ul>
+</div>
+<div id="in-brief" class="section level1">
+<h1>In brief</h1>
+<p>I encountered this paper when studying population genetics along a course to understand human variation and disease. This paper discussed the idea of genealogy and clarified some concepts which I felt were really helpful for beginner like me.</p>
+</div>
+<div id="phylogenetics-and-genealogy" class="section level1">
+<h1>Phylogenetics and genealogy</h1>
+<p>Phylogenetics is interested in the species tree and genealogy is studying how a locus is descented (usually the unit of interest is gene, so that gene tree is involved). In Box 1, the paper discussed how gene tree is related to species tree. The general idea is that if the species population quickly coalesce to one single ancestor belonging to that species (<span class="math inline">\(T_{MRCA}\)</span> is less than the branch length of the latest speciation), then gene tree is consistent with species tree. Otherwise, they can be different.</p>
+<p>Consider a gene tree embedded in species tree (Box 1 figure on the top), <img src="/images/gene_vs_species.png" /></p>
+<p>If the above condition does not hold, the MCRA of species b and species a may occur at the very top. In other word, the MRCA of b and MRCA of c may encounter each other before MRCA of b coalesce with MRCA of a. So, it is possible that some genes are more closely related between b and c than a and b in this case.</p>
+</div>
+<div id="sample-size-for-coalescent-based-inference" class="section level1">
+<h1>Sample size for coalescent-based inference</h1>
+<p>For iid samples, the variance of estimate usually scaled <span class="math inline">\(1 / n\)</span> with sample size <span class="math inline">\(n\)</span>. But for <span class="math inline">\(\theta_S\)</span>, the scaling is <span class="math inline">\(1 / \log(n)\)</span>. This implies that for a single locus, to increase sample size will not improve estimate as much as what we can get for iid case. The reason, as stated in the paper, is that for a single locus, only one underlying genealogical tree is there, so the randomness coming from genealogy is still not well sampled.</p>
+<p>This paper also mentioned another result, that is the probablity that a sample size <span class="math inline">\(n\)</span> sample has MRCA the same as the one of the whole population is <span class="math inline">\(\frac{n-1}{n+1}\)</span> which means that enlarging sample size does not help much.</p>
+</div>
+<div id="likelihood-in-inference" class="section level1">
+<h1>Likelihood in inference</h1>
+For phylogenetics problem
+<span class="math display">\[\begin{align*}
+  L &amp;= \Pr(D | G, \mu)
+\end{align*}\]</span>
+<p>, where <span class="math inline">\(D\)</span> is data, <span class="math inline">\(G\)</span> is species tree, and <span class="math inline">\(\mu\)</span> is parameter set which specifies how sequence mutates along the tree.</p>
+For coalescent-based inference,
+<span class="math display">\[\begin{align}
+  L &amp;= \sum_G \Pr(D | G, \mu) \Pr(G|\alpha) \label{eq:coal}
+\end{align}\]</span>
+<p>, where <span class="math inline">\(\alpha\)</span> is the parameter set telling how <span class="math inline">\(G\)</span> is generated. For instance, Wright-Fish model specifies a way to generate <span class="math inline">\(G\)</span> and the parameters are population size.</p>
+</div>
+<div id="how-to-use-coalescent-theory-to-infer-alpha" class="section level1">
+<h1>How to use coalescent theory to infer <span class="math inline">\(\alpha\)</span></h1>
+<p>The paper discussed the hypothesis test approach. Namely, to simulate data under certain coalescent model (the model can be very complicated) and to see how the observed statistic deviate from the simulation.</p>
+<p>The mitochondrial DNA tree (Box 3) has been built and it has been shown that all present human population share the same common female 200,000 years ago. But the difficulty of phylogenetic method is that it cannot distinguish out-of-Africa model with multiregional model since their gene tree of mtDNA are fairly similar to each other. In other word, the intrinsic problem of phylogenetic approach is that, as the paper stated, a single gene tree does not suffice to provide us with enough information to distinguish demographical models about population histories. So, the gene tree itself is not sufficient to tell all details of the demographic history.</p>
+<div class="figure">
+<img src="/images/mtdna.png" />
+
+</div>
+<p>On the contrary, coalescent-based approach integrates all possible trees under one demographical model, so gene trees do not go into inference and it consider demographic model directly. Using this approach, the researchers have found more supports for out-of-Africa model rather than mutliregional model.</p>
+<p>Also, coalescent-based simulation can be used for evaluate hypothesis test and study design (how many samples are needed to obtain sufficent power).</p>
+</div>
+<div id="estimate-demographic-parameters-with-likelihood-approach" class="section level1">
+<h1>Estimate demographic parameters with likelihood approach</h1>
+<p>Even if, in principle, we can use  to estimate demographic parameters through maximizing likelihood, in practice, it is difficult since we need to integrate out all possible genealogical trees. Computationally, we can tackle such problem using some techniques, such as, importance sampling or MCMC, but it is still tricky.</p>
+<p>An alternative approach mentioned in the paper is to make use of summary statistic instead. The idea is to evaluate likelihood function of data with the following procedure:</p>
+<ol style="list-style-type: decimal">
+<li>Define a set of summary statistics, <span class="math inline">\(S\)</span></li>
+<li>Compute <span class="math inline">\(S_D\)</span> using observed data <span class="math inline">\(D\)</span></li>
+<li>Run simulation using various <span class="math inline">\(\alpha_i\)</span></li>
+<li>For each <span class="math inline">\(\alpha_i\)</span>, <span class="math inline">\(L(\alpha_i; D) \approx \text{fraction of simulated data that has similar $S_i$ as $S_D$}\)</span></li>
+</ol>
+<p>The challenge part is to find a good set of <span class="math inline">\(S\)</span> such that it captures as much information in the demographic model as possible (or as much information in the data as possible).</p>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<p>Coalescent theory is useful when the quantity of interest is the history of some locus rather than the parameters in evolutionary model itself.</p>
+<p>The paper pointed out that coalescent theory relies on the assumption of the absence of selection (selection is usually tested by the deivation from coalescent model).</p>
+</div>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> Yanyu Liang
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'],  ['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<link href="/notebook/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+<script src="/notebook/mermaid/mermaid.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+
+
+
+
+
+
+    </body>
+</html>

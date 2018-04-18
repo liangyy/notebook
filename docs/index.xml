@@ -6,10 +6,28 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 14 Jan 2018 11:47:23 -0600</lastBuildDate>
+    <lastBuildDate>Sun, 08 Apr 2018 11:02:18 -0500</lastBuildDate>
     
 	<atom:link href="/notebook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Genealogical trees, coalescent theory and the analysis of genetic polymorphisms</title>
+      <link>/notebook/posts/genealogy-nrg-2002/</link>
+      <pubDate>Sun, 08 Apr 2018 11:02:18 -0500</pubDate>
+      
+      <guid>/notebook/posts/genealogy-nrg-2002/</guid>
+      <description>Meta data of reading In brief Phylogenetics and genealogy Sample size for coalescent-based inference Likelihood in inference How to use coalescent theory to infer \(\alpha\) Estimate demographic parameters with likelihood approach Summary   Meta data of reading  Journal: Nature Review Genetics Year: 2002 DOI: 10.1038/nrg795   In brief I encountered this paper when studying population genetics along a course to understand human variation and disease. This paper discussed the idea of genealogy and clarified some concepts which I felt were really helpful for beginner like me.</description>
+    </item>
+    
+    <item>
+      <title>Reverse Pathway Genetic Approach Identifies Epistasis in Autism Spectrum Disorders</title>
+      <link>/notebook/posts/epi-asd-2017-plg/</link>
+      <pubDate>Mon, 19 Mar 2018 14:33:55 -0500</pubDate>
+      
+      <guid>/notebook/posts/epi-asd-2017-plg/</guid>
+      <description>Meta data of reading Rationale Method and result   Meta data of reading  Journal: PLOS Genetics Year: 2017 DOI: 10.1371/journal.pgen   Rationale It has been found that the common variation contributes more to heritability than what is calculated based on additive model in schizophrenia and ASD. This result suggests that genetic interaction may play a role. Furthermore, the epistatic effect can be larger than marginal one, since the individual effect is subject to strong negative selection (unlikely for disease individual to reproduce) whereas gene-gene interaction is allowed to have stronger effect.</description>
+    </item>
     
     <item>
       <title>Modeling Linkage Disequilibrium Increases Accuracy of Polygenic Risk Scores</title>
