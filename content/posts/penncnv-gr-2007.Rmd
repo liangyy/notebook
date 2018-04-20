@@ -21,4 +21,43 @@ output:
 
 This paper calls CNV from genotype microarray data. It is a nice example of how HMM is built up based on how the data is generated (emission) and underlying process works (transition). For the computation part, since the emission and transition probability is parameterized by some standard distribution and it is different from what is always taught in class (transition matrix and emission matrix), I will briefly discuss the idea behind the Baum-Welch algorithm in this more general set up. Hopefully, this discussion will help to understand B-W algorithm better and in a more general perspective.
 
-Furthermore, this paper also discussed how to incorporate family-based information into the framework. Intuitively, family information constraint the solution probabilistically in the such a way that children CNV event is the result of inheritance and *de novo* event so that there should be dependency between parent state and child state. So, the Viterbi algorithm needs to be run on sequences in the family jointly. 
+Furthermore, this paper also discussed how to incorporate family-based information into the framework. Intuitively, family information constraint the solution probabilistically in the such a way that children CNV event is the result of inheritance and *de novo* event so that there should be dependency between parent state and child state. So, the Viterbi algorithm needs to be run on sequences in the family jointly.
+
+# Observed signal
+
+The genotyping array gives the following signals:
+
+1. **B allele frequency**: This is kind of an extension of genotype. It provides the estimate of the ratio of allele count at the locus
+2. **Log R ratio**: This is a measure of the normalized signal intensity
+
+Intuitively, for a normal region with no CNV, BAF is 0, 1/2, 1 and the intensity should be intermediate. For a CNV event (suppose $k$), the BAF can take value other than 0, 1/2, 1 and it will be $i/k$ for $i = 0, \cdots, l$ instead. Also, the intensity will be different (though it might not follow nice linear relationship).
+
+# Emission probabilities
+
+Following the idea above, it is straight forward to write down the emission probability. Let BAF be $b$ and LRR be $r$.
+\begin{align*}
+  \Pr(r | z) &= \pi_r + (1 - \pi_r) N(r; \mu_{r, z}, s_{r, z}) \\
+  \Pr(b | z) &= \pi_b +  (1 - \pi_b) \sum_{g \in G(z)}\Pr(G = g|z)\Pr(b|g)
+\end{align*}
+, where $G(z)$ is the set of all possible genotypes that a CNV state $z$ can have. $G = g | z \sim Binom(N(z), p)$ where $N(z)$ is the number of copies for a locus at state $z$ and $p$ is the population allele frequency of the locus of interest. For $\Pr(b|g)$, ideally $b \sim N(\mu_{b, g}, s_{b, g})$. Here, the signal is always modeled as the mixture of uniform and normal, where the uniform mode may correspond to the case where the genotype pattern is not captured by the array (kind of like missing data). This conditional probability is very intuitive so that makes sense to me.
+
+One technical issue of the paper's emission probability for $b$ is dealing with the fact that $b$ is always between 0 and 1 and the way $b$ is calculated is that $b$ will be truncated as 0 or 1 if it is too big or small. Therefore, we need to use a mixture of point mass and normal to model $b$ when genotype is all A alleles or all B alleles. Specifically, the paper used
+\begin{align*}
+  \Pr(b | g = 1) &= \begin{cases}
+    N(b; \mu_{b, 1}, s_{b, 1}) & \text{, if $b \ne 1$} \\
+    1 - \Phi(1; \mu_{b, 1}, s_{b, 1}) & \text{, otherwise}
+  \end{cases}
+\end{align*}
+
+# Transition probabilities
+
+The transition probability is not from first principle but it does take distance effect into account. The form is
+\begin{align*}
+  \Pr(z_{i} = k | z_{i - 1} = l) &= \begin{cases}
+    p_{k, l} (1 - e^{-d_i / D_{k, l}}) & \text{, if $k \ne l$} \\
+    1 - \sum_{k' \ne l} p_{k', l} (1 - e^{-d_i / D_{k', l}}) & \text{, if $k = l$}
+  \end{cases}
+\end{align*}
+, where $D_{k, l}$ is capturing the rate of the CNV along the genome. In the paper, when the the CNV involves LOH, $D$ is set to 100Mb and others are set to 100kb since LOH is much more rare comparing to other events. $p$ matrix is estimated by MLE.
+
+> The underlying assumption of the exponential decay (the CDF of exponential distribution which is waiting time distribution) is that for each infinitesimal region of the genome, the probability of event happens twice is higher order to the length and the rate along the genome is constant. It is sort of what is going on here, considering the CNV event is so rare. 
