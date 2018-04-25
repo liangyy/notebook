@@ -1,5 +1,5 @@
 ---
-title: "PennCNV "
+title: "PennCNV: An integrated hidden Markov model designed for high-resolution copy number variation detection in whole-genome SNP genotyping data"
 date: 2018-04-18T11:21:18-05:00
 author: "Yanyu Liang"
 tags: ["hmm"]
@@ -11,6 +11,9 @@ output:
     toc_depth: 1
 ---
 
+$\newcommand\E{\text{E}}$
+$\newcommand\nocr{\nonumber\\}$
+
 # Meta data of reading
 
 * **Journal**: Genome research
@@ -19,7 +22,7 @@ output:
 
 # Motivation
 
-This paper calls CNV from genotype microarray data. It is a nice example of how HMM is built up based on how the data is generated (emission) and underlying process works (transition). For the computation part, since the emission and transition probability is parameterized by some standard distribution and it is different from what is always taught in class (transition matrix and emission matrix), I will briefly discuss the idea behind the Baum-Welch algorithm in this more general set up. Hopefully, this discussion will help to understand B-W algorithm better and in a more general perspective.
+This paper calls CNV from genotype microarray data. It is a nice example of how HMM is built up based on how the data is generated (emission) and the underlying process works (transition). For the computation part, since the emission and transition probability is parameterized by some standard distribution and it is different from what is always taught in class (transition matrix and emission matrix), I will briefly discuss the idea behind the Baum-Welch algorithm in this more general set up. Hopefully, this discussion will help to understand B-W algorithm better and from a more general perspective.
 
 Furthermore, this paper also discussed how to incorporate family-based information into the framework. Intuitively, family information constraint the solution probabilistically in the such a way that children CNV event is the result of inheritance and *de novo* event so that there should be dependency between parent state and child state. So, the Viterbi algorithm needs to be run on sequences in the family jointly.
 
@@ -30,7 +33,9 @@ The genotyping array gives the following signals:
 1. **B allele frequency**: This is kind of an extension of genotype. It provides the estimate of the ratio of allele count at the locus
 2. **Log R ratio**: This is a measure of the normalized signal intensity
 
-Intuitively, for a normal region with no CNV, BAF is 0, 1/2, 1 and the intensity should be intermediate. For a CNV event (suppose $k$), the BAF can take value other than 0, 1/2, 1 and it will be $i/k$ for $i = 0, \cdots, l$ instead. Also, the intensity will be different (though it might not follow nice linear relationship).
+Intuitively, for a normal region with no CNV, BAF is 0, 1/2, 1 and the intensity should be intermediate. For a CNV event (suppose $k$), the BAF can take value other than 0, 1/2, 1 and it will be $i/k$ for $i = 0, \cdots, k$ instead. Also, the intensity will be different (though it might not follow nice linear relationship). A nice illustration of how BAF and LRR are informative in terms of CNV state is fig 1.
+
+`r htmltools::HTML("{{< figure src=\"/penncnv/notebook/images/.png\" title=\"BAF and LRR signals vary among CNV states\" >}}")`
 
 # Emission probabilities
 
@@ -60,4 +65,93 @@ The transition probability is not from first principle but it does take distance
 \end{align*}
 , where $D_{k, l}$ is capturing the rate of the CNV along the genome. In the paper, when the the CNV involves LOH, $D$ is set to 100Mb and others are set to 100kb since LOH is much more rare comparing to other events. $p$ matrix is estimated by MLE.
 
-> The underlying assumption of the exponential decay (the CDF of exponential distribution which is waiting time distribution) is that for each infinitesimal region of the genome, the probability of event happens twice is higher order to the length and the rate along the genome is constant. It is sort of what is going on here, considering the CNV event is so rare. 
+> The underlying assumption of the exponential decay (the CDF of exponential distribution which is waiting time distribution) is that for each infinitesimal region of the genome, the probability of event happens twice is higher order to the length and the rate along the genome is constant. It is sort of what is going on here, considering the CNV event is so rare.
+
+# Baum-Welch algorithm
+
+B-W algorithm is an EM algorithm so that it is made up of two components, E step and M step. The following presents:
+
+1. The complete likelihood of PennCNV
+2. The general update rule of EM
+3. How PennCNV fits into EM framework
+
+## Complete likelihood of PennCNV
+
+(Recall that) Let's treat the CNV state of each locus as hidden variable $z_i$, BAF as $b_i$, and LRR as $r_i$. Then, the complete likelihood $\Pr(b, r, z | \theta)$ is
+\begin{align*}
+  \Pr(b, r, z | \theta) &= p(z_1) p(b_1|z_1) p(r_1|z_1) \prod_{i=2}^n p(z_{i} | z_{i-1}) p(b_i | z_i) p(r_i|z_i)
+\end{align*}
+Note that we **assume** that conditional on $z_i$, $r_i$ and $b_i$ are independent. Also, the emissions and transitions can be kept as the most general form as $f(y | x)$ with $\int f(z|x) dz = 1$ and $f(y | x) \ge 0$.
+
+## EM algorithm
+
+1. $Q(\theta, \theta^{(t)}) = \E_{z | r, b, \theta^{(t)}}[\log \Pr(b, r, z | \theta)]$
+2. $\theta^{(t+1)} = \arg\max_\theta Q(\theta, \theta^{(t)})$
+
+Note that HMM complete likelihood has special form, so that we can avoid integrating $z$. The next section discusses how it happens.
+
+## Fit HMM into EM algorithm
+
+For HMM, the log complete likelihood contains the following three components:
+
+1. $\log \Pr(z_1|\theta)$ as function of discrete variable $z_1$
+2. $\log \Pr(o_i|z_i, \theta)$ as function of discrete variable $z_i$
+3. $\log \Pr(z_{i+1}|z_i)$ as function of discrete variables $z_i, z_{i+1}$
+
+In general, let $f: D \rightarrow \mathbb{R}$ where $D$ is a discrete set. Then E step is to compute $\E_z[f(z)]$. Making use of the property of $f$:
+\begin{align*}
+  f(z) &= \sum_{i \in D} f(i)^{I_{z = i}} \\
+  E_z[f(z)] &= E_z[\sum_{i \in D} I_{z = i} f(i)] \\
+  &= \sum_{i \in D} f(i) \E_z[I_{z = i}] \\
+  &= \sum_{i \in D} f(i) \Pr(z = i)
+\end{align*}
+So, the integration of the three components are:
+
+1. $\E_{z|\theta^{(t)}, r, b}[\log \Pr(z_1|\theta)] = \sum_{j \in D} \log \Pr(j|\theta) \Pr(z_1 = j | \theta^{(t)}, o)$
+2. $\E_{z|\theta^{(t)}, r, b}[\log \Pr(o_i | z_i, \theta)] = \sum_{j \in D} \log \Pr(o_i | j, \theta) \Pr(z_i = j | \theta^{(t)}, o)$
+3. $\E_{z|\theta^{(t)}, r, b}[\log \Pr(z_{i+1} | z_i, \theta)] \\ = \sum_{(j, k) \in D \times D} \log \Pr(k | j, \theta) \Pr(z_i = j, z_{i+1} = k | \theta^{(t)}, o)$
+
+As you can see, the integration over $z$ becomes the one over either $z_i$ or $z_{i}, z_{i+1}$ since only $z_i$ or $z_i, z_{i+1}$ matter when considering the above three components (components are added over $i$ so expectation is not affected). Although it is still not clear how to do the integration but let's assume that we have an efficient algorithm to do this (black box $f_1, f_2, f_3$). Then we end up with
+\begin{align*}
+  Q(\theta, \theta^{(t)}) &= \sum_{j \in D} f_1(j, o) \log \Pr(j|\theta) \\
+  &+ \sum_{i=1}^{n} \sum_{j \in D} f_2(j, o) \log \Pr(o_i | j, \theta) \\
+  &+ \sum_{i=1}^{n-1} \sum_{(j, k) \in D \times D} f_3(j, k, o) \log \Pr(k | j, \theta)
+\end{align*}
+
+In terms of the maximization task (M step), what is nice about $Q$ is that
+\begin{align*}
+  Q((\theta_1, \theta_2, \theta_3), \theta^{(t)}) &= \sum_{j \in D} f_1(j, o) \log \Pr(j|\theta_1) \\
+  &+ \sum_{i=1}^{n} \sum_{j \in D} f_2(j, o) \log \Pr(o_i | j, \theta_2) \\
+  &+ \sum_{i=1}^{n-1} \sum_{(j, k) \in D \times D} f_3(j, k, o) \log \Pr(k | j, \theta_3)
+\end{align*}
+So,
+\begin{align*}
+  \arg\max_\theta Q((\theta_1, \theta_2, \theta_3), \theta^{(t)}) &= ( \\
+  & \arg\max_{\theta_1} \sum_{j \in D} f_1(j, o) \log \Pr(j|\theta_1) \\
+  &, \arg\max_{\theta_2} \sum_{i=1}^{n} \sum_{j \in D} f_2(j, o) \log \Pr(o_i | j, \theta_2) \\
+  &, \arg\max_{\theta_3} \sum_{i=1}^{n-1} \sum_{(j, k) \in D \times D} f_3(j, k, o) \log \Pr(k | j, \theta_3) \\
+  &)
+\end{align*}
+<!-- Another trick is that we can switch the two summations. For instance,
+\begin{align*}
+  &\sum_{i=1}^{n} \sum_{j \in D} f_2(j, o) \log \Pr(o_i | j, \theta_2) \\
+  = &\sum_{j \in D} \sum_{i=1}^{n} \log \Pr(o_i | j, \theta_2)
+\end{align*} -->
+So, the problem is reduced to three optimization problems. To see why they are tractable, let's compute the gradient w.r.t $\theta_i$ of the corresponding Lagrangian.
+\begin{align}
+  \nabla L_1(\lambda_1, \theta_1) &= \sum_{j \in D} f_1(j, o) \nabla_{\theta_1} \log \Pr(j|\theta_1) + \lambda_1 \sum_{j \in D} \nabla \Pr(j| \theta_1) \label{eq:1}\\
+  \nabla L_2(\lambda_2, \theta_2) &= \sum_{i=1}^{n} \sum_{j \in D} f_2(j, o) \nabla_{\theta_2} \log \Pr(o_i | j, \theta_2) \\
+  \nabla L_3(\lambda_3, \theta_3) &= \sum_{i=1}^{n-1} \sum_{(j, k) \in D \times D} f_3(j, k, o)  \nabla_{\theta_3} \log \Pr(k | j, \theta_3) + \sum_{j \in D} \lambda_{3,j} \sum_{k \in D} \nabla \Pr(k|j, \theta_3)
+\end{align}
+For \eqref{eq:1}, it is similar to the MLE of multinomial data with weights. For \eqref{eq:2} and \eqref{eq:3}, the objective function is a bit long but the structure is simple without any intractable sum. Therefore, once we know the black box $f_1, f_2, f_3$, M step is easily achievable.
+
+Now, let's focus on how to build up the black box, *i.e.* to compute $\Pr(z_i = j | \theta, o)$ and $\Pr(z_i = j, z_{i+1} = k | \theta, o)$.
+\begin{align*}
+  \Pr(z_i = j | o) &= \frac{\Pr(z_i = j, o)}{\Pr(o)} \\
+  \Pr(z_i = j, o) &= \Pr(o_1, \cdots, o_i, z_i = j) \Pr(o_{i+1}, \cdots, o_n | z_i = j) \\
+  \Pr(z_i = j, z_{i+1} = k, o) &= \Pr(o_1, \cdots, o_i, z_i = j) \Pr(z_{i+1} = k | z_i = j) \\
+  &\times \Pr(o_{i+1}|z_{i+1} = k) \Pr(o_{i+2}, \cdots, o_n | z_{i+1})
+\end{align*}
+Note that $\Pr(o)$ can be solved by forward algorithm/backward algorithm and similarly, $\Pr(o_1, \cdots, o_i, z_i = j)$ and $\Pr(o_{i+1}, \cdots, o_n | z_i = j)$ are easily achievable by forward and backward iteration.
+
+# Family-based analysis
