@@ -35,7 +35,7 @@ The genotyping array gives the following signals:
 
 Intuitively, for a normal region with no CNV, BAF is 0, 1/2, 1 and the intensity should be intermediate. For a CNV event (suppose $k$), the BAF can take value other than 0, 1/2, 1 and it will be $i/k$ for $i = 0, \cdots, k$ instead. Also, the intensity will be different (though it might not follow nice linear relationship). A nice illustration of how BAF and LRR are informative in terms of CNV state is fig 1.
 
-`r htmltools::HTML("{{< figure src=\"/penncnv/notebook/images/.png\" title=\"BAF and LRR signals vary among CNV states\" >}}")`
+`r htmltools::HTML("{{< figure src=\"/notebook/images/penncnv.png\" title=\"BAF and LRR signals vary among CNV states\">}}")`
 
 # Emission probabilities
 
@@ -154,4 +154,12 @@ Now, let's focus on how to build up the black box, *i.e.* to compute $\Pr(z_i = 
 \end{align*}
 Note that $\Pr(o)$ can be solved by forward algorithm/backward algorithm and similarly, $\Pr(o_1, \cdots, o_i, z_i = j)$ and $\Pr(o_{i+1}, \cdots, o_n | z_i = j)$ are easily achievable by forward and backward iteration.
 
-# Family-based analysis
+# Family-based decoding
+
+The decoding problem is to find the best $z$ explained by data. In Viterbi algorithm, the problem reduces to solve $\arg\max_z \Pr(z | o, \theta)$. But for the child's locus, the CNV state is determined by parents' CNV state at the same locus with the probability of *de novo* event (more precisely, what is really determined/inherited is genotype which is more informative than CNV event). Then, the posterior probability of a trio is
+\begin{align*}
+  \Pr(z_f, z_m, z_c | o_f, o_m, o_c, \theta) &= [\prod_{i = 1}^n p(z_{f,i}|o_{f,i}) p(z_{m,i} | o_{m,i}) p(z_{c,i} | o_{c,i})] \\
+  & [p(z_{f,1})p(z_{m,1})p(z_{c,1}|z_{f,1}, z_{m,1}) \\
+  & \prod_{i = 2}^n p(z_{f,i}|z_{f,i-1}) p(z_{m,i} | z_{m, i-1}) p(z_{c,i} | z_{f,i}, z_{m,i})]
+\end{align*}
+, where $p(z_{c,i} | z_{f,i}, z_{m,i})$ is derived from Mendel's laws with the consideration of probability of *de novo* event. This family-based posterior probability can also be maximized using Viterbi algorithm but with 125 ($5 \times 5 \times 5$) states.

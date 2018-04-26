@@ -2,198 +2,196 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Note Archive</title>
-    <link>/notebook/</link>
+    <link>https://liangyy.github.io/notebook/</link>
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 08 Apr 2018 11:02:18 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 18 Apr 2018 11:21:18 -0500</lastBuildDate>
     
-	<atom:link href="/notebook/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://liangyy.github.io/notebook/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>PennCNV: An integrated hidden Markov model designed for high-resolution copy number variation detection in whole-genome SNP genotyping data</title>
+      <link>https://liangyy.github.io/notebook/posts/penncnv-gr-2007/</link>
+      <pubDate>Wed, 18 Apr 2018 11:21:18 -0500</pubDate>
+      
+      <guid>https://liangyy.github.io/notebook/posts/penncnv-gr-2007/</guid>
+      <description>Meta data of reading Motivation Observed signal Emission probabilities Transition probabilities Baum-Welch algorithm Family-based decoding   \(\newcommand\E{\text{E}}\) \(\newcommand\nocr{\nonumber\\}\)
+Meta data of reading  Journal: Genome research Year: 2007 DOI: 10.1101/gr.6861907   Motivation This paper calls CNV from genotype microarray data. It is a nice example of how HMM is built up based on how the data is generated (emission) and the underlying process works (transition). For the computation part, since the emission and transition probability is parameterized by some standard distribution and it is different from what is always taught in class (transition matrix and emission matrix), I will briefly discuss the idea behind the Baum-Welch algorithm in this more general set up.</description>
+    </item>
+    
+    <item>
       <title>Genealogical trees, coalescent theory and the analysis of genetic polymorphisms</title>
-      <link>/notebook/posts/genealogy-nrg-2002/</link>
+      <link>https://liangyy.github.io/notebook/posts/genealogy-nrg-2002/</link>
       <pubDate>Sun, 08 Apr 2018 11:02:18 -0500</pubDate>
       
-      <guid>/notebook/posts/genealogy-nrg-2002/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/genealogy-nrg-2002/</guid>
       <description>Meta data of reading In brief Phylogenetics and genealogy Sample size for coalescent-based inference Likelihood in inference How to use coalescent theory to infer \(\alpha\) Estimate demographic parameters with likelihood approach Summary   Meta data of reading  Journal: Nature Review Genetics Year: 2002 DOI: 10.1038/nrg795   In brief I encountered this paper when studying population genetics along a course to understand human variation and disease. This paper discussed the idea of genealogy and clarified some concepts which I felt were really helpful for beginner like me.</description>
     </item>
     
     <item>
       <title>Reverse Pathway Genetic Approach Identifies Epistasis in Autism Spectrum Disorders</title>
-      <link>/notebook/posts/epi-asd-2017-plg/</link>
+      <link>https://liangyy.github.io/notebook/posts/epi-asd-2017-plg/</link>
       <pubDate>Mon, 19 Mar 2018 14:33:55 -0500</pubDate>
       
-      <guid>/notebook/posts/epi-asd-2017-plg/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/epi-asd-2017-plg/</guid>
       <description>Meta data of reading Rationale Method and result   Meta data of reading  Journal: PLOS Genetics Year: 2017 DOI: 10.1371/journal.pgen   Rationale It has been found that the common variation contributes more to heritability than what is calculated based on additive model in schizophrenia and ASD. This result suggests that genetic interaction may play a role. Furthermore, the epistatic effect can be larger than marginal one, since the individual effect is subject to strong negative selection (unlikely for disease individual to reproduce) whereas gene-gene interaction is allowed to have stronger effect.</description>
     </item>
     
     <item>
       <title>Modeling Linkage Disequilibrium Increases Accuracy of Polygenic Risk Scores</title>
-      <link>/notebook/posts/bjarni-ajhg-2015/</link>
+      <link>https://liangyy.github.io/notebook/posts/bjarni-ajhg-2015/</link>
       <pubDate>Sun, 14 Jan 2018 11:47:23 -0600</pubDate>
       
-      <guid>/notebook/posts/bjarni-ajhg-2015/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/bjarni-ajhg-2015/</guid>
       <description>Meta data of reading In brief The model Some derivations   Meta data of reading  Journal: AJHG Year: 2015 DOI: 10.1016/j.ajhg.2015.09.001  \[ \newcommand\E{\text{E}} \newcommand\var{\text{Var}} \newcommand\diag{\text{diag}} \]
  In brief This paper proposed a method to estimate disease risk using GWAS summary statistics. The previous method is to do LD pruning and p-value thresholding but it potentially drop out informative SNPs and leads to lack of explained heritability.</description>
     </item>
     
     <item>
       <title>Statistical Epistasis Is a Generic Feature of Gene Regulatory Networks</title>
-      <link>/notebook/posts/gjuvsland-genetics-2007/</link>
+      <link>https://liangyy.github.io/notebook/posts/gjuvsland-genetics-2007/</link>
       <pubDate>Sat, 06 Jan 2018 10:23:56 -0600</pubDate>
       
-      <guid>/notebook/posts/gjuvsland-genetics-2007/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/gjuvsland-genetics-2007/</guid>
       <description>Meta data of reading Main question Method and result in brief   Meta data of reading  Journal: Genetics Year: 2007 DOI: 10.1534/genetics.106.058859   Main question It has been found that even in yeast, the GWAS analysis of statistical epistasis varies a lot between different genetic variation. The question is whether such difference is due to the different functional dependency patterns between genes (regulatory architecture).
  Method and result in brief This paper takes the approach that focuses on 12 regulatory motifs and simulates data on the basis of these dynamical system.</description>
     </item>
     
     <item>
       <title>Resolving the Paradox of Sex and Recombination</title>
-      <link>/notebook/posts/sex-paradox-nrg-2002/</link>
+      <link>https://liangyy.github.io/notebook/posts/sex-paradox-nrg-2002/</link>
       <pubDate>Thu, 04 Jan 2018 11:31:32 -0600</pubDate>
       
-      <guid>/notebook/posts/sex-paradox-nrg-2002/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/sex-paradox-nrg-2002/</guid>
       <description>Meta data of reading Paradox of sex Evolutionary explanations Terminology and Evolutionary Perspective of Sex Summary Reference   Meta data of reading  Journal: Nature Review Genetics Year: 2002 DOI: 10.1038/nrg761   Paradox of sex The paradox is that despite the high cost of sex, it is extremely common.
  Evolutionary explanations The idea of the most evolutionary hypotheses stem from the the fact that segretation and recombination break down genetic association.</description>
     </item>
     
     <item>
       <title>Epistasis — the essential role of gene interactions in the structure and evolution of genetic systems</title>
-      <link>/notebook/posts/patrick-nrg-2008/</link>
+      <link>https://liangyy.github.io/notebook/posts/patrick-nrg-2008/</link>
       <pubDate>Wed, 03 Jan 2018 09:30:59 -0600</pubDate>
       
-      <guid>/notebook/posts/patrick-nrg-2008/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/patrick-nrg-2008/</guid>
       <description>Meta data of reading Three meanings of epistasis Comments Epistasis as a tool Epistasis as an obstacle Structure and evolution of complex systems Conclusion References   Meta data of reading  Journal: Nature Review Genetics Year: 2008 DOI: 10.1038/nrg2452   Three meanings of epistasis Functional epistasis Two genes are physically interacting with each other or functionally related to each other (i.e. in the same/redundant pathways).
  Compositional epistasis It refers to the deviation from Mendelian segregation ratio.</description>
     </item>
     
     <item>
       <title>From Peas to Disease: Modifier Genes, Network Resilience, and the Genetics of Health</title>
-      <link>/notebook/posts/riordan-ajhg-2017/</link>
+      <link>https://liangyy.github.io/notebook/posts/riordan-ajhg-2017/</link>
       <pubDate>Mon, 01 Jan 2018 21:36:35 -0600</pubDate>
       
-      <guid>/notebook/posts/riordan-ajhg-2017/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/riordan-ajhg-2017/</guid>
       <description>Meta data of reading In brief Modifier genes Modifier effects and functional significance From modified phenotypes to modifier genes Features of modifier genes Modifiers as mediators of network resilience Summary   Meta data of reading  Journal: AJHG Year: 2017 DOI: 10.1016/j.ajhg.2017.06.004   In brief This paper reviewed the principles of modifier genetics and assess progress in the studies of modifier genes and their targets in both simple and complex traits.</description>
     </item>
     
     <item>
       <title>The background puzzle: how identical mutations in the same gene lead to different disease symptoms</title>
-      <link>/notebook/posts/kammenga-febs-2017/</link>
+      <link>https://liangyy.github.io/notebook/posts/kammenga-febs-2017/</link>
       <pubDate>Mon, 01 Jan 2018 10:04:05 -0600</pubDate>
       
-      <guid>/notebook/posts/kammenga-febs-2017/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/kammenga-febs-2017/</guid>
       <description>Meta data of reading Terminology Experimental evidence of genetic background effects Environmental effects Stochastic and epigenetic effects Summary   Meta data of reading  Journal: FEBS Year: 2017 DOI: 10.1111/febs.14080   Terminology This paper discusses the current insights about the phenotypic variation caused by gene interaction, epigenetics and stochasticity in model organism.
 Penetrance and expressivity Penetrance (according to wikipedia) is the proportion of individuals with the variant (allele) that also express an associated trait (phenotype).</description>
     </item>
     
     <item>
       <title>Detecting epistasis in human complex traits</title>
-      <link>/notebook/posts/epistasis-nrg-2014/</link>
+      <link>https://liangyy.github.io/notebook/posts/epistasis-nrg-2014/</link>
       <pubDate>Sat, 30 Dec 2017 10:30:32 -0600</pubDate>
       
-      <guid>/notebook/posts/epistasis-nrg-2014/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/epistasis-nrg-2014/</guid>
       <description>Meta data of reading Motivation Methods for detecting epistasis Overview of empirical evidence for epistasis Summary   \[ \newcommand\E{\text{E}} \newcommand\nocr{\nonumber\\} \newcommand\var{\text{Var}} \newcommand\logit{\text{logit}} \]
 Meta data of reading  Journal: Nature Review Genetics Year: 2014 DOI: 10.1038/nrg3747   Motivation Under GWAS framework, the causal variants are found with independent with additive and cumulative effects. But such assumption is arguably unrealistic. So it is necessary to consider the case where variants do not act independently (genetic interaction, epistasis).</description>
     </item>
     
     <item>
       <title>Variance component testing in generalised linear models with random effects</title>
-      <link>/notebook/posts/variance-component-test-glmm-1997/</link>
+      <link>https://liangyy.github.io/notebook/posts/variance-component-test-glmm-1997/</link>
       <pubDate>Fri, 29 Dec 2017 11:37:51 -0600</pubDate>
       
-      <guid>/notebook/posts/variance-component-test-glmm-1997/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/variance-component-test-glmm-1997/</guid>
       <description> Meta data of reading   Meta data of reading  Journal: Biometrika Year: 1997 DOI: 10.1093/biomet/84.2.309   </description>
     </item>
     
     <item>
       <title>Optimal tests for rare variant effects in sequencing association studies</title>
-      <link>/notebook/posts/optimal-skat-2012/</link>
+      <link>https://liangyy.github.io/notebook/posts/optimal-skat-2012/</link>
       <pubDate>Thu, 28 Dec 2017 15:45:19 -0600</pubDate>
       
-      <guid>/notebook/posts/optimal-skat-2012/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/optimal-skat-2012/</guid>
       <description>Meta data of reading Motivation The approach   \[ \newcommand\E{\text{E}} \newcommand\nocr{\nonumber\\} \newcommand\var{\text{Var}} \newcommand\diag{\text{diag}} \]
 Meta data of reading  Journal: Biostatistics Year: 2012 DOI: 10.1093/biostatistics/kxs014   Motivation Rare variants have very low MAF so GWAS doesn’t work under current sample size. To increase power, the strategy is to aggregate variants according to biological knowledge (or assumptions). There are two main types of tests: burden tests and non-burden tests.</description>
     </item>
     
     <item>
       <title>Score Test</title>
-      <link>/notebook/posts/score-test/</link>
+      <link>https://liangyy.github.io/notebook/posts/score-test/</link>
       <pubDate>Thu, 28 Dec 2017 10:53:20 -0600</pubDate>
       
-      <guid>/notebook/posts/score-test/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/score-test/</guid>
       <description>Resources Motivation Univariate case Multivariate case Appendix: Neyman-Pearson lemma An concrete example in biostatistics   \(\newcommand\E{\text{E}}\) \(\newcommand\nocr{\nonumber\\}\)
 Resources Score test in wikipedia Meyman-Pearson lemma in wikipedia   Motivation It seems to me that some hypothesis testing methods use score test with which I am not familiar. This note intends to sketch the definition of score test and the intuition behind it with a concrete example in application.</description>
     </item>
     
     <item>
       <title>The genetic architecture of type 2 diabetes</title>
-      <link>/notebook/posts/t2b-genetic-architecture-2016/</link>
+      <link>https://liangyy.github.io/notebook/posts/t2b-genetic-architecture-2016/</link>
       <pubDate>Wed, 27 Dec 2017 10:15:16 -0600</pubDate>
       
-      <guid>/notebook/posts/t2b-genetic-architecture-2016/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/t2b-genetic-architecture-2016/</guid>
       <description>Meta data of reading In brief   Meta data of reading  Journal: Nature Year: 2016 DOI: 10.1038/nature18642   In brief The idea of this paper is:
  GoT2D: To perform genetic association analysis by considering not only common variants (SNPs) but also rare variants. To get rare variant data, they performed whole genome sequencing on cohort. Furthermore, they included imputed genotypes as well. They estimated the power of the analysis for both common variants and rare variants (SNPs: OR \(\ge\) 1.</description>
     </item>
     
     <item>
-      <title>Simulating Multivariate Normal by Univariate Normal</title>
-      <link>/notebook/posts/simulate_multivariate_normal/</link>
-      <pubDate>Mon, 25 Dec 2017 17:03:40 -0600</pubDate>
-      
-      <guid>/notebook/posts/simulate_multivariate_normal/</guid>
-      <description>Univariate to Multivariate Example Proof   library(knitr) opts_chunk$set(tidy.opts=list(width.cutoff=60),tidy=TRUE) Univariate to Multivariate \[\begin{align} \vec{y} = \sum_i \vec{v}_i \mathcal{N}_i \nonumber \end{align}\] , where \(\mathcal{N}_1, ..., \mathcal{N}_p\) are independent standard univariate normal. Then
-\[\begin{align} \vec{y} \sim \mathcal{N}(\vec{0}, VV^T) \label{eq:mvn} \end{align}\] , where \(V = [\vec{v}_1, ..., \vec{v}_p]\).
- Example In the following example, \(v_i \in \mathbb{R}^2\) and \(p = 2\). The number of simulated samples is \(B = 10000\).
-Ploting contour in R # draw contour of a multivariate normal distribution library(mvtnorm) drawContour &amp;lt;- function(xgrid, ygrid, mu, sigma) { z &amp;lt;- c() x &amp;lt;- c() y &amp;lt;- c() for (i in 1:length(xgrid)) { for (j in 1:length(ygrid)) { z &amp;lt;- c(z, dmvnorm(c(xgrid[i], ygrid[j]), mean = mu, sigma = sigma)) x &amp;lt;- c(x, xgrid[i]) y &amp;lt;- c(y, ygrid[j]) } } return(data.</description>
-    </item>
-    
-    <item>
       <title>Joint Analysis of SNP and Gene Expression Data in Genetic Association Studies of Complex Diseases</title>
-      <link>/notebook/posts/huang-2014-aas/</link>
+      <link>https://liangyy.github.io/notebook/posts/huang-2014-aas/</link>
       <pubDate>Wed, 20 Dec 2017 10:16:05 -0600</pubDate>
       
-      <guid>/notebook/posts/huang-2014-aas/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/huang-2014-aas/</guid>
       <description>Meta data of reading Motivation The model Testing \(H_0\) Assumption and implication of the test Comparing to SNP only model   Meta data of reading  Journal: The Annals of Applied Statistics Year: 2014 DOI: 10.1214/13-AOAS690  \[ \newcommand\logit{\text{logit}} \newcommand\E{\text{E}} \newcommand\var{\text{Var}} \newcommand\cov{\text{Cov}} \newcommand\diag{\text{diag}} \newcommand\nocr{\nonumber\\} \def\ci{\perp\!\!\!\!\perp} \]
  Motivation The goal is to assess the genetic effect of the specific gene on the disease. In this paper, the authors casted the genetic effect as two parts:</description>
     </item>
     
     <item>
       <title>Sherlock: Detecting Gene-Disease Associations by Matching Patterns of Expression QTL and GWAS</title>
-      <link>/notebook/posts/sherlock-2013-ajhg/</link>
+      <link>https://liangyy.github.io/notebook/posts/sherlock-2013-ajhg/</link>
       <pubDate>Tue, 19 Dec 2017 15:51:04 -0600</pubDate>
       
-      <guid>/notebook/posts/sherlock-2013-ajhg/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/sherlock-2013-ajhg/</guid>
       <description> Meta data of reading  Journal: The American Journal of Human Genetics Year: 2013 DOI: 10.1016/j.ajhg.2013.03.022  </description>
     </item>
     
     <item>
       <title>Conditional and joint multiple-SNP analysis of GWAS summary statistics identifies additional variants influencing complex traits</title>
-      <link>/notebook/posts/yang-2012-ng/</link>
+      <link>https://liangyy.github.io/notebook/posts/yang-2012-ng/</link>
       <pubDate>Sat, 16 Dec 2017 11:06:05 -0600</pubDate>
       
-      <guid>/notebook/posts/yang-2012-ng/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/yang-2012-ng/</guid>
       <description>Meta data of reading  Journal: Nature Genetics Year: 2012 DOI: 10.1038/ng.2213  $$ \newcommand\independent{\perp\!\!\!\!\perp} \newcommand\E{\text{E}} \newcommand\nocr{\nonumber\cr} \newcommand\cov{\text{Cov}} \newcommand\var{\text{Var}} \newcommand\cor{\text{Cor}} \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}} $$
 Motivation The GWAS procedure is to use single-SNP model to test association and select the SNP with strongest signal to represent the genomic region (~ 2Mb) and the genetic variation is computed based on this SNP only. The paper pointed out the underlying assumptions of this procedure:</description>
     </item>
     
     <item>
       <title>Mendelian randomization and instrumental variable regression</title>
-      <link>/notebook/posts/mendelian-randomization/</link>
+      <link>https://liangyy.github.io/notebook/posts/mendelian-randomization/</link>
       <pubDate>Mon, 11 Dec 2017 13:35:41 -0600</pubDate>
       
-      <guid>/notebook/posts/mendelian-randomization/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/mendelian-randomization/</guid>
       <description>$$ \newcommand\cov{\text{Cov}} \newcommand\var{\text{Var}} \newcommand\iv{\text{IV}} $$
 Meta data of reading  Links:  https://www.bauer.uh.edu/rsusmel/phd/ec1-8.pdf http://fmwww.bc.edu/EC-C/F2012/228/EC228.f2012.nn15.pdf http://mathworld.wolfram.com/Lindeberg-FellerCentralLimitTheorem.html http://mathworld.wolfram.com/LindebergCondition.html  Year: NA DOI: NA  The problem and the idea of MR Suppose we have phenotype $Y$, gene expression $X$, and genotype $Z$. The goal is to see if $X$ and $Y$ has some causal relationship. Since there are some unknown confounders, the residual of $Y \sim X$ is correlated with $X$. Therefore, the OLS estimator of effect size $\hat{\beta}_{xy}$ is biased.</description>
     </item>
     
     <item>
       <title>Integration of summary data from GWAS and eQTL studies predicts complex trait gene targets</title>
-      <link>/notebook/posts/zhu-2017-ng/</link>
+      <link>https://liangyy.github.io/notebook/posts/zhu-2017-ng/</link>
       <pubDate>Fri, 08 Dec 2017 14:23:10 -0600</pubDate>
       
-      <guid>/notebook/posts/zhu-2017-ng/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/zhu-2017-ng/</guid>
       <description>$$ \newcommand\independent{\perp\!\!\!\!\perp} \newcommand\E{\text{E}} \newcommand\nocr{\nonumber\cr} \newcommand\cov{\text{Cov}} \newcommand\var{\text{Var}} \newcommand\cor{\text{Cor}} $$
 Meta data of reading  Journal: Nature Genetics Year: 2016 DOI: 10.1038/ng.3538  Instrumental variable and Mendelian randomization analysis The paper mentioned it in the background section along with Mendelian randomization (MR). I googled this term and found this site. Also, wiki page is informative.
 It appears in regression analysis where $y$ is the responsive variable and $x$ is the explanatory variable.</description>
@@ -201,10 +199,10 @@ It appears in regression analysis where $y$ is the responsive variable and $x$ i
     
     <item>
       <title>TEMPLATE</title>
-      <link>/notebook/posts/first-test/</link>
+      <link>https://liangyy.github.io/notebook/posts/first-test/</link>
       <pubDate>Thu, 07 Dec 2017 23:39:21 -0600</pubDate>
       
-      <guid>/notebook/posts/first-test/</guid>
+      <guid>https://liangyy.github.io/notebook/posts/first-test/</guid>
       <description> Meta data of reading  Journal: JOURNAL Year: YEAR DOI: DOI  </description>
     </item>
     
