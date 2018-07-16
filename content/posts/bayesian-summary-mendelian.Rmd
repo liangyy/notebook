@@ -1,18 +1,43 @@
 ---
-title: "Bayesian Summary Mendelian"
-date: 2018-07-12T10:06:41-05:00
-author: "Yanyu Liang"
-tags: [""]
-categories: [""]
-draft: false
+title: A Bayesian approach to mediation analysis predicts 206 causal target genes
+  in Alzheimer’s disease
+author: Yanyu Liang
+date: '2018-07-16'
+categories:
+  - research paper - method
+tags:
+  - fine-mapping
+  - mendelian randomization
+  - special-series-rotation
+draft: no
 output:
   blogdown::html_page:
-    toc: true
+    toc: yes
     toc_depth: 1
 ---
 
 # Meta data of reading
 
-* **Journal**:
-* **Year**:
-* **DOI**:
+* **Journal**: bioRxiv
+* **Year**: 2017
+* **DOI**: http://dx.doi.org/10.1101/219428
+
+# Idea
+
+This paper is to perform the mediation analysis using GWAS summary statistic and eQTL data. The goal is to infer whether gene expression mediates the genotype-phenotype association. The idea is to incorperate multiple genes and multiple SNPs to take LD into account. Also, the unmediated effect is also modelled explicitly.
+
+# Model
+
+\begin{align*}
+  y &\sim N(G\theta, \sigma^2 I) \\
+  \theta &= \sum_{k = 1}^K \beta_k \vec\alpha_k + \vec\gamma
+\endp{align*}
+, where $\beta_k$ is the effect of gene $k$ expression on phenotype. $\vec\gamma$ is unmediated effect of genotype on phenotype. $\vec{\alpha}_k$ is the effect of genotype on gene $k$. 
+
+Here, the idea comes from the fact that $\hat\theta$ coming from single-effect model (GWAS summary statistic) follows $\hat\theta \sim N(SRS^{-1}\theta, SRS)$ where $\theta$ is the effect of true multi-site model. Following this idea, the paper proposed a likelihood function for $\hat\theta$ given $\hat\alpha$. Specifically, $\hat\theta \sim N(SRS^{-1} \sum_{k = 1}^K \hat{\vec\alpha_k} \beta_k + \vec\gamma$. 
+
+The ultimate goal is to infer $\beta_k$ with the consideration of $\vec\gamma$. So, a spike-and-slab prior is assigned to $\beta_k$ and a normal prior is assigned to $\vec\gamma$. One more techical note is that variational Bayes was used in inference where LD matrix $R$ is replaced by a low rank approximation to ensure efficient/stable computaton. 
+
+# In practice
+
+The paper defined only considered genes with at least on eQTL with p-value > 0.05. All SNPs were included to allow unmediated effect explain away mediated effect. It is unclear what is computed for prioritizing genes, but it is likely to be PIP of $\beta_k$ for each gene $k$. 

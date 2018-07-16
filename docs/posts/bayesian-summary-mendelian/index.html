@@ -8,7 +8,7 @@
 		<meta name="author" content="Yanyu Liang">
 		
 		<meta name="generator" content="Hugo 0.31.1" />
-		<title>Bayesian Summary Mendelian &middot; Note Archive</title>
+		<title>A Bayesian approach to mediation analysis predicts 206 causal target genes in Alzheimer’s disease &middot; Note Archive</title>
 		<link rel="shortcut icon" href="https://liangyy.github.io/notebook/images/favicon.ico">
 		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/style.css">
 		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/highlight.css">
@@ -55,17 +55,21 @@
             <article>
                 <header>
                     <h1>
-                        Bayesian Summary Mendelian
+                        A Bayesian approach to mediation analysis predicts 206 causal target genes in Alzheimer’s disease
                     </h1>
                     <h2 class="headline">
-                    Jul 12, 2018 10:06
-                    · 11 words
-                    · 1 minute read
+                    Jul 16, 2018 00:00
+                    · 272 words
+                    · 2 minutes read
                       <span class="tags">
                       
                       
                           
-                              <a href="https://liangyy.github.io/notebook/tags/"></a>
+                              <a href="https://liangyy.github.io/notebook/tags/fine-mapping">fine-mapping</a>
+                          
+                              <a href="https://liangyy.github.io/notebook/tags/mendelian-randomization">mendelian randomization</a>
+                          
+                              <a href="https://liangyy.github.io/notebook/tags/special-series-rotation">special-series-rotation</a>
                           
                       
                       
@@ -81,16 +85,33 @@
                     <div id="TOC">
 <ul>
 <li><a href="#meta-data-of-reading">Meta data of reading</a></li>
+<li><a href="#idea">Idea</a></li>
+<li><a href="#model">Model</a></li>
+<li><a href="#in-practice">In practice</a></li>
 </ul>
 </div>
 
 <div id="meta-data-of-reading" class="section level1">
 <h1>Meta data of reading</h1>
 <ul>
-<li><strong>Journal</strong>:</li>
-<li><strong>Year</strong>:</li>
-<li><strong>DOI</strong>:</li>
+<li><strong>Journal</strong>: bioRxiv</li>
+<li><strong>Year</strong>: 2017</li>
+<li><strong>DOI</strong>: <a href="http://dx.doi.org/10.1101/219428" class="uri">http://dx.doi.org/10.1101/219428</a></li>
 </ul>
+</div>
+<div id="idea" class="section level1">
+<h1>Idea</h1>
+<p>This paper is to perform the mediation analysis using GWAS summary statistic and eQTL data. The goal is to infer whether gene expression mediates the genotype-phenotype association. The idea is to incorperate multiple genes and multiple SNPs to take LD into account. Also, the unmediated effect is also modelled explicitly.</p>
+</div>
+<div id="model" class="section level1">
+<h1>Model</h1>
+<p>\begin{align*} y &amp;N(G, ^2 I) \ &amp;= _{k = 1}^K _k _k +  , where <span class="math inline">\(\beta_k\)</span> is the effect of gene <span class="math inline">\(k\)</span> expression on phenotype. <span class="math inline">\(\vec\gamma\)</span> is unmediated effect of genotype on phenotype. <span class="math inline">\(\vec{\alpha}_k\)</span> is the effect of genotype on gene <span class="math inline">\(k\)</span>.</p>
+<p>Here, the idea comes from the fact that <span class="math inline">\(\hat\theta\)</span> coming from single-effect model (GWAS summary statistic) follows <span class="math inline">\(\hat\theta \sim N(SRS^{-1}\theta, SRS)\)</span> where <span class="math inline">\(\theta\)</span> is the effect of true multi-site model. Following this idea, the paper proposed a likelihood function for <span class="math inline">\(\hat\theta\)</span> given <span class="math inline">\(\hat\alpha\)</span>. Specifically, <span class="math inline">\(\hat\theta \sim N(SRS^{-1} \sum_{k = 1}^K \hat{\vec\alpha_k} \beta_k + \vec\gamma\)</span>.</p>
+<p>The ultimate goal is to infer <span class="math inline">\(\beta_k\)</span> with the consideration of <span class="math inline">\(\vec\gamma\)</span>. So, a spike-and-slab prior is assigned to <span class="math inline">\(\beta_k\)</span> and a normal prior is assigned to <span class="math inline">\(\vec\gamma\)</span>. One more techical note is that variational Bayes was used in inference where LD matrix <span class="math inline">\(R\)</span> is replaced by a low rank approximation to ensure efficient/stable computaton.</p>
+</div>
+<div id="in-practice" class="section level1">
+<h1>In practice</h1>
+<p>The paper defined only considered genes with at least on eQTL with p-value &gt; 0.05. All SNPs were included to allow unmediated effect explain away mediated effect. It is unclear what is computed for prioritizing genes, but it is likely to be PIP of <span class="math inline">\(\beta_k\)</span> for each gene <span class="math inline">\(k\)</span>.</p>
 </div>
 
                 </section>
