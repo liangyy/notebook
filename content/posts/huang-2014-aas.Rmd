@@ -170,7 +170,7 @@ If the model was wrongly specified, then the power of test would be hurted. So, 
   \end{align}
 
 , where $\mathcal{N}_i \sim \mathcal{N}(0, 1)$ is independent to each other.
-We can check that $\hat\epsilon$ has mean $0$ and variance $D$ (see this [post](`r htmltools::HTML("{{< ref \"posts/simulate_multivariate_normal.html\" >}}")`) on simulating multivariate normal).
+We can check that $\hat\epsilon$ has mean $0$ and variance $D$ (see this [post](`r htmltools::HTML("{{< ref \"posts/simulate_multivariate_normal/index.html\" >}}")`) on simulating multivariate normal).
 
   \begin{align}
     \cov(\hat\epsilon) &= 1 / n \times U^T \diag(Y_i - \hat{\mu}_i) \diag(Y_i - \hat{\mu}_i) U \nocr

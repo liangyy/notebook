@@ -1,18 +1,82 @@
 ---
-title: "Twas Fine Mapping"
-date: 2018-07-12T10:06:26-05:00
-author: "Yanyu Liang"
-tags: [""]
-categories: [""]
-draft: false
+title: Probabilistic fine-mapping of transcriptome-wide association studies
+author: Yanyu Liang
+date: '2018-07-16'
+categories:
+  - research paper - method
+tags:
+  - eqtl
+  - fine-mapping
+  - special-series-rotation
+draft: no
 output:
   blogdown::html_page:
-    toc: true
+    toc: yes
     toc_depth: 1
 ---
 
+$$
+\newcommand{\E}{\text{E}}
+\newcommand{\var}{\text{Var}}
+$$
+
 # Meta data of reading
 
-* **Journal**:
-* **Year**:
-* **DOI**:
+* **Journal**: bioRxiv
+* **Year**: 2017
+* **DOI**: http://dx.doi.org/10.1101/236869
+
+# Idea
+
+The TWAS model is:
+
+\begin{align*}
+  G &= XW + E \\
+  y &= G \alpha + \epsilon \quad, \epsilon \sim N(0, \sigma_e^2 I)
+\end{align*}
+, where $E, \epsilon$ are iid errors. The goal is to infer whether $\alpha$ is zero. Note that $X \in \mathbb{R}^{n \times p}$, $W \in \mathbb{R}^{p \times m}$, and $G \in \mathbb{R}^{n \times m}$
+
+TWAS effect size is $\hat{b}_i = G_i'y / G_i'G_i$
+
+The challenge behind this procedure is that under single gene model, it is hard to distinguish passenger genes and causal genes. As we can imagine, for a candidate region with $m$ genes, there is only one causal genes, but since they may share regulatory elements, they share part of $W$ (partly because of LD) and so that many of non-causal genes have decent z-score as well. 
+
+The way to overcome this issue is to perform multi-gene analysis, where the signal is considered by taking LD and shared $W$.
+
+# Model 
+
+This paper derived the likelihood of TWAS z-score in multi-gene setting. 
+
+\begin{align*}
+  \hat{G} &= X \hat{W} \\
+  \tilde{G} &= X \hat{W} S^{-1} \quad \text{, where $S = diag(\|G_i\|)$} \\
+  \hat{b}_i &= \hat{G}_i'y / \hat{G}_i' \hat{G}_i = \tilde{G}_i' y \\
+  se(\hat{b}_i) &= \sqrt{var(\tilde{G}_i \epsilon)} = \sqrt{n \sigma_e^2} = \sqrt{n} \sigma_e \\
+  z_i &= \hat{b}_i / se(\hat{b}_i) \\
+  &= \tilde{G}_i'y / (\sqrt{n} \sigma_e) \\
+  &= S^{-1}W'X' (G \alpha + \epsilon) / (\sqrt{n} \sigma_e) \\
+  &= S^{-1} W' X' (XWS^{-1} \alpha + \epsilon) / (\sqrt{n} \sigma_e) \\
+  &= \frac{\sqrt{n}}{\sigma_e} S^{-1} W' \Sigma_{SNP} W S^{-1} \alpha + \frac{1}{\sqrt{n} \sigma_e} S^{-1} W' X' \epsilon
+\end{align*}
+
+Then, we can write down the mean and variance of $z_{twas}$.
+
+\begin{align*}
+  \E(z_{twas}) &= \frac{\sqrt{n}}{\sigma_e} S^{-1} W' \Sigma_{SNP} W S^{-1} \alpha \\
+  \var(z_{twas}) &= \frac{1}{n \sigma_e^2} S^{-1} W' X' \sigma_e^2 X W S^{-1} \\
+  &= S^{-1} W' \Sigma_{SNP} W S^{-1}
+\end{align*}
+
+Let $\Sigma_{pe} = S^{-1} W' \Sigma_{SNP} W S^{-1}$ and $\lambda = \frac{\sqrt{n}}{\sigma_e} \alpha$, we have $z_{twas} | \lambda, \Sigma_{pe} \sim N(\Sigma_{pe} \lambda, \Sigma_{pe})$.
+
+Since $\lambda$ ($\alpha$) is unknown, $\lambda$ should be integreted out by defining a prior of $\lambda$. To keep the mathematical form simple, the paper used $\lambda | c, \sigma_c^2 \sim N(0, D_c)$, where $D_c = diag(n\sigma_c^2 c) + diag(\delta (1 - c)$ with binary vector $c$ indicating if the SNP is causal. Here $\delta$ is a small number (corresponding to non-effect) to keep $D_c$ positive semi-definite. Then, $z_{twas} | \Sigma_{pe}, c, \sigma_c^2 \sim N(0, \Sigma_{pe} + \Sigma_{pe} D_c \Sigma_{pe})$. So, PIP is
+
+\begin{align*}
+  c &\sim Bernoulli(p) \\
+  \Pr(c|z_{twas}, \Sigma_{pe}, \sigma_c^2) &= \frac{\Pr(z_{twas} | \Sigma_{pe}, c, \sigma_c^2) \Pr(c)}{\sum_{c'} \Pr(z_{twas} | \Sigma_{pe}, c', \sigma_c^2) \Pr(c')} \\
+  PIP_i &= \Pr(c_i = 1|z_{twas}, \Sigma_{pe}, \sigma_c^2) \\
+  &= \sum_{c: c_i = 1} \Pr(c|z_{twas}, \Sigma_{pe}, \sigma_c^2)
+\end{align*}
+
+Note that for a candidate region with promising z-scores, $p$ can be set as $1 / m$. For $\sigma_c^2$, in principle, it can be estimated with big computation burden. In this paper, $n\sigma_c^2 = 13$ was used.
+
+In gene-based analysis, $m$ is not very big. So, summing over all possible $c$ is tractable. This is different from the situation where DAP is applied.

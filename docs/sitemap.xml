@@ -3,13 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://liangyy.github.io/notebook/posts/bayesian-summary-mendelian/</loc>
-    <lastmod>2018-07-12T10:06:41-05:00</lastmod>
+    <loc>https://liangyy.github.io/notebook/posts/twas-fine-mapping/</loc>
+    <lastmod>2018-07-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://liangyy.github.io/notebook/posts/twas-fine-mapping/</loc>
-    <lastmod>2018-07-12T10:06:26-05:00</lastmod>
+    <loc>https://liangyy.github.io/notebook/posts/bayesian-summary-mendelian/</loc>
+    <lastmod>2018-07-12T10:06:41-05:00</lastmod>
   </url>
   
   <url>
@@ -29,7 +29,7 @@
   
   <url>
     <loc>https://liangyy.github.io/notebook/posts/dap-g-2018/</loc>
-    <lastmod>2018-07-12T10:04:16-05:00</lastmod>
+    <lastmod>2018-07-12T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -138,13 +138,13 @@
   </url>
   
   <url>
-    <loc>https://liangyy.github.io/notebook/categories/</loc>
+    <loc>https://liangyy.github.io/notebook/tags/</loc>
     <lastmod>2018-07-12T10:06:41-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://liangyy.github.io/notebook/tags/</loc>
+    <loc>https://liangyy.github.io/notebook/categories/</loc>
     <lastmod>2018-07-12T10:06:41-05:00</lastmod>
     <priority>0</priority>
   </url>
@@ -205,7 +205,13 @@
   
   <url>
     <loc>https://liangyy.github.io/notebook/tags/eqtl/</loc>
-    <lastmod>2017-12-20T10:16:05-06:00</lastmod>
+    <lastmod>2018-07-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://liangyy.github.io/notebook/tags/fine-mapping/</loc>
+    <lastmod>2018-07-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -277,7 +283,7 @@
   
   <url>
     <loc>https://liangyy.github.io/notebook/</loc>
-    <lastmod>2018-07-12T10:06:41-05:00</lastmod>
+    <lastmod>2018-07-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -289,7 +295,7 @@
   
   <url>
     <loc>https://liangyy.github.io/notebook/posts/</loc>
-    <lastmod>2018-07-12T10:06:41-05:00</lastmod>
+    <lastmod>2018-07-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -307,7 +313,7 @@
   
   <url>
     <loc>https://liangyy.github.io/notebook/categories/research-paper---method/</loc>
-    <lastmod>2018-04-18T11:21:18-05:00</lastmod>
+    <lastmod>2018-07-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -319,7 +325,7 @@
   
   <url>
     <loc>https://liangyy.github.io/notebook/tags/special-series-rotation/</loc>
-    <lastmod>2018-07-12T10:04:16-05:00</lastmod>
+    <lastmod>2018-07-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

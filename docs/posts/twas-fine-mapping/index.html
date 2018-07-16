@@ -8,7 +8,7 @@
 		<meta name="author" content="Yanyu Liang">
 		
 		<meta name="generator" content="Hugo 0.31.1" />
-		<title>Twas Fine Mapping &middot; Note Archive</title>
+		<title>Probabilistic fine-mapping of transcriptome-wide association studies &middot; Note Archive</title>
 		<link rel="shortcut icon" href="https://liangyy.github.io/notebook/images/favicon.ico">
 		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/style.css">
 		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/highlight.css">
@@ -55,17 +55,21 @@
             <article>
                 <header>
                     <h1>
-                        Twas Fine Mapping
+                        Probabilistic fine-mapping of transcriptome-wide association studies
                     </h1>
                     <h2 class="headline">
-                    Jul 12, 2018 10:06
-                    · 11 words
-                    · 1 minute read
+                    Jul 16, 2018 00:00
+                    · 525 words
+                    · 3 minutes read
                       <span class="tags">
                       
                       
                           
-                              <a href="https://liangyy.github.io/notebook/tags/"></a>
+                              <a href="https://liangyy.github.io/notebook/tags/eqtl">eqtl</a>
+                          
+                              <a href="https://liangyy.github.io/notebook/tags/fine-mapping">fine-mapping</a>
+                          
+                              <a href="https://liangyy.github.io/notebook/tags/special-series-rotation">special-series-rotation</a>
                           
                       
                       
@@ -81,16 +85,65 @@
                     <div id="TOC">
 <ul>
 <li><a href="#meta-data-of-reading">Meta data of reading</a></li>
+<li><a href="#idea">Idea</a></li>
+<li><a href="#model">Model</a></li>
 </ul>
 </div>
 
+<p><span class="math display">\[
+\newcommand{\E}{\text{E}}
+\newcommand{\var}{\text{Var}}
+\]</span></p>
 <div id="meta-data-of-reading" class="section level1">
 <h1>Meta data of reading</h1>
 <ul>
-<li><strong>Journal</strong>:</li>
-<li><strong>Year</strong>:</li>
-<li><strong>DOI</strong>:</li>
+<li><strong>Journal</strong>: bioRxiv</li>
+<li><strong>Year</strong>: 2017</li>
+<li><strong>DOI</strong>: <a href="http://dx.doi.org/10.1101/236869" class="uri">http://dx.doi.org/10.1101/236869</a></li>
 </ul>
+</div>
+<div id="idea" class="section level1">
+<h1>Idea</h1>
+<p>The TWAS model is:</p>
+<span class="math display">\[\begin{align*}
+  G &amp;= XW + E \\
+  y &amp;= G \alpha + \epsilon \quad, \epsilon \sim N(0, \sigma_e^2 I)
+\end{align*}\]</span>
+<p>, where <span class="math inline">\(E, \epsilon\)</span> are iid errors. The goal is to infer whether <span class="math inline">\(\alpha\)</span> is zero. Note that <span class="math inline">\(X \in \mathbb{R}^{n \times p}\)</span>, <span class="math inline">\(W \in \mathbb{R}^{p \times m}\)</span>, and <span class="math inline">\(G \in \mathbb{R}^{n \times m}\)</span></p>
+<p>TWAS effect size is <span class="math inline">\(\hat{b}_i = G_i&#39;y / G_i&#39;G_i\)</span></p>
+<p>The challenge behind this procedure is that under single gene model, it is hard to distinguish passenger genes and causal genes. As we can imagine, for a candidate region with <span class="math inline">\(m\)</span> genes, there is only one causal genes, but since they may share regulatory elements, they share part of <span class="math inline">\(W\)</span> (partly because of LD) and so that many of non-causal genes have decent z-score as well.</p>
+<p>The way to overcome this issue is to perform multi-gene analysis, where the signal is considered by taking LD and shared <span class="math inline">\(W\)</span>.</p>
+</div>
+<div id="model" class="section level1">
+<h1>Model</h1>
+<p>This paper derived the likelihood of TWAS z-score in multi-gene setting.</p>
+<span class="math display">\[\begin{align*}
+  \hat{G} &amp;= X \hat{W} \\
+  \tilde{G} &amp;= X \hat{W} S^{-1} \quad \text{, where $S = diag(\|G_i\|)$} \\
+  \hat{b}_i &amp;= \hat{G}_i&#39;y / \hat{G}_i&#39; \hat{G}_i = \tilde{G}_i&#39; y \\
+  se(\hat{b}_i) &amp;= \sqrt{var(\tilde{G}_i \epsilon)} = \sqrt{n \sigma_e^2} = \sqrt{n} \sigma_e \\
+  z_i &amp;= \hat{b}_i / se(\hat{b}_i) \\
+  &amp;= \tilde{G}_i&#39;y / (\sqrt{n} \sigma_e) \\
+  &amp;= S^{-1}W&#39;X&#39; (G \alpha + \epsilon) / (\sqrt{n} \sigma_e) \\
+  &amp;= S^{-1} W&#39; X&#39; (XWS^{-1} \alpha + \epsilon) / (\sqrt{n} \sigma_e) \\
+  &amp;= \frac{\sqrt{n}}{\sigma_e} S^{-1} W&#39; \Sigma_{SNP} W S^{-1} \alpha + \frac{1}{\sqrt{n} \sigma_e} S^{-1} W&#39; X&#39; \epsilon
+\end{align*}\]</span>
+<p>Then, we can write down the mean and variance of <span class="math inline">\(z_{twas}\)</span>.</p>
+<span class="math display">\[\begin{align*}
+  \E(z_{twas}) &amp;= \frac{\sqrt{n}}{\sigma_e} S^{-1} W&#39; \Sigma_{SNP} W S^{-1} \alpha \\
+  \var(z_{twas}) &amp;= \frac{1}{n \sigma_e^2} S^{-1} W&#39; X&#39; \sigma_e^2 X W S^{-1} \\
+  &amp;= S^{-1} W&#39; \Sigma_{SNP} W S^{-1}
+\end{align*}\]</span>
+<p>Let <span class="math inline">\(\Sigma_{pe} = S^{-1} W&#39; \Sigma_{SNP} W S^{-1}\)</span> and <span class="math inline">\(\lambda = \frac{\sqrt{n}}{\sigma_e} \alpha\)</span>, we have <span class="math inline">\(z_{twas} | \lambda, \Sigma_{pe} \sim N(\Sigma_{pe} \lambda, \Sigma_{pe})\)</span>.</p>
+<p>Since <span class="math inline">\(\lambda\)</span> (<span class="math inline">\(\alpha\)</span>) is unknown, <span class="math inline">\(\lambda\)</span> should be integreted out by defining a prior of <span class="math inline">\(\lambda\)</span>. To keep the mathematical form simple, the paper used <span class="math inline">\(\lambda | c, \sigma_c^2 \sim N(0, D_c)\)</span>, where <span class="math inline">\(D_c = diag(n\sigma_c^2 c) + diag(\delta (1 - c)\)</span> with binary vector <span class="math inline">\(c\)</span> indicating if the SNP is causal. Here <span class="math inline">\(\delta\)</span> is a small number (corresponding to non-effect) to keep <span class="math inline">\(D_c\)</span> positive semi-definite. Then, <span class="math inline">\(z_{twas} | \Sigma_{pe}, c, \sigma_c^2 \sim N(0, \Sigma_{pe} + \Sigma_{pe} D_c \Sigma_{pe})\)</span>. So, PIP is</p>
+<span class="math display">\[\begin{align*}
+  c &amp;\sim Bernoulli(p) \\
+  \Pr(c|z_{twas}, \Sigma_{pe}, \sigma_c^2) &amp;= \frac{\Pr(z_{twas} | \Sigma_{pe}, c, \sigma_c^2) \Pr(c)}{\sum_{c&#39;} \Pr(z_{twas} | \Sigma_{pe}, c&#39;, \sigma_c^2) \Pr(c&#39;)} \\
+  PIP_i &amp;= \Pr(c_i = 1|z_{twas}, \Sigma_{pe}, \sigma_c^2) \\
+  &amp;= \sum_{c: c_i = 1} \Pr(c|z_{twas}, \Sigma_{pe}, \sigma_c^2)
+\end{align*}\]</span>
+<p>Note that for a candidate region with promising z-scores, <span class="math inline">\(p\)</span> can be set as <span class="math inline">\(1 / m\)</span>. For <span class="math inline">\(\sigma_c^2\)</span>, in principle, it can be estimated with big computation burden. In this paper, <span class="math inline">\(n\sigma_c^2 = 13\)</span> was used.</p>
+<p>In gene-based analysis, <span class="math inline">\(m\)</span> is not very big. So, summing over all possible <span class="math inline">\(c\)</span> is tractable. This is different from the situation where DAP is applied.</p>
 </div>
 
                 </section>

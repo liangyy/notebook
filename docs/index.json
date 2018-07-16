@@ -1,14 +1,14 @@
 [
 {
-	"uri": "https://liangyy.github.io/notebook/posts/bayesian-summary-mendelian/",
-	"title": "Bayesian Summary Mendelian",
-	"tags": [""],
+	"uri": "https://liangyy.github.io/notebook/posts/twas-fine-mapping/",
+	"title": "Probabilistic fine-mapping of transcriptome-wide association studies",
+	"tags": ["eqtl", "fine-mapping", "special-series-rotation"],
 	"description": "",
-	"content": " Meta data of reading   Meta data of reading  Journal: Year: DOI:   "
+	"content": " Meta data of reading Idea Model   \\[ \\newcommand{\\E}{\\text{E}} \\newcommand{\\var}{\\text{Var}} \\]\nMeta data of reading  Journal: bioRxiv Year: 2017 DOI: http://dx.doi.org/10.1101/236869   Idea The TWAS model is:\n\\[\\begin{align*} G \u0026amp;= XW + E \\\\ y \u0026amp;= G \\alpha + \\epsilon \\quad, \\epsilon \\sim N(0, \\sigma_e^2 I) \\end{align*}\\] , where \\(E, \\epsilon\\) are iid errors. The goal is to infer whether \\(\\alpha\\) is zero. Note that \\(X \\in \\mathbb{R}^{n \\times p}\\), \\(W \\in \\mathbb{R}^{p \\times m}\\), and \\(G \\in \\mathbb{R}^{n \\times m}\\)\nTWAS effect size is \\(\\hat{b}_i = G_i\u0026#39;y / G_i\u0026#39;G_i\\)\nThe challenge behind this procedure is that under single gene model, it is hard to distinguish passenger genes and causal genes. As we can imagine, for a candidate region with \\(m\\) genes, there is only one causal genes, but since they may share regulatory elements, they share part of \\(W\\) (partly because of LD) and so that many of non-causal genes have decent z-score as well.\nThe way to overcome this issue is to perform multi-gene analysis, where the signal is considered by taking LD and shared \\(W\\).\n Model This paper derived the likelihood of TWAS z-score in multi-gene setting.\n\\[\\begin{align*} \\hat{G} \u0026amp;= X \\hat{W} \\\\ \\tilde{G} \u0026amp;= X \\hat{W} S^{-1} \\quad \\text{, where $S = diag(\\|G_i\\|)$} \\\\ \\hat{b}_i \u0026amp;= \\hat{G}_i\u0026#39;y / \\hat{G}_i\u0026#39; \\hat{G}_i = \\tilde{G}_i\u0026#39; y \\\\ se(\\hat{b}_i) \u0026amp;= \\sqrt{var(\\tilde{G}_i \\epsilon)} = \\sqrt{n \\sigma_e^2} = \\sqrt{n} \\sigma_e \\\\ z_i \u0026amp;= \\hat{b}_i / se(\\hat{b}_i) \\\\ \u0026amp;= \\tilde{G}_i\u0026#39;y / (\\sqrt{n} \\sigma_e) \\\\ \u0026amp;= S^{-1}W\u0026#39;X\u0026#39; (G \\alpha + \\epsilon) / (\\sqrt{n} \\sigma_e) \\\\ \u0026amp;= S^{-1} W\u0026#39; X\u0026#39; (XWS^{-1} \\alpha + \\epsilon) / (\\sqrt{n} \\sigma_e) \\\\ \u0026amp;= \\frac{\\sqrt{n}}{\\sigma_e} S^{-1} W\u0026#39; \\Sigma_{SNP} W S^{-1} \\alpha + \\frac{1}{\\sqrt{n} \\sigma_e} S^{-1} W\u0026#39; X\u0026#39; \\epsilon \\end{align*}\\] Then, we can write down the mean and variance of \\(z_{twas}\\).\n\\[\\begin{align*} \\E(z_{twas}) \u0026amp;= \\frac{\\sqrt{n}}{\\sigma_e} S^{-1} W\u0026#39; \\Sigma_{SNP} W S^{-1} \\alpha \\\\ \\var(z_{twas}) \u0026amp;= \\frac{1}{n \\sigma_e^2} S^{-1} W\u0026#39; X\u0026#39; \\sigma_e^2 X W S^{-1} \\\\ \u0026amp;= S^{-1} W\u0026#39; \\Sigma_{SNP} W S^{-1} \\end{align*}\\] Let \\(\\Sigma_{pe} = S^{-1} W\u0026#39; \\Sigma_{SNP} W S^{-1}\\) and \\(\\lambda = \\frac{\\sqrt{n}}{\\sigma_e} \\alpha\\), we have \\(z_{twas} | \\lambda, \\Sigma_{pe} \\sim N(\\Sigma_{pe} \\lambda, \\Sigma_{pe})\\).\nSince \\(\\lambda\\) (\\(\\alpha\\)) is unknown, \\(\\lambda\\) should be integreted out by defining a prior of \\(\\lambda\\). To keep the mathematical form simple, the paper used \\(\\lambda | c, \\sigma_c^2 \\sim N(0, D_c)\\), where \\(D_c = diag(n\\sigma_c^2 c) + diag(\\delta (1 - c)\\) with binary vector \\(c\\) indicating if the SNP is causal. Here \\(\\delta\\) is a small number (corresponding to non-effect) to keep \\(D_c\\) positive semi-definite. Then, \\(z_{twas} | \\Sigma_{pe}, c, \\sigma_c^2 \\sim N(0, \\Sigma_{pe} + \\Sigma_{pe} D_c \\Sigma_{pe})\\). So, PIP is\n\\[\\begin{align*} c \u0026amp;\\sim Bernoulli(p) \\\\ \\Pr(c|z_{twas}, \\Sigma_{pe}, \\sigma_c^2) \u0026amp;= \\frac{\\Pr(z_{twas} | \\Sigma_{pe}, c, \\sigma_c^2) \\Pr(c)}{\\sum_{c\u0026#39;} \\Pr(z_{twas} | \\Sigma_{pe}, c\u0026#39;, \\sigma_c^2) \\Pr(c\u0026#39;)} \\\\ PIP_i \u0026amp;= \\Pr(c_i = 1|z_{twas}, \\Sigma_{pe}, \\sigma_c^2) \\\\ \u0026amp;= \\sum_{c: c_i = 1} \\Pr(c|z_{twas}, \\Sigma_{pe}, \\sigma_c^2) \\end{align*}\\] Note that for a candidate region with promising z-scores, \\(p\\) can be set as \\(1 / m\\). For \\(\\sigma_c^2\\), in principle, it can be estimated with big computation burden. In this paper, \\(n\\sigma_c^2 = 13\\) was used.\nIn gene-based analysis, \\(m\\) is not very big. So, summing over all possible \\(c\\) is tractable. This is different from the situation where DAP is applied.\n "
 },
 {
-	"uri": "https://liangyy.github.io/notebook/posts/twas-fine-mapping/",
-	"title": "Twas Fine Mapping",
+	"uri": "https://liangyy.github.io/notebook/posts/bayesian-summary-mendelian/",
+	"title": "Bayesian Summary Mendelian",
 	"tags": [""],
 	"description": "",
 	"content": " Meta data of reading   Meta data of reading  Journal: Year: DOI:   "
@@ -36,8 +36,8 @@
 },
 {
 	"uri": "https://liangyy.github.io/notebook/posts/dap-g-2018/",
-	"title": "Dap-G",
-	"tags": ["special-series-rotation"],
+	"title": "DAP algorithm and DAP-G",
+	"tags": ["special-series-rotation", "fine-mapping"],
 	"description": "",
 	"content": " Meta data of reading Model Inference procedure Computation DAP-G   Meta data of reading Reference 1  Journal: AJHG Year: 2016 DOI: https://doi.org/10.1016/j.ajhg.2016.03.029   Reference 2:  Journal: BioRxiv Year: 2018 DOI: https://doi.org/10.1101/316471    Model \\[\\begin{align*} \\mathbf{y} \u0026amp;= \\mu \\mathbf{1} + \\sum_{i = 1}^p \\beta_i \\mathbf{g}_i + \\mathbf{e}, \\mathbf{e} \\sim N(0, \\sigma^2 I) \\\\ \\gamma_i \u0026amp;= \\begin{cases} 1 \u0026amp; \\text{, if $\\beta_i =\\ne 0$} \\\\ 0 \u0026amp; \\text{, otherwise} \\end{cases} \\\\ \\log\\frac{\\Pr(\\gamma_i = 1)}{\\Pr(\\gamma_i = 0)} \u0026amp;= \\alpha_0 + \\sum_{k = 1}^q \\alpha_k d_{ik} \\end{align*}\\] , where \\(\\mathbf{d}_i\\) is annotation of locus \\(i\\).\nIt is a generative model. To simulate \\(\\mathbf{y}\\),\n\\(\\gamma_i \\sim Binom(f(\\mathbf{\\alpha}, \\mathbf{d}_i))\\) (by the logistic model) \\(\\beta_i \\sim N(0, \\sigma^2)\\) (it is unclear to me how \\(\\sigma^2\\) is picked and also not sure whether it matters or not) \\(\\mathbf{y} \\sim N(g(\\mu \\mathbf{1} + \\sum_i \\beta_i \\mathbf{g}_i), \\sigma^2 I)\\)   Inference procedure Obtain \\(\\hat\\alpha\\) via MLE (\\(\\Pr(\\mathbf{y} | G, \\alpha)\\)) Obtain candidate locus (\\(\\Pr(\\mathbf{\\gamma}_l = 0 | \\mathbf{y}_l, G_l, \\hat\\alpha)\\) is small enough) Fine-mapping on candidate locus (compute PIP, i.e. \\(\\Pr(\\gamma_{l_i} = 1 | \\mathbf{y}_l, G_l, \\hat\\alpha)\\))   Computation Challenge 1 Step 1 can be done by EM, where in each iteration, \\(\\Pr(\\mathbf{\\gamma}_l | \\mathbf{y}_l, G_l, \\alpha)\\) should be evaluated.\n\\[\\begin{align*} \\Pr(\\mathbf{\\gamma}_l = \\gamma| \\mathbf{y}_l, G_l, \\alpha) \u0026amp;= \\frac{\\Pr(\\gamma | \\alpha) BF(\\gamma)}{\\sum_{\\gamma\u0026#39;} \\Pr(\\gamma\u0026#39; | \\alpha) BF(\\gamma\u0026#39;)} \\\\ BF(\\gamma) \u0026amp;:= \\frac{\\Pr(\\mathbf{y}_l | G_l, \\gamma)}{\\Pr(\\mathbf{y}_l | G_l, \\gamma_l = 0)} \\end{align*}\\] The difficulty is to compute \\(C:= \\sum_{\\gamma\u0026#39;} \\Pr(\\gamma\u0026#39; | \\alpha) BF(\\gamma\u0026#39;)\\).\nThis paper proposed adaptive DAP algorithm to compute it. Essentially, it approximates the summation with exponential number of terms by a summation with linear number of terms plus an approximated error.\nThe idea is that, for \\(\\gamma: \\|\\gamma\\| = s\\), only a subset \\(\\gamma \\in \\Omega_s\\) contribute substantially to the summation. Furthermore, let \\(C_s := \\sum_{\\|\\gamma\u0026#39;\\| = s} \\Pr(\\gamma\u0026#39; | \\alpha) BF(\\gamma\u0026#39;)\\), \\(C_s^* := \\sum_{\\gamma\u0026#39; \\in \\Omega_s} \\Pr(\\gamma\u0026#39; | \\alpha) BF(\\gamma\u0026#39;)\\), \\(C_s^*\\) can be built upon \\(C_{s - 1}^*\\).\n Challenge 2 The procedure proposed above is designed for a locus with small number of QTNs (causal variants). Since it will be computationally intensive if the number of causal variants is much bigger than this scale. So, it is suitable for cis-eQTL analysis.\nFor GWAS, such assumption is impractical. The idea is to approximate \\(\\Pr(\\mathbf{\\gamma}_l | \\mathbf{y}_l, G_l, \\alpha) \\approx \\prod_{k = 1}^K \\Pr(\\mathbf{\\gamma}_{[k]} | \\mathbf{y}_l, G_l, \\alpha)\\), where \\(\\mathbf{\\gamma}_{[k]}: k = 1, \\cdots, K\\) is a partition of \\(\\mathbf{\\gamma}_l\\). With this approximation, the number of QTNs is smaller in each chunk \\(k\\) so that DAP algorithm can work efficiently.\n  DAP-G In the second paper, it proposes the signal cluster concept to make the output of fine-mapping result more interpretable. Also, it proposes the summary statistic-based inference approach. In particular, the required summary statistics for inference are \\(R, \\hat{b}, se(\\hat{b}), n, SST\\), from which \\(G\u0026#39;y, G\u0026#39;G\\) can be recovered.\n "
 },
@@ -189,14 +189,14 @@
 	"content": "github repository\nTheme is derived from hugo-theme-cactus-plus.\nThe page is rendered by blogdown\n"
 },
 {
-	"uri": "https://liangyy.github.io/notebook/categories/",
+	"uri": "https://liangyy.github.io/notebook/tags/",
 	"title": "",
 	"tags": [],
 	"description": "",
 	"content": ""
 },
 {
-	"uri": "https://liangyy.github.io/notebook/tags/",
+	"uri": "https://liangyy.github.io/notebook/categories/",
 	"title": "",
 	"tags": [],
 	"description": "",
@@ -268,6 +268,13 @@
 {
 	"uri": "https://liangyy.github.io/notebook/tags/eqtl/",
 	"title": "Eqtl",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://liangyy.github.io/notebook/tags/fine-mapping/",
+	"title": "Fine Mapping",
 	"tags": [],
 	"description": "",
 	"content": ""

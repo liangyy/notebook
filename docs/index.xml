@@ -6,10 +6,21 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 12 Jul 2018 10:06:41 -0500</lastBuildDate>
+    <lastBuildDate>Mon, 16 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://liangyy.github.io/notebook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Probabilistic fine-mapping of transcriptome-wide association studies</title>
+      <link>https://liangyy.github.io/notebook/posts/twas-fine-mapping/</link>
+      <pubDate>Mon, 16 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://liangyy.github.io/notebook/posts/twas-fine-mapping/</guid>
+      <description>Meta data of reading Idea Model   \[ \newcommand{\E}{\text{E}} \newcommand{\var}{\text{Var}} \]
+Meta data of reading  Journal: bioRxiv Year: 2017 DOI: http://dx.doi.org/10.1101/236869   Idea The TWAS model is:
+\[\begin{align*} G &amp;amp;= XW + E \\ y &amp;amp;= G \alpha + \epsilon \quad, \epsilon \sim N(0, \sigma_e^2 I) \end{align*}\] , where \(E, \epsilon\) are iid errors. The goal is to infer whether \(\alpha\) is zero. Note that \(X \in \mathbb{R}^{n \times p}\), \(W \in \mathbb{R}^{p \times m}\), and \(G \in \mathbb{R}^{n \times m}\)</description>
+    </item>
     
     <item>
       <title>Bayesian Summary Mendelian</title>
@@ -17,15 +28,6 @@
       <pubDate>Thu, 12 Jul 2018 10:06:41 -0500</pubDate>
       
       <guid>https://liangyy.github.io/notebook/posts/bayesian-summary-mendelian/</guid>
-      <description> Meta data of reading   Meta data of reading  Journal: Year: DOI:   </description>
-    </item>
-    
-    <item>
-      <title>Twas Fine Mapping</title>
-      <link>https://liangyy.github.io/notebook/posts/twas-fine-mapping/</link>
-      <pubDate>Thu, 12 Jul 2018 10:06:26 -0500</pubDate>
-      
-      <guid>https://liangyy.github.io/notebook/posts/twas-fine-mapping/</guid>
       <description> Meta data of reading   Meta data of reading  Journal: Year: DOI:   </description>
     </item>
     
@@ -57,9 +59,9 @@
     </item>
     
     <item>
-      <title>Dap-G</title>
+      <title>DAP algorithm and DAP-G</title>
       <link>https://liangyy.github.io/notebook/posts/dap-g-2018/</link>
-      <pubDate>Thu, 12 Jul 2018 10:04:16 -0500</pubDate>
+      <pubDate>Thu, 12 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://liangyy.github.io/notebook/posts/dap-g-2018/</guid>
       <description>Meta data of reading Model Inference procedure Computation DAP-G   Meta data of reading Reference 1  Journal: AJHG Year: 2016 DOI: https://doi.org/10.1016/j.ajhg.2016.03.029   Reference 2:  Journal: BioRxiv Year: 2018 DOI: https://doi.org/10.1101/316471    Model \[\begin{align*} \mathbf{y} &amp;amp;= \mu \mathbf{1} + \sum_{i = 1}^p \beta_i \mathbf{g}_i + \mathbf{e}, \mathbf{e} \sim N(0, \sigma^2 I) \\ \gamma_i &amp;amp;= \begin{cases} 1 &amp;amp; \text{, if $\beta_i =\ne 0$} \\ 0 &amp;amp; \text{, otherwise} \end{cases} \\ \log\frac{\Pr(\gamma_i = 1)}{\Pr(\gamma_i = 0)} &amp;amp;= \alpha_0 + \sum_{k = 1}^q \alpha_k d_{ik} \end{align*}\] , where \(\mathbf{d}_i\) is annotation of locus \(i\).</description>
