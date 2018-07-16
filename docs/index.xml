@@ -6,10 +6,64 @@
     <description>Recent content on Note Archive</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 18 Apr 2018 11:21:18 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 12 Jul 2018 10:06:41 -0500</lastBuildDate>
     
 	<atom:link href="https://liangyy.github.io/notebook/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Bayesian Summary Mendelian</title>
+      <link>https://liangyy.github.io/notebook/posts/bayesian-summary-mendelian/</link>
+      <pubDate>Thu, 12 Jul 2018 10:06:41 -0500</pubDate>
+      
+      <guid>https://liangyy.github.io/notebook/posts/bayesian-summary-mendelian/</guid>
+      <description> Meta data of reading   Meta data of reading  Journal: Year: DOI:   </description>
+    </item>
+    
+    <item>
+      <title>Twas Fine Mapping</title>
+      <link>https://liangyy.github.io/notebook/posts/twas-fine-mapping/</link>
+      <pubDate>Thu, 12 Jul 2018 10:06:26 -0500</pubDate>
+      
+      <guid>https://liangyy.github.io/notebook/posts/twas-fine-mapping/</guid>
+      <description> Meta data of reading   Meta data of reading  Journal: Year: DOI:   </description>
+    </item>
+    
+    <item>
+      <title>Twas Egger</title>
+      <link>https://liangyy.github.io/notebook/posts/twas-egger/</link>
+      <pubDate>Thu, 12 Jul 2018 10:06:20 -0500</pubDate>
+      
+      <guid>https://liangyy.github.io/notebook/posts/twas-egger/</guid>
+      <description> Meta data of reading   Meta data of reading  Journal: Year: DOI:   </description>
+    </item>
+    
+    <item>
+      <title>Smr Revisit</title>
+      <link>https://liangyy.github.io/notebook/posts/smr-revisit/</link>
+      <pubDate>Thu, 12 Jul 2018 10:06:07 -0500</pubDate>
+      
+      <guid>https://liangyy.github.io/notebook/posts/smr-revisit/</guid>
+      <description> Meta data of reading   Meta data of reading  Journal: Year: DOI:   </description>
+    </item>
+    
+    <item>
+      <title>Coloc</title>
+      <link>https://liangyy.github.io/notebook/posts/coloc/</link>
+      <pubDate>Thu, 12 Jul 2018 10:05:54 -0500</pubDate>
+      
+      <guid>https://liangyy.github.io/notebook/posts/coloc/</guid>
+      <description> Meta data of reading   Meta data of reading  Journal: Year: DOI:   </description>
+    </item>
+    
+    <item>
+      <title>Dap-G</title>
+      <link>https://liangyy.github.io/notebook/posts/dap-g-2018/</link>
+      <pubDate>Thu, 12 Jul 2018 10:04:16 -0500</pubDate>
+      
+      <guid>https://liangyy.github.io/notebook/posts/dap-g-2018/</guid>
+      <description>Meta data of reading Model Inference procedure Computation DAP-G   Meta data of reading Reference 1  Journal: AJHG Year: 2016 DOI: https://doi.org/10.1016/j.ajhg.2016.03.029   Reference 2:  Journal: BioRxiv Year: 2018 DOI: https://doi.org/10.1101/316471    Model \[\begin{align*} \mathbf{y} &amp;amp;= \mu \mathbf{1} + \sum_{i = 1}^p \beta_i \mathbf{g}_i + \mathbf{e}, \mathbf{e} \sim N(0, \sigma^2 I) \\ \gamma_i &amp;amp;= \begin{cases} 1 &amp;amp; \text{, if $\beta_i =\ne 0$} \\ 0 &amp;amp; \text{, otherwise} \end{cases} \\ \log\frac{\Pr(\gamma_i = 1)}{\Pr(\gamma_i = 0)} &amp;amp;= \alpha_0 + \sum_{k = 1}^q \alpha_k d_{ik} \end{align*}\] , where \(\mathbf{d}_i\) is annotation of locus \(i\).</description>
+    </item>
     
     <item>
       <title>PennCNV: An integrated hidden Markov model designed for high-resolution copy number variation detection in whole-genome SNP genotyping data</title>

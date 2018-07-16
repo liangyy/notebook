@@ -1,0 +1,78 @@
+---
+title: "Dap-G"
+date: 2018-07-12T10:04:16-05:00
+author: "Yanyu Liang"
+tags: ["special-series-rotation"]
+categories: [""]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+# Meta data of reading
+
+## Reference 1
+
+* **Journal**: AJHG
+* **Year**: 2016
+* **DOI**: https://doi.org/10.1016/j.ajhg.2016.03.029
+
+## Reference 2:
+
+* **Journal**: BioRxiv
+* **Year**: 2018
+* **DOI**: https://doi.org/10.1101/316471
+
+# Model
+
+\begin{align*}
+  \mathbf{y} &= \mu \mathbf{1} + \sum_{i = 1}^p \beta_i \mathbf{g}_i + \mathbf{e}, \mathbf{e} \sim N(0, \sigma^2 I) \\
+  \gamma_i &= \begin{cases}
+    1 & \text{, if $\beta_i =\ne 0$} \\
+    0 & \text{, otherwise}
+  \end{cases} \\
+  \log\frac{\Pr(\gamma_i = 1)}{\Pr(\gamma_i = 0)} &= \alpha_0 + \sum_{k = 1}^q \alpha_k d_{ik}
+\end{align*}
+
+, where $\mathbf{d}_i$ is annotation of locus $i$.
+
+It is a generative model. To simulate $\mathbf{y}$,
+
+1. $\gamma_i \sim Binom(f(\mathbf{\alpha}, \mathbf{d}_i))$ (by the logistic model)
+2. $\beta_i \sim N(0, \sigma^2)$ (it is unclear to me how $\sigma^2$ is picked and also not sure whether it matters or not)
+3. $\mathbf{y} \sim N(g(\mu \mathbf{1} + \sum_i \beta_i \mathbf{g}_i), \sigma^2 I)$
+
+# Inference procedure
+
+1. Obtain $\hat\alpha$ via MLE ($\Pr(\mathbf{y} | G, \alpha)$)
+2. Obtain candidate locus ($\Pr(\mathbf{\gamma}_l = 0 | \mathbf{y}_l, G_l, \hat\alpha)$ is small enough)
+3. Fine-mapping on candidate locus (compute PIP, *i.e.* $\Pr(\gamma_{l_i} = 1 | \mathbf{y}_l, G_l, \hat\alpha)$)
+
+# Computation
+
+## Challenge 1
+
+Step 1 can be done by EM, where in each iteration, $\Pr(\mathbf{\gamma}_l | \mathbf{y}_l, G_l, \alpha)$ should be evaluated.
+
+\begin{align*}
+  \Pr(\mathbf{\gamma}_l = \gamma| \mathbf{y}_l, G_l, \alpha) &= \frac{\Pr(\gamma | \alpha) BF(\gamma)}{\sum_{\gamma'} \Pr(\gamma' | \alpha) BF(\gamma')} \\
+  BF(\gamma) &:= \frac{\Pr(\mathbf{y}_l | G_l, \gamma)}{\Pr(\mathbf{y}_l | G_l, \gamma_l = 0)}
+\end{align*}
+
+The difficulty is to compute $C:= \sum_{\gamma'} \Pr(\gamma' | \alpha) BF(\gamma')$.
+
+This paper proposed adaptive DAP algorithm to compute it. Essentially, it approximates the summation with exponential number of terms by a summation with linear number of terms plus an approximated error.
+
+The idea is that, for $\gamma: \|\gamma\| = s$, only a subset $\gamma \in \Omega_s$ contribute substantially to the summation. Furthermore, let $C_s := \sum_{\|\gamma'\| = s} \Pr(\gamma' | \alpha) BF(\gamma')$, $C_s^* := \sum_{\gamma' \in \Omega_s} \Pr(\gamma' | \alpha) BF(\gamma')$, $C_s^*$ can be built upon $C_{s - 1}^*$.
+
+## Challenge 2
+
+The procedure proposed above is designed for a locus with small number of QTNs (causal variants). Since it will be computationally intensive if the number of causal variants is much bigger than this scale. So, it is suitable for cis-eQTL analysis.
+
+For GWAS, such assumption is impractical. The idea is to approximate $\Pr(\mathbf{\gamma}_l | \mathbf{y}_l, G_l, \alpha) \approx \prod_{k = 1}^K \Pr(\mathbf{\gamma}_{[k]} | \mathbf{y}_l, G_l, \alpha)$, where $\mathbf{\gamma}_{[k]}: k = 1, \cdots, K$ is a partition of $\mathbf{\gamma}_l$. With this approximation, the number of QTNs is smaller in each chunk $k$ so that DAP algorithm can work efficiently.
+
+# DAP-G
+
+In the second paper, it proposes the signal cluster concept to make the output of fine-mapping result more interpretable. Also, it proposes the summary statistic-based inference approach. In particular, the required summary statistics for inference are $R, \hat{b}, se(\hat{b}), n, SST$, from which $G'y, G'G$ can be recovered.

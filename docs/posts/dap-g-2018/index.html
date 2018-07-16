@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<meta name="author" content="Yanyu Liang">
+		
+		<meta name="generator" content="Hugo 0.31.1" />
+		<title>Dap-G &middot; Note Archive</title>
+		<link rel="shortcut icon" href="https://liangyy.github.io/notebook/images/favicon.ico">
+		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/style.css">
+		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/highlight.css">
+
+		
+		<link rel="stylesheet" href="https://liangyy.github.io/notebook/css/font-awesome.min.css">
+		
+
+		
+
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='https://liangyy.github.io/notebook/'> <span class="arrow">←</span>Home</a>
+	
+	<a href='https://liangyy.github.io/notebook/posts'>Archive</a>
+	<a href='https://liangyy.github.io/notebook/tags'>Tags</a>
+	<a href='https://liangyy.github.io/notebook/about'>About</a>
+
+	
+
+	
+	<div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+<script type="text/javascript" src="/notebook/js/lunr.min.js"></script>
+<script type="text/javascript" src="/notebook/js/jquery-2.x.min.js"></script>
+<script type="text/javascript" src="/notebook/js/horsey.js"></script>
+<script type="text/javascript">
+    var baseurl = "https:\/\/liangyy.github.io\/notebook\/";
+</script>
+<script type="text/javascript" src="/notebook/js/search.js"></script>
+
+</nav>
+
+
+        <section id="wrapper" class="post">
+            <article>
+                <header>
+                    <h1>
+                        Dap-G
+                    </h1>
+                    <h2 class="headline">
+                    Jul 12, 2018 10:04
+                    · 463 words
+                    · 3 minutes read
+                      <span class="tags">
+                      
+                      
+                          
+                              <a href="https://liangyy.github.io/notebook/tags/special-series-rotation">special-series-rotation</a>
+                          
+                      
+                      
+                      </span>
+                    </h2>
+                </header>
+                
+                  
+                
+
+                <section id="post-body">
+                  
+                    <div id="TOC">
+<ul>
+<li><a href="#meta-data-of-reading">Meta data of reading</a></li>
+<li><a href="#model">Model</a></li>
+<li><a href="#inference-procedure">Inference procedure</a></li>
+<li><a href="#computation">Computation</a></li>
+<li><a href="#dap-g">DAP-G</a></li>
+</ul>
+</div>
+
+<div id="meta-data-of-reading" class="section level1">
+<h1>Meta data of reading</h1>
+<div id="reference-1" class="section level2">
+<h2>Reference 1</h2>
+<ul>
+<li><strong>Journal</strong>: AJHG</li>
+<li><strong>Year</strong>: 2016</li>
+<li><strong>DOI</strong>: <a href="https://doi.org/10.1016/j.ajhg.2016.03.029" class="uri">https://doi.org/10.1016/j.ajhg.2016.03.029</a></li>
+</ul>
+</div>
+<div id="reference-2" class="section level2">
+<h2>Reference 2:</h2>
+<ul>
+<li><strong>Journal</strong>: BioRxiv</li>
+<li><strong>Year</strong>: 2018</li>
+<li><strong>DOI</strong>: <a href="https://doi.org/10.1101/316471" class="uri">https://doi.org/10.1101/316471</a></li>
+</ul>
+</div>
+</div>
+<div id="model" class="section level1">
+<h1>Model</h1>
+<span class="math display">\[\begin{align*}
+  \mathbf{y} &amp;= \mu \mathbf{1} + \sum_{i = 1}^p \beta_i \mathbf{g}_i + \mathbf{e}, \mathbf{e} \sim N(0, \sigma^2 I) \\
+  \gamma_i &amp;= \begin{cases}
+    1 &amp; \text{, if $\beta_i =\ne 0$} \\
+    0 &amp; \text{, otherwise}
+  \end{cases} \\
+  \log\frac{\Pr(\gamma_i = 1)}{\Pr(\gamma_i = 0)} &amp;= \alpha_0 + \sum_{k = 1}^q \alpha_k d_{ik}
+\end{align*}\]</span>
+<p>, where <span class="math inline">\(\mathbf{d}_i\)</span> is annotation of locus <span class="math inline">\(i\)</span>.</p>
+<p>It is a generative model. To simulate <span class="math inline">\(\mathbf{y}\)</span>,</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\gamma_i \sim Binom(f(\mathbf{\alpha}, \mathbf{d}_i))\)</span> (by the logistic model)</li>
+<li><span class="math inline">\(\beta_i \sim N(0, \sigma^2)\)</span> (it is unclear to me how <span class="math inline">\(\sigma^2\)</span> is picked and also not sure whether it matters or not)</li>
+<li><span class="math inline">\(\mathbf{y} \sim N(g(\mu \mathbf{1} + \sum_i \beta_i \mathbf{g}_i), \sigma^2 I)\)</span></li>
+</ol>
+</div>
+<div id="inference-procedure" class="section level1">
+<h1>Inference procedure</h1>
+<ol style="list-style-type: decimal">
+<li>Obtain <span class="math inline">\(\hat\alpha\)</span> via MLE (<span class="math inline">\(\Pr(\mathbf{y} | G, \alpha)\)</span>)</li>
+<li>Obtain candidate locus (<span class="math inline">\(\Pr(\mathbf{\gamma}_l = 0 | \mathbf{y}_l, G_l, \hat\alpha)\)</span> is small enough)</li>
+<li>Fine-mapping on candidate locus (compute PIP, <em>i.e.</em> <span class="math inline">\(\Pr(\gamma_{l_i} = 1 | \mathbf{y}_l, G_l, \hat\alpha)\)</span>)</li>
+</ol>
+</div>
+<div id="computation" class="section level1">
+<h1>Computation</h1>
+<div id="challenge-1" class="section level2">
+<h2>Challenge 1</h2>
+<p>Step 1 can be done by EM, where in each iteration, <span class="math inline">\(\Pr(\mathbf{\gamma}_l | \mathbf{y}_l, G_l, \alpha)\)</span> should be evaluated.</p>
+<span class="math display">\[\begin{align*}
+  \Pr(\mathbf{\gamma}_l = \gamma| \mathbf{y}_l, G_l, \alpha) &amp;= \frac{\Pr(\gamma | \alpha) BF(\gamma)}{\sum_{\gamma&#39;} \Pr(\gamma&#39; | \alpha) BF(\gamma&#39;)} \\
+  BF(\gamma) &amp;:= \frac{\Pr(\mathbf{y}_l | G_l, \gamma)}{\Pr(\mathbf{y}_l | G_l, \gamma_l = 0)}
+\end{align*}\]</span>
+<p>The difficulty is to compute <span class="math inline">\(C:= \sum_{\gamma&#39;} \Pr(\gamma&#39; | \alpha) BF(\gamma&#39;)\)</span>.</p>
+<p>This paper proposed adaptive DAP algorithm to compute it. Essentially, it approximates the summation with exponential number of terms by a summation with linear number of terms plus an approximated error.</p>
+<p>The idea is that, for <span class="math inline">\(\gamma: \|\gamma\| = s\)</span>, only a subset <span class="math inline">\(\gamma \in \Omega_s\)</span> contribute substantially to the summation. Furthermore, let <span class="math inline">\(C_s := \sum_{\|\gamma&#39;\| = s} \Pr(\gamma&#39; | \alpha) BF(\gamma&#39;)\)</span>, <span class="math inline">\(C_s^* := \sum_{\gamma&#39; \in \Omega_s} \Pr(\gamma&#39; | \alpha) BF(\gamma&#39;)\)</span>, <span class="math inline">\(C_s^*\)</span> can be built upon <span class="math inline">\(C_{s - 1}^*\)</span>.</p>
+</div>
+<div id="challenge-2" class="section level2">
+<h2>Challenge 2</h2>
+<p>The procedure proposed above is designed for a locus with small number of QTNs (causal variants). Since it will be computationally intensive if the number of causal variants is much bigger than this scale. So, it is suitable for cis-eQTL analysis.</p>
+<p>For GWAS, such assumption is impractical. The idea is to approximate <span class="math inline">\(\Pr(\mathbf{\gamma}_l | \mathbf{y}_l, G_l, \alpha) \approx \prod_{k = 1}^K \Pr(\mathbf{\gamma}_{[k]} | \mathbf{y}_l, G_l, \alpha)\)</span>, where <span class="math inline">\(\mathbf{\gamma}_{[k]}: k = 1, \cdots, K\)</span> is a partition of <span class="math inline">\(\mathbf{\gamma}_l\)</span>. With this approximation, the number of QTNs is smaller in each chunk <span class="math inline">\(k\)</span> so that DAP algorithm can work efficiently.</p>
+</div>
+</div>
+<div id="dap-g" class="section level1">
+<h1>DAP-G</h1>
+<p>In the second paper, it proposes the signal cluster concept to make the output of fine-mapping result more interpretable. Also, it proposes the summary statistic-based inference approach. In particular, the required summary statistics for inference are <span class="math inline">\(R, \hat{b}, se(\hat{b}), n, SST\)</span>, from which <span class="math inline">\(G&#39;y, G&#39;G\)</span> can be recovered.</p>
+</div>
+
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
+    
+    <p class="small">
+    
+       © Copyright 2018 <i class="fa fa-heart" aria-hidden="true"></i> Yanyu Liang
+    
+    </p>
+    <p class="small">
+        Powered by <a href="http://www.gohugo.io/">Hugo</a> Theme By <a href="https://github.com/nodejh/hugo-theme-cactus-plus">nodejh</a>
+    </p>
+</footer>
+
+        </section>
+
+        <script type="text/javascript" async
+src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'],  ['\\[','\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<link href="/notebook/mermaid/mermaid.css" type="text/css" rel="stylesheet"/>
+<script src="/notebook/mermaid/mermaid.js"></script>
+<script>mermaid.initialize({startOnLoad:true});</script>
+
+
+
+
+
+
+
+    </body>
+</html>

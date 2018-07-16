@@ -1,0 +1,18 @@
+---
+title: "Bayesian Summary Mendelian"
+date: 2018-07-12T10:06:41-05:00
+author: "Yanyu Liang"
+tags: [""]
+categories: [""]
+draft: false
+output:
+  blogdown::html_page:
+    toc: true
+    toc_depth: 1
+---
+
+# Meta data of reading
+
+* **Journal**:
+* **Year**:
+* **DOI**:
