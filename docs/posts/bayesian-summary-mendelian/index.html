@@ -59,7 +59,7 @@
                     </h1>
                     <h2 class="headline">
                     Jul 16, 2018 00:00
-                    · 272 words
+                    · 276 words
                     · 2 minutes read
                       <span class="tags">
                       
@@ -105,7 +105,11 @@
 </div>
 <div id="model" class="section level1">
 <h1>Model</h1>
-<p>\begin{align*} y &amp;N(G, ^2 I) \ &amp;= _{k = 1}^K _k _k +  , where <span class="math inline">\(\beta_k\)</span> is the effect of gene <span class="math inline">\(k\)</span> expression on phenotype. <span class="math inline">\(\vec\gamma\)</span> is unmediated effect of genotype on phenotype. <span class="math inline">\(\vec{\alpha}_k\)</span> is the effect of genotype on gene <span class="math inline">\(k\)</span>.</p>
+<span class="math display">\[\begin{align*}
+  y &amp;\sim N(G\theta, \sigma^2 I) \\
+  \theta &amp;= \sum_{k = 1}^K \beta_k \vec\alpha_k + \vec\gamma
+\end{align*}\]</span>
+<p>, where <span class="math inline">\(\beta_k\)</span> is the effect of gene <span class="math inline">\(k\)</span> expression on phenotype. <span class="math inline">\(\vec\gamma\)</span> is unmediated effect of genotype on phenotype. <span class="math inline">\(\vec{\alpha}_k\)</span> is the effect of genotype on gene <span class="math inline">\(k\)</span>.</p>
 <p>Here, the idea comes from the fact that <span class="math inline">\(\hat\theta\)</span> coming from single-effect model (GWAS summary statistic) follows <span class="math inline">\(\hat\theta \sim N(SRS^{-1}\theta, SRS)\)</span> where <span class="math inline">\(\theta\)</span> is the effect of true multi-site model. Following this idea, the paper proposed a likelihood function for <span class="math inline">\(\hat\theta\)</span> given <span class="math inline">\(\hat\alpha\)</span>. Specifically, <span class="math inline">\(\hat\theta \sim N(SRS^{-1} \sum_{k = 1}^K \hat{\vec\alpha_k} \beta_k + \vec\gamma\)</span>.</p>
 <p>The ultimate goal is to infer <span class="math inline">\(\beta_k\)</span> with the consideration of <span class="math inline">\(\vec\gamma\)</span>. So, a spike-and-slab prior is assigned to <span class="math inline">\(\beta_k\)</span> and a normal prior is assigned to <span class="math inline">\(\vec\gamma\)</span>. One more techical note is that variational Bayes was used in inference where LD matrix <span class="math inline">\(R\)</span> is replaced by a low rank approximation to ensure efficient/stable computaton.</p>
 </div>
