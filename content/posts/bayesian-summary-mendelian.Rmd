@@ -34,7 +34,7 @@ This paper is to perform the mediation analysis using GWAS summary statistic and
 \end{align*}
 , where $\beta_k$ is the effect of gene $k$ expression on phenotype. $\vec\gamma$ is unmediated effect of genotype on phenotype. $\vec{\alpha}_k$ is the effect of genotype on gene $k$. 
 
-Here, the idea comes from the fact that $\hat\theta$ coming from single-effect model (GWAS summary statistic) follows $\hat\theta \sim N(SRS^{-1}\theta, SRS)$ where $\theta$ is the effect of true multi-site model. Following this idea, the paper proposed a likelihood function for $\hat\theta$ given $\hat\alpha$. Specifically, $\hat\theta \sim N(SRS^{-1} \sum_{k = 1}^K \hat{\vec\alpha_k} \beta_k + \vec\gamma$. 
+Here, the idea comes from the fact that $\hat\theta$ coming from single-effect model (GWAS summary statistic) follows $\hat\theta \sim N(SRS^{-1}\theta, SRS)$ where $\theta$ is the effect of true multi-site model. Following this idea, the paper proposed a likelihood function for $\hat\theta$ given $\hat\alpha$. Specifically, $\hat\theta \sim N(SRS^{-1} \sum_{k = 1}^K \hat{\vec\alpha_k} \beta_k + \vec\gamma, SRS)$. 
 
 The ultimate goal is to infer $\beta_k$ with the consideration of $\vec\gamma$. So, a spike-and-slab prior is assigned to $\beta_k$ and a normal prior is assigned to $\vec\gamma$. One more techical note is that variational Bayes was used in inference where LD matrix $R$ is replaced by a low rank approximation to ensure efficient/stable computaton. 
 
